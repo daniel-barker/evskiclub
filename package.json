@@ -1,0 +1,31 @@
+{
+  "name": "evskiclub",
+  "version": "1.0.0",
+  "description": "MERN website for Ellicottville Ski Club",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daniel-barker/evskiclub.git"
+  },
+  "author": "Mac Stephens & Daniel Barker",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/daniel-barker/evskiclub/issues"
+  },
+  "homepage": "https://github.com/daniel-barker/evskiclub#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^7.6.1",
+    "multer": "^1.4.5-lts.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "dotenv": "^16.3.1",
+    "concurrently": "^8.2.1"
+  }
+}
