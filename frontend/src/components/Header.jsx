@@ -1,5 +1,6 @@
 import React from "react";
 import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { LinkContainer } from "react-router-bootstrap";
@@ -7,12 +8,22 @@ import { useSelector, useDispatch } from "react-redux";
 import { useLogoutMutation } from "../slices/usersApiSlice";
 import { logout } from "../slices/authSlice";
 import logo from "../assets/logo.png";
+import LoginModal from "./LoginModal";
 
 const Header = () => {
   const { userInfo } = useSelector((state) => state.auth);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [logoutApiCall] = useLogoutMutation();
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   const logoutHandler = async () => {
     try {
@@ -47,11 +58,13 @@ const Header = () => {
                   </NavDropdown.Item>
                 </NavDropdown>
               ) : (
-                <LinkContainer to="/login">
-                  <Nav.Link href="/login">
-                    <FaUser /> Sign In
-                  </Nav.Link>
-                </LinkContainer>
+                <Nav.Link onClick={handleOpenModal}>
+                  <FaUser /> Sign In
+                  <LoginModal
+                    isOpen={isModalOpen}
+                    onRequestClose={handleCloseModal}
+                  />
+                </Nav.Link>
               )}
               {userInfo && userInfo.isAdmin && (
                 <NavDropdown title="Admin" id="adminmenu">
