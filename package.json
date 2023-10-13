@@ -2,9 +2,15 @@
   "name": "evskiclub",
   "version": "1.0.0",
   "description": "MERN website for Ellicottville Ski Club",
-  "main": "index.js",
+  "type": "module",
+  "main": "server.js",
+
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
   },
   "repository": {
     "type": "git",
