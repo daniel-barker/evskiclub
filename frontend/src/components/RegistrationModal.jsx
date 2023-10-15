@@ -5,16 +5,20 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import Loader from "./Loader";
-import { useLoginMutation } from "../slices/usersApiSlice";
+import { useRegisterMutation } from "../slices/usersApiSlice";
 import { setCredentials } from "../slices/authSlice";
 import { toast } from "react-toastify";
 
-const LoginModal = ({ isOpen, onRequestClose }) => {
+const RegistrationModal = ({ isOpen, onRequestClose }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [login, { isLoading }] = useLoginMutation();
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const [register, { isLoading }] = useRegisterMutation();
   const { userInfo } = useSelector((state) => state.auth);
 
   useEffect(() => {
@@ -25,12 +29,17 @@ const LoginModal = ({ isOpen, onRequestClose }) => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    try {
-      const res = await login({ email, password }).unwrap();
-      dispatch(setCredentials({ ...res }));
-      navigate("/");
-    } catch (err) {
-      toast.error(err?.data?.message || err.error);
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    } else {
+      try {
+        const res = await register({ name, email, password }).unwrap();
+        dispatch(setCredentials({ ...res }));
+        navigate("/");
+      } catch (err) {
+        toast.error(err?.data?.message || err.error);
+      }
     }
   };
 
@@ -62,6 +71,16 @@ const LoginModal = ({ isOpen, onRequestClose }) => {
     >
       <h2>Sign In</h2>
       <Form onSubmit={submitHandler}>
+        <Form.Group controlId="name" className="my-3">
+          <Form.Label>Name</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          ></Form.Control>
+        </Form.Group>
+
         <Form.Group controlId="email" className="my-3">
           <Form.Label>Email Address</Form.Label>
           <Form.Control
@@ -81,22 +100,27 @@ const LoginModal = ({ isOpen, onRequestClose }) => {
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
-
-        <Button type="submit" variant="primary" className="my-3">
-          Sign In
-        </Button>
+        <Form.Group controlId="confirmPassword" className="my-3">
+          <Form.Label>Confirm password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Confirm password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          ></Form.Control>
+        </Form.Group>
         <Button
-          onClick={onRequestClose}
-          variant="secondary"
-          className="my-3 mx-3"
+          type="submit"
+          variant="primary"
+          className="mt-2"
+          disabled={isLoading}
         >
-          Close
+          Register
         </Button>
-
         {isLoading && <Loader />}
       </Form>
     </Modal>
   );
 };
 
-export default LoginModal;
+export default RegistrationModal;

@@ -2,30 +2,42 @@ import React from "react";
 import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaUser } from "react-icons/fa";
+import { FaUser, FaRegRegistered } from "react-icons/fa";
 import { LinkContainer } from "react-router-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { useLogoutMutation } from "../slices/usersApiSlice";
 import { logout } from "../slices/authSlice";
 import logo from "../assets/logo.png";
 import LoginModal from "./LoginModal";
+import RegistrationModal from "./RegistrationModal";
 
 const Header = () => {
   const { userInfo } = useSelector((state) => state.auth);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
+  const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [logoutApiCall] = useLogoutMutation();
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
+  const handleOpenRegistrationModal = () => {
+    setIsRegistrationModalOpen(true);
   };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
+  const handleCloseRegistrationModal = () => {
+    setIsRegistrationModalOpen(false);
   };
 
-  useEffect(() => {}, [isModalOpen]);
+  const handleOpenSignInModal = () => {
+    setIsSignInModalOpen(true);
+  };
+
+  const handleCloseSignInModal = () => {
+    setIsSignInModalOpen(false);
+  };
+
+  useEffect(() => {}, [isRegistrationModalOpen]);
+
+  useEffect(() => {}, [isSignInModalOpen]);
 
   const logoutHandler = async () => {
     try {
@@ -61,12 +73,19 @@ const Header = () => {
                 </NavDropdown>
               ) : (
                 <>
-                  <Nav.Link onClick={handleOpenModal}>
+                  <Nav.Link onClick={handleOpenRegistrationModal}>
+                    <FaRegRegistered /> Register
+                  </Nav.Link>
+                  <RegistrationModal
+                    isOpen={isRegistrationModalOpen}
+                    onRequestClose={handleCloseRegistrationModal}
+                  />
+                  <Nav.Link onClick={handleOpenSignInModal}>
                     <FaUser /> Sign In
                   </Nav.Link>
                   <LoginModal
-                    isOpen={isModalOpen}
-                    onRequestClose={handleCloseModal}
+                    isOpen={isSignInModalOpen}
+                    onRequestClose={handleCloseSignInModal}
                   />
                 </>
               )}
