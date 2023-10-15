@@ -1,6 +1,6 @@
 import React from "react";
 import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { LinkContainer } from "react-router-bootstrap";
@@ -25,11 +25,13 @@ const Header = () => {
     setIsModalOpen(false);
   };
 
+  useEffect(() => {}, [isModalOpen]);
+
   const logoutHandler = async () => {
     try {
       await logoutApiCall().unwrap();
       dispatch(logout());
-      navigate("/login");
+      navigate("/");
     } catch (err) {
       console.log(err);
     }
@@ -58,13 +60,15 @@ const Header = () => {
                   </NavDropdown.Item>
                 </NavDropdown>
               ) : (
-                <Nav.Link onClick={handleOpenModal}>
-                  <FaUser /> Sign In
+                <>
+                  <Nav.Link onClick={handleOpenModal}>
+                    <FaUser /> Sign In
+                  </Nav.Link>
                   <LoginModal
                     isOpen={isModalOpen}
                     onRequestClose={handleCloseModal}
                   />
-                </Nav.Link>
+                </>
               )}
               {userInfo && userInfo.isAdmin && (
                 <NavDropdown title="Admin" id="adminmenu">
