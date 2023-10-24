@@ -52,7 +52,7 @@ const RegistrationModal = ({ isOpen, onRequestClose }) => {
       left: "50%",
       right: "auto",
       bottom: "auto",
-      width: "auto",
+      width: "20rem",
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
       padding: "20px",
@@ -69,7 +69,7 @@ const RegistrationModal = ({ isOpen, onRequestClose }) => {
       contentLabel="Sign In Modal"
       style={customStyles}
     >
-      <h2>Sign In</h2>
+      <h2>Register</h2>
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="name" className="my-3">
           <Form.Label>Name</Form.Label>

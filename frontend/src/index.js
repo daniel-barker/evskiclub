@@ -14,6 +14,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import HomeScreen from "./screens/HomeScreen";
+import AboutScreen from "./screens/AboutScreen";
+import GalleryScreen from "./screens/GalleryScreen";
 // import PrivateRoute from "./components/PrivateRoute";
 // import AdminRoute from "./components/AdminRoute";
 import Modal from "react-modal";
@@ -25,15 +27,8 @@ const router = createBrowserRouter(
     <Route path="/" element={<App />}>
       {/* Public Routes */}
       <Route index={true} path="/" element={<HomeScreen />} />
-      <Route path="/search/:keyword" element={<HomeScreen />} />
-      <Route path="/page/:pageNumber" element={<HomeScreen />} />
-      <Route
-        path="/search/:keyword/page/:pageNumber"
-        element={<HomeScreen />}
-      />
-
-      {/* <Route path="/login" element={<LoginScreen />} />
-      <Route path="/register" element={<RegisterScreen />} /> */}
+      <Route path="about" element={<AboutScreen />} />
+      <Route path="gallery" element={<GalleryScreen />} />
       {/* Private Routes */}
       {/* <Route path="" element={<PrivateRoute />}>
         <Route path="/profile" element={<ProfileScreen />} />

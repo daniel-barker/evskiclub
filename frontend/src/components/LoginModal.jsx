@@ -43,7 +43,7 @@ const LoginModal = ({ isOpen, onRequestClose }) => {
       left: "50%",
       right: "auto",
       bottom: "auto",
-      width: "auto",
+      width: "20rem",
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
       padding: "20px",
