@@ -19,11 +19,40 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage: storage });
+function fileFilter(req, file, cb) {
+  const filetypes = /jpe?g|png|webp/;
+  const mimetypes = /image\/jpe?g|image\/png|image\/webp/;
 
-router
-  .route("/")
-  .get(getImages)
-  .post(protect, admin, upload.single("image"), uploadImage);
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+  const mimetype = mimetypes.test(file.mimetype);
+
+  if (extname && mimetype) {
+    cb(null, true);
+  } else {
+    cb(new Error("Images only!"), false);
+  }
+}
+
+const upload = multer({ storage, fileFilter, limits: { fileSize: 3000000 } });
+const uploadSingleImage = upload.single("image");
+
+router.get("/", getImages);
+router.post(
+  "/",
+  protect,
+  admin,
+  uploadSingleImage,
+  uploadImage,
+  (error, req, res, next) => {
+    if (error) {
+      return res.status(400).json({ message: error.message });
+    } else {
+      res.status(200).send({
+        message: "Image uploaded successfully",
+        image: `/uploads/${req.file.filename}`,
+      });
+    }
+  }
+);
 
 export default router;
