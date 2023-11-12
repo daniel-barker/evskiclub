@@ -15,36 +15,31 @@ const ImageUploadScreen = () => {
 
   const [uploadImage, { isLoading }] = useUploadImageMutation();
 
-  const uploadFileHandler = async (e) => {
-    const formData = new FormData();
-    formData.append("image", e.target.files[0]);
-    try {
-      const res = await uploadImage(formData).unwrap();
-      toast.success(res.message);
-      setImage(res.image);
-    } catch (err) {
-      toast.error(err?.data?.message || err.error);
-    }
-  };
-
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    const newImage = {
-      title,
-      description,
-      tags,
-    };
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("tags", tags);
+    if (image) {
+      formData.append("image", image);
+    }
+
     try {
-      const res = await uploadImage(newImage).unwrap();
-      if (res.error) {
-        toast.error(res.error);
-      } else {
-        toast.success(res.message);
-        navigate("/images");
-      }
+      const res = await uploadImage(formData).unwrap();
+      toast.success(res.message);
+      navigate("/images");
     } catch (err) {
       toast.error(err?.data?.message || err.error);
+      console.log(err);
+    }
+  };
+
+  const uploadFileHandler = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImage(file);
     }
   };
 
