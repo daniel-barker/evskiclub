@@ -16,6 +16,7 @@ import reportWebVitals from "./reportWebVitals";
 import HomeScreen from "./screens/HomeScreen";
 import AboutScreen from "./screens/AboutScreen";
 import GalleryScreen from "./screens/GalleryScreen";
+import ImageUploadScreen from "./screens/Admin/ImageUploadScreen";
 // import PrivateRoute from "./components/PrivateRoute";
 // import AdminRoute from "./components/AdminRoute";
 import Modal from "react-modal";
@@ -29,6 +30,8 @@ const router = createBrowserRouter(
       <Route index={true} path="/" element={<HomeScreen />} />
       <Route path="about" element={<AboutScreen />} />
       <Route path="gallery" element={<GalleryScreen />} />
+      <Route path="upload" element={<ImageUploadScreen />} />
+
       {/* Private Routes */}
       {/* <Route path="" element={<PrivateRoute />}>
         <Route path="/profile" element={<ProfileScreen />} />

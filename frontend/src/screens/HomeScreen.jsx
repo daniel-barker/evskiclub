@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Image, Row, Col } from "react-bootstrap";
+import { Container, Image } from "react-bootstrap";
 import skipic from "../assets/images/skipic.jpg";
 
 const HomeScreen = () => {
