@@ -53,56 +53,54 @@ const Header = () => {
   return (
     <header>
       <Navbar expand="lg" collapseOnSelect className="custom-navbar">
-        <Container>
-          <LinkContainer to="/">
-            <Navbar.Brand>
-              <img src={logo} alt="ProShop" />
-              Ellicottville Ski Club
-            </Navbar.Brand>
-          </LinkContainer>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="ms-auto">
-              <Nav.Link href="/about">
-                <FcAbout /> About
-              </Nav.Link>
-              {userInfo ? (
-                <NavDropdown title={userInfo.name} id="username">
-                  <LinkContainer to="/profile">
-                    <NavDropdown.Item>Profile</NavDropdown.Item>
-                  </LinkContainer>
-                  <NavDropdown.Item onClick={logoutHandler}>
-                    Logout
-                  </NavDropdown.Item>
-                </NavDropdown>
-              ) : (
-                <>
-                  <Nav.Link onClick={handleOpenRegistrationModal}>
-                    <FaRegRegistered /> Register
-                  </Nav.Link>
-                  <RegistrationModal
-                    isOpen={isRegistrationModalOpen}
-                    onRequestClose={handleCloseRegistrationModal}
-                  />
-                  <Nav.Link onClick={handleOpenSignInModal}>
-                    <FaUser /> Sign In
-                  </Nav.Link>
-                  <LoginModal
-                    isOpen={isSignInModalOpen}
-                    onRequestClose={handleCloseSignInModal}
-                  />
-                </>
-              )}
-              {userInfo && userInfo.isAdmin && (
-                <NavDropdown title="Admin" id="adminmenu">
-                  <LinkContainer to="/admin/userlist">
-                    <NavDropdown.Item>Users</NavDropdown.Item>
-                  </LinkContainer>
-                </NavDropdown>
-              )}
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
+        <LinkContainer to="/">
+          <Navbar.Brand>
+            {/* <img src={logo} alt="ProShop" /> */}
+            <h1>Ellicottville Ski Club</h1>
+          </Navbar.Brand>
+        </LinkContainer>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="ms-auto">
+            <Nav.Link href="/about">
+              <FcAbout /> About
+            </Nav.Link>
+            {userInfo ? (
+              <NavDropdown title={userInfo.name} id="username">
+                <LinkContainer to="/profile">
+                  <NavDropdown.Item>Profile</NavDropdown.Item>
+                </LinkContainer>
+                <NavDropdown.Item onClick={logoutHandler}>
+                  Logout
+                </NavDropdown.Item>
+              </NavDropdown>
+            ) : (
+              <>
+                <Nav.Link onClick={handleOpenRegistrationModal}>
+                  <FaRegRegistered /> Register
+                </Nav.Link>
+                <RegistrationModal
+                  isOpen={isRegistrationModalOpen}
+                  onRequestClose={handleCloseRegistrationModal}
+                />
+                <Nav.Link onClick={handleOpenSignInModal}>
+                  <FaUser /> Member Login
+                </Nav.Link>
+                <LoginModal
+                  isOpen={isSignInModalOpen}
+                  onRequestClose={handleCloseSignInModal}
+                />
+              </>
+            )}
+            {userInfo && userInfo.isAdmin && (
+              <NavDropdown title="Admin" id="adminmenu">
+                <LinkContainer to="/admin/userlist">
+                  <NavDropdown.Item>Users</NavDropdown.Item>
+                </LinkContainer>
+              </NavDropdown>
+            )}
+          </Nav>
+        </Navbar.Collapse>
       </Navbar>
     </header>
   );

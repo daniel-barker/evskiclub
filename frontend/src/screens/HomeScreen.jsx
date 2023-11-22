@@ -1,11 +1,11 @@
 import React from "react";
 import { Container, Image } from "react-bootstrap";
-import skipic from "../assets/images/skipic.jpg";
+import holidayvalley from "../assets/images/holidayvalley.jpeg";
 
 const HomeScreen = () => {
   return (
     <>
-      <Image src={skipic} alt="hero" className="body-padding" fluid />
+      <Image src={holidayvalley} alt="hero" fluid />
       <Container>test</Container>
     </>
   );
