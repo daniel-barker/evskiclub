@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
-import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
@@ -9,7 +8,7 @@ import { useLoginMutation } from "../slices/usersApiSlice";
 import { setCredentials } from "../slices/authSlice";
 import { toast } from "react-toastify";
 
-const LoginModal = ({ isOpen, onRequestClose }) => {
+const LoginModal = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
@@ -22,6 +21,8 @@ const LoginModal = ({ isOpen, onRequestClose }) => {
       navigate("/");
     }
   }, [userInfo, navigate]);
+
+  const isModalOpen = !userInfo;
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -36,7 +37,7 @@ const LoginModal = ({ isOpen, onRequestClose }) => {
 
   const customStyles = {
     overlay: {
-      backgroundColor: "rgba(0, 0, 0, 0.75)", // Semi-transparent black background
+      backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent black background
     },
     content: {
       top: "50%",
@@ -53,10 +54,14 @@ const LoginModal = ({ isOpen, onRequestClose }) => {
     },
   };
 
+  const handleClose = () => {
+    navigate("/");
+  };
+
   return (
     <Modal
-      isOpen={isOpen}
-      onRequestClose={onRequestClose}
+      isOpen={isModalOpen}
+      onRequestClose={handleClose}
       contentLabel="Sign In Modal"
       style={customStyles}
     >
@@ -71,7 +76,6 @@ const LoginModal = ({ isOpen, onRequestClose }) => {
             onChange={(e) => setEmail(e.target.value)}
           ></Form.Control>
         </Form.Group>
-
         <Form.Group controlId="password" className="my-3">
           <Form.Label>Password</Form.Label>
           <Form.Control
@@ -81,18 +85,9 @@ const LoginModal = ({ isOpen, onRequestClose }) => {
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
-
         <Button type="submit" variant="primary" className="my-3">
           Sign In
         </Button>
-        <Button
-          onClick={onRequestClose}
-          variant="secondary"
-          className="my-3 mx-3"
-        >
-          Close
-        </Button>
-
         {isLoading && <Loader />}
       </Form>
     </Modal>
