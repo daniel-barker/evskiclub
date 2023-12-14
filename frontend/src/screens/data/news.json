@@ -1,0 +1,28 @@
+{
+  "news": [
+    {
+      "id": 3,
+      "title": "News Title",
+      "content": "Content 3",
+      "author": "Laura DeCicceo",
+      "position": "Secretary",
+      "date": "2017-01-03"
+    },
+    {
+      "id": 2,
+      "title": "News Title",
+      "content": "Content 2",
+      "author": "Laura DeCicceo",
+      "position": "Secretary",
+      "date": "2017-01-02"
+    },
+    {
+      "id": 1,
+      "title": "News Title",
+      "content": "Content 1",
+      "author": "Laura DeCicceo",
+      "position": "Secretary",
+      "date": "2017-01-01"
+    }
+  ]
+}

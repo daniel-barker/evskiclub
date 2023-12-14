@@ -49,7 +49,7 @@ const LoginModal = () => {
       transform: "translate(-50%, -50%)",
       padding: "20px",
       border: "1px solid #ccc",
-      boxShadow: "0 5px 15px rgba(0, 0, 0, 0.5)",
+      boxShadow: "0 5px 15px rgba(0, 0, 0, 0.9)",
       borderRadius: "10px",
     },
   };
