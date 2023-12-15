@@ -50,7 +50,7 @@ body {
 
 .news-card-sig-position {
   font-size: 0.8rem;
-  font-weight: 200;
+  font-weight: 400;
 }
 
 .fc {
@@ -127,6 +127,14 @@ body {
 }
 
 .roif {
-  font-weight: 100;
   font-style: italic;
+}
+
+.news-screen-date {
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
+.news-screen-content {
+  padding: 15px;
 }

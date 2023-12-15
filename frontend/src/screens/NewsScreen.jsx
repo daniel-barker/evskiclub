@@ -16,14 +16,11 @@ const NewsScreen = () => {
         </Row>
         {news.news.map((post) => (
           <Row key={post.id} className="mb-4">
-            {" "}
-            {/* Add margin between posts if needed */}
             <Col>
               <h2>{post.title}</h2>
-              <p>{post.content}</p>
+              <p className="news-screen-date">{post.date}</p>
+              <p className="news-screen-content">{post.content}</p>
               <div className="text-end">
-                {" "}
-                {/* Right aligns the content */}
                 <div className="news-card-signature">-{post.author}</div>
                 <div className="news-card-sig-position">{post.position}</div>
               </div>
