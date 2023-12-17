@@ -1,0 +1,39 @@
+{
+  "events": [
+    {
+      "title": "Ski Trip",
+      "datetime": "2022-01-15T09:00:00",
+      "location": "Mountain Resort",
+      "description": "Join us for a fun-filled day of skiing!",
+      "image": "../assets/images/event_1.jpg"
+    },
+    {
+      "title": "Snowboarding Lessons",
+      "datetime": "2022-02-05T14:00:00",
+      "location": "Snow Park",
+      "description": "Learn how to snowboard with our experienced instructors.",
+      "image": "../assets/images/event_2.jpg"
+    },
+    {
+      "title": "Après Ski Party",
+      "datetime": "2022-02-12T18:00:00",
+      "location": "Lodge Bar",
+      "description": "Celebrate a great day on the slopes with music, drinks, and friends.",
+      "image": "../assets/images/event_3.jpg"
+    },
+    {
+      "title": "Cross-Country Skiing Tour",
+      "datetime": "2022-02-20T10:00:00",
+      "location": "Scenic Trails",
+      "description": "Explore the beautiful winter landscape on a cross-country skiing tour.",
+      "image": "../assets/images/event_4.jpg"
+    },
+    {
+      "title": "Snowshoeing Adventure",
+      "datetime": "2022-03-05T13:30:00",
+      "location": "Forest Trail",
+      "description": "Enjoy a peaceful snowshoeing adventure through the snowy forest.",
+      "image": "../assets/images/event_5.jpg"
+    }
+  ]
+}

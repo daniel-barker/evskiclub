@@ -1,42 +1,24 @@
 import React from "react";
-import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown, Image } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaUser, FaRegRegistered } from "react-icons/fa";
-import { FcAbout } from "react-icons/fc";
 import { LinkContainer } from "react-router-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { useLogoutMutation } from "../slices/usersApiSlice";
 import { logout } from "../slices/authSlice";
 import logo from "../assets/logo.png";
 import LoginModal from "./LoginModal";
-import RegistrationModal from "./RegistrationModal";
 
 const Header = () => {
   const { userInfo } = useSelector((state) => state.auth);
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
-  const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [logoutApiCall] = useLogoutMutation();
 
-  const handleOpenRegistrationModal = () => {
-    setIsRegistrationModalOpen(true);
-  };
-
-  const handleCloseRegistrationModal = () => {
-    setIsRegistrationModalOpen(false);
-  };
-
-  const handleOpenSignInModal = () => {
-    setIsSignInModalOpen(true);
-  };
-
   const handleCloseSignInModal = () => {
     setIsSignInModalOpen(false);
   };
-
-  useEffect(() => {}, [isRegistrationModalOpen]);
 
   useEffect(() => {}, [isSignInModalOpen]);
 
@@ -62,9 +44,6 @@ const Header = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-            <Nav.Link href="/about">
-              <FcAbout /> About
-            </Nav.Link>
             {userInfo ? (
               <NavDropdown title={userInfo.name} id="username">
                 <LinkContainer to="/profile">
@@ -76,16 +55,7 @@ const Header = () => {
               </NavDropdown>
             ) : (
               <>
-                <Nav.Link onClick={handleOpenRegistrationModal}>
-                  <FaRegRegistered /> Register
-                </Nav.Link>
-                <RegistrationModal
-                  isOpen={isRegistrationModalOpen}
-                  onRequestClose={handleCloseRegistrationModal}
-                />
-                <Nav.Link onClick={handleOpenSignInModal}>
-                  <FaUser /> Member Login
-                </Nav.Link>
+                <Image src={logo} alt="logo" className="logo" />
                 <LoginModal
                   isOpen={isSignInModalOpen}
                   onRequestClose={handleCloseSignInModal}
