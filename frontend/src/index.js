@@ -35,18 +35,16 @@ const router = createBrowserRouter(
       <Route path="gallery" element={<GalleryScreen />} />
       <Route path="upload" element={<ImageUploadScreen />} />
 
-      <Route path="admin/userlist" element={<UserListScreen />} />
-
       {/* Private Routes */}
       <Route path="" element={<PrivateRoute />}>
         <Route path="news" element={<NewsScreen />} />
         <Route path="home" element={<MemberScreen />} />
       </Route>
+
       {/* Admin Routes */}
-      {/* <Route path="" element={<AdminRoute />}>
+      <Route path="" element={<AdminRoute />}>
         <Route path="/admin/userlist" element={<UserListScreen />} />
-        <Route path="/admin/user/:id/edit" element={<UserEditScreen />} />
-      </Route> */}
+      </Route>
     </Route>
   )
 );
