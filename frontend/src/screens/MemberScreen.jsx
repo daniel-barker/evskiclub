@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Container, Modal, Row, Col, Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import googleCalendarPlugin from "@fullcalendar/google-calendar";
+import Calendar from "../components/Calendar";
+// import FullCalendar from "@fullcalendar/react";
+// import dayGridPlugin from "@fullcalendar/daygrid";
+// import googleCalendarPlugin from "@fullcalendar/google-calendar";
 
 import club_bylaws from "../assets/images/club_bylaws.jpg";
 import member_directory from "../assets/images/member_directory.jpg";
@@ -14,10 +15,6 @@ import bylaws from "../assets/pdfs/bylaws.pdf";
 import directory from "../assets/pdfs/directory.pdf";
 import ClubHistory from "../components/ClubHistory";
 import HouseRules from "../components/HouseRules";
-
-const handleDateClick = (arg) => {
-  alert(arg.dateStr);
-};
 
 const MemberScreen = () => {
   const [showBylaws, setShowBylaws] = useState(false);
@@ -34,15 +31,12 @@ const MemberScreen = () => {
   const handleShowHouseRules = () => setShowHouseRules(true);
   const handleHideHouseRules = () => setShowHouseRules(false);
 
-  const apiKey = process.env.REACT_APP_GAPI_KEY;
-  const calId = process.env.REACT_APP_CAL_ID;
-
   return (
     <>
       <Container className="member-page-container">
         <Row>
           <Col md={6}>
-            <Card>
+            <Card className="radial-gradient-card">
               <div className="news-card-header d-flex justify-content-between align-items-center">
                 <div className="news-card-title">Latest news</div>
                 <Link to="/news" className="btn btn-secondary">
@@ -85,12 +79,13 @@ const MemberScreen = () => {
             </Card>
           </Col>
         </Row>
-        <Row>
-          <Col>
+        <Row className="dflex justify-content-center">
+          <Col md={8}>
             <br />
 
-            <div style={{ backgroundColor: "#f5f5f5" }}>
-              <FullCalendar
+            <div className="text-center" style={{ backgroundColor: "#f5f5f5" }}>
+              <Calendar />
+              {/* <FullCalendar
                 plugins={[dayGridPlugin, googleCalendarPlugin]}
                 initialView="dayGridMonth"
                 dateClick={handleDateClick}
@@ -99,7 +94,7 @@ const MemberScreen = () => {
                   googleCalendarId: calId,
                   className: "gcal-event",
                 }}
-              />
+              /> */}
             </div>
           </Col>
         </Row>

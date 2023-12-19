@@ -138,3 +138,7 @@ body {
 .news-screen-content {
   padding: 15px;
 }
+
+.radial-gradient-card {
+  background: radial-gradient(circle, rgb(255, 255, 255) 0%, rgba(148, 187, 233, 1) 100%);
+}

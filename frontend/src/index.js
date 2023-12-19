@@ -21,7 +21,7 @@ import NewsScreen from "./screens/NewsScreen";
 import HomeScreen from "./screens/HomeScreen";
 import UserListScreen from "./screens/Admin/UserListScreen";
 import PrivateRoute from "./components/PrivateRoute";
-// import AdminRoute from "./components/AdminRoute";
+import AdminRoute from "./components/AdminRoute";
 import Modal from "react-modal";
 
 Modal.setAppElement("#root");
