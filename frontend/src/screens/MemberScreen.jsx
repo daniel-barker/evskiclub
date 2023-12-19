@@ -175,7 +175,12 @@ const MemberScreen = () => {
       </Modal>
 
       {/* HISTORY MODAL */}
-      <Modal show={showHistory} onHide={handleHideHistory} size="xl">
+      <Modal
+        show={showHistory}
+        onHide={handleHideHistory}
+        size="xl"
+        scrollable={true}
+      >
         <Modal.Header closeButton>
           <Modal.Title>Club History</Modal.Title>
         </Modal.Header>
@@ -190,7 +195,12 @@ const MemberScreen = () => {
       </Modal>
 
       {/* HOUSE RULES MODAL */}
-      <Modal show={showHouseRules} onHide={handleHideHouseRules} size="xl">
+      <Modal
+        show={showHouseRules}
+        onHide={handleHideHouseRules}
+        size="xl"
+        scrollable={true}
+      >
         <Modal.Header closeButton>
           <Modal.Title>House Rules</Modal.Title>
         </Modal.Header>
