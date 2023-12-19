@@ -128,22 +128,21 @@ const MemberScreen = () => {
 
       {/* MODALS */}
 
-      {/* BYLAW MODAL */}
-      <Modal show={showBylaws} onHide={handleHideBylaws} size="xl">
+      {/* HISTORY MODAL */}
+      <Modal
+        show={showHistory}
+        onHide={handleHideHistory}
+        size="xl"
+        scrollable={true}
+      >
         <Modal.Header closeButton>
-          <Modal.Title>Club Bylaws</Modal.Title>
+          <Modal.Title>Club History</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <iframe
-            src={bylaws}
-            title="Club Bylaws"
-            width="100%"
-            height="500px"
-            style={{ border: "none" }}
-          />
+          <ClubHistory />
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleHideBylaws}>
+          <Button variant="secondary" onClick={handleHideHistory}>
             Close
           </Button>
         </Modal.Footer>
@@ -174,21 +173,22 @@ const MemberScreen = () => {
         </Modal.Footer>
       </Modal>
 
-      {/* HISTORY MODAL */}
-      <Modal
-        show={showHistory}
-        onHide={handleHideHistory}
-        size="xl"
-        scrollable={true}
-      >
+      {/* BYLAW MODAL */}
+      <Modal show={showBylaws} onHide={handleHideBylaws} size="xl">
         <Modal.Header closeButton>
-          <Modal.Title>Club History</Modal.Title>
+          <Modal.Title>Club Bylaws</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <ClubHistory />
+          <iframe
+            src={bylaws}
+            title="Club Bylaws"
+            width="100%"
+            height="500px"
+            style={{ border: "none" }}
+          />
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleHideHistory}>
+          <Button variant="secondary" onClick={handleHideBylaws}>
             Close
           </Button>
         </Modal.Footer>
