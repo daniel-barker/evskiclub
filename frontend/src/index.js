@@ -24,6 +24,7 @@ import AdminLogin from "./screens/Admin/AdminLogin";
 import PrivateRoute from "./components/PrivateRoute";
 import AdminRoute from "./components/AdminRoute";
 import Modal from "react-modal";
+import EventListScreen from "./screens/Admin/EventListScreen";
 
 Modal.setAppElement("#root");
 
@@ -46,6 +47,7 @@ const router = createBrowserRouter(
       {/* Admin Routes */}
       <Route path="" element={<AdminRoute />}>
         <Route path="/admin/userlist" element={<UserListScreen />} />
+        <Route path="/admin/eventlist" element={<EventListScreen />} />
       </Route>
     </Route>
   )

@@ -66,13 +66,19 @@ const UserListScreen = () => {
                       <FaEdit />
                     </Button>
                   </LinkContainer>
-                  <Button
-                    variant="danger"
-                    className="btn-sm"
-                    onClick={() => deleteHandler(user._id)}
-                  >
-                    <FaTrash style={{ color: "white" }} />
-                  </Button>
+                  {user.isGeneral ? (
+                    //do not show the delete button if the user is general
+                    <></>
+                  ) : (
+                    //show the delete button if the user is not general
+                    <Button
+                      variant="danger"
+                      className="btn-sm"
+                      onClick={() => deleteHandler(user._id)}
+                    >
+                      <FaTrash style={{ color: "white" }} />
+                    </Button>
+                  )}
                 </td>
               </tr>
             ))}

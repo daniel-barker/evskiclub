@@ -50,6 +50,7 @@ const getEventById = asyncHandler(async (req, res) => {
 const createEvent = asyncHandler(async (req, res) => {
   try {
     const event = new Event({
+      user: req.user._id,
       title: req.body.title,
       date: req.body.date,
       location: req.body.location,

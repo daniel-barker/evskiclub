@@ -17,6 +17,7 @@ const RegistrationModal = ({ isOpen, onRequestClose }) => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [position, setPosition] = useState("");
 
   const [register, { isLoading }] = useRegisterMutation();
   const { userInfo } = useSelector((state) => state.auth);
@@ -34,7 +35,12 @@ const RegistrationModal = ({ isOpen, onRequestClose }) => {
       return;
     } else {
       try {
-        const res = await register({ name, email, password }).unwrap();
+        const res = await register({
+          name,
+          email,
+          password,
+          position,
+        }).unwrap();
         dispatch(setCredentials({ ...res }));
         navigate("/");
       } catch (err) {
@@ -81,6 +87,16 @@ const RegistrationModal = ({ isOpen, onRequestClose }) => {
           ></Form.Control>
         </Form.Group>
 
+        <Form.Group controlId="name" className="my-3">
+          <Form.Label>Position</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter position"
+            value={position}
+            onChange={(e) => setPosition(e.target.value)}
+          ></Form.Control>
+        </Form.Group>
+
         <Form.Group controlId="email" className="my-3">
           <Form.Label>Email Address</Form.Label>
           <Form.Control
@@ -100,6 +116,7 @@ const RegistrationModal = ({ isOpen, onRequestClose }) => {
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
+
         <Form.Group controlId="confirmPassword" className="my-3">
           <Form.Label>Confirm password</Form.Label>
           <Form.Control
@@ -109,6 +126,7 @@ const RegistrationModal = ({ isOpen, onRequestClose }) => {
             onChange={(e) => setConfirmPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
+
         <Button
           type="submit"
           variant="primary"

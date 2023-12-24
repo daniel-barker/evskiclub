@@ -44,6 +44,16 @@ const Header = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto d-flex align-items-center">
+            {userInfo && userInfo.isAdmin && (
+              <NavDropdown title="Admin" id="adminmenu">
+                <LinkContainer to="/admin/userlist">
+                  <NavDropdown.Item>User List</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to="/admin/eventlist">
+                  <NavDropdown.Item>Event List</NavDropdown.Item>
+                </LinkContainer>
+              </NavDropdown>
+            )}
             {userInfo && (
               <>
                 <NavLink to="/home">Home</NavLink>
@@ -54,13 +64,6 @@ const Header = () => {
                   onClick={logoutHandler}
                 />
               </>
-            )}
-            {userInfo && userInfo.isAdmin && (
-              <NavDropdown title="Admin" id="adminmenu">
-                <LinkContainer to="/admin/userlist">
-                  <NavDropdown.Item>Users</NavDropdown.Item>
-                </LinkContainer>
-              </NavDropdown>
             )}
           </Nav>
         </Navbar.Collapse>
