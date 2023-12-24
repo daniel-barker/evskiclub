@@ -2,6 +2,28 @@ import asyncHandler from "../middleware/asyncHandler.js";
 import User from "../models/userModel.js";
 import generateToken from "../utils/generateToken.js";
 
+// @desc General admission
+// @route POST /api/users/auth
+// @access Public
+
+const generalUser = asyncHandler(async (req, res) => {
+  const { password } = req.body;
+  const ga_user_id = process.env.GA_USER_ID;
+  const ga_password = process.env.GA_PASSWORD;
+
+  if (password === ga_password) {
+    generateToken(res, ga_user_id);
+
+    res.status(200).json({
+      name: "General admission",
+      isGeneral: true,
+    });
+  } else {
+    res.status(401);
+    throw new Error("Invalid password");
+  }
+});
+
 // @desc Auth user & get token
 // @route POST /api/users/login
 // @access Public
@@ -215,4 +237,5 @@ export {
   deleteUser,
   getUserByID,
   updateUser,
+  generalUser,
 };

@@ -20,6 +20,7 @@ import ImageUploadScreen from "./screens/Admin/ImageUploadScreen";
 import NewsScreen from "./screens/NewsScreen";
 import HomeScreen from "./screens/HomeScreen";
 import UserListScreen from "./screens/Admin/UserListScreen";
+import AdminLogin from "./screens/Admin/AdminLogin";
 import PrivateRoute from "./components/PrivateRoute";
 import AdminRoute from "./components/AdminRoute";
 import Modal from "react-modal";
@@ -39,6 +40,7 @@ const router = createBrowserRouter(
       <Route path="" element={<PrivateRoute />}>
         <Route path="news" element={<NewsScreen />} />
         <Route path="home" element={<MemberScreen />} />
+        <Route path="admin" element={<AdminLogin />} />
       </Route>
 
       {/* Admin Routes */}

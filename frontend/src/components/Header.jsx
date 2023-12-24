@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Nav, NavDropdown, Image } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown, Image, NavLink } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
@@ -43,22 +43,15 @@ const Header = () => {
         </LinkContainer>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto">
-            {userInfo ? (
-              <NavDropdown title={userInfo.name} id="username">
-                <LinkContainer to="/profile">
-                  <NavDropdown.Item>Profile</NavDropdown.Item>
-                </LinkContainer>
-                <NavDropdown.Item onClick={logoutHandler}>
-                  Logout
-                </NavDropdown.Item>
-              </NavDropdown>
-            ) : (
+          <Nav className="ms-auto d-flex align-items-center">
+            {userInfo && (
               <>
-                <Image src={logo} alt="logo" className="logo" />
-                <LoginModal
-                  isOpen={isSignInModalOpen}
-                  onRequestClose={handleCloseSignInModal}
+                <NavLink to="/home">Home</NavLink>
+                <Image
+                  src={logo}
+                  alt="logo"
+                  className="logo"
+                  onClick={logoutHandler}
                 />
               </>
             )}
@@ -72,6 +65,10 @@ const Header = () => {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
+      <LoginModal
+        isOpen={isSignInModalOpen}
+        onRequestClose={handleCloseSignInModal}
+      />
     </header>
   );
 };

@@ -142,3 +142,16 @@ body {
 .radial-gradient-card {
   background: radial-gradient(circle, rgb(255, 255, 255) 0%, rgba(148, 187, 233, 1) 100%);
 }
+
+.admin-login {
+  margin-top: 100px;
+  width: 500px;
+  height: 550px;
+  background-color: rgba(192, 214, 255, 1);
+  border-radius: 10px;
+}
+
+.admin-login-form {
+  width: 450px;
+  height: 450px;
+}

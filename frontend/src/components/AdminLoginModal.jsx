@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Image } from "react-bootstrap";
 import Loader from "./Loader";
-import { useGeneralMutation } from "../slices/usersApiSlice";
+import { useLoginMutation } from "../slices/usersApiSlice";
 import { setCredentials } from "../slices/authSlice";
 import { toast } from "react-toastify";
 import club_logo from "../assets/images/club_logo.jpg";
@@ -12,8 +12,9 @@ import club_logo from "../assets/images/club_logo.jpg";
 const LoginModal = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [general, { isLoading }] = useGeneralMutation();
+  const [login, { isLoading }] = useLoginMutation();
   const { userInfo } = useSelector((state) => state.auth);
 
   useEffect(() => {
@@ -27,7 +28,7 @@ const LoginModal = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const res = await general({ password }).unwrap();
+      const res = await login({ email, password }).unwrap();
       dispatch(setCredentials({ ...res }));
       navigate("/home");
     } catch (err) {
@@ -70,6 +71,15 @@ const LoginModal = () => {
       </div>
       <h2 className="text-center">Sign In</h2>
       <Form onSubmit={submitHandler}>
+        <Form.Group controlId="email" className="my-3">
+          <Form.Label>Email Address</Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="Enter email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          ></Form.Control>
+        </Form.Group>
         <Form.Group controlId="password" className="my-3">
           <Form.Label>Password</Form.Label>
           <Form.Control
