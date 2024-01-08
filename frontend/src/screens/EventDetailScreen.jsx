@@ -43,7 +43,7 @@ const EventDetailScreen = () => {
         <Card>
           <Card.Body className="text-center">
             <Row>
-              <Col md={10}>
+              <Col>
                 <Card.Title>
                   <h2>{event.title}</h2>
                 </Card.Title>
@@ -53,14 +53,16 @@ const EventDetailScreen = () => {
                 <Card.Text>{event.description}</Card.Text>
                 <Card.Text>{event.location}</Card.Text>
               </Col>
-              <Col md={2}>
-                <Image
-                  src={`/${event.thumbnail}`}
-                  alt={event.title}
-                  fluid
-                  onClick={showImage ? handleHideImage : handleShowImage}
-                />
-              </Col>
+              {event.image ? (
+                <Col md={4}>
+                  <Image
+                    src={`/${event.thumbnail}`}
+                    alt={event.title}
+                    fluid
+                    onClick={showImage ? handleHideImage : handleShowImage}
+                  />
+                </Col>
+              ) : null}
             </Row>
           </Card.Body>
         </Card>
@@ -70,11 +72,11 @@ const EventDetailScreen = () => {
         </Link>
       </Container>
 
-      <Modal show={showImage} onHide={handleHideImage}>
+      <Modal show={showImage} onHide={handleHideImage} size="xl">
         <Modal.Header closeButton>
           <Modal.Title>{event.title}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="text-center">
           <Image src={`/${event.image}`} alt={event.title} fluid />
         </Modal.Body>
         <Modal.Footer>
