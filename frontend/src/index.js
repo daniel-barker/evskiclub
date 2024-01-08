@@ -26,6 +26,7 @@ import AdminRoute from "./components/AdminRoute";
 import Modal from "react-modal";
 import EventListScreen from "./screens/Admin/EventListScreen";
 import EventCreateScreen from "./screens/Admin/EventCreateScreen";
+import EventDetailScreen from "./screens/EventDetailScreen";
 
 Modal.setAppElement("#root");
 
@@ -34,15 +35,16 @@ const router = createBrowserRouter(
     <Route path="/" element={<App />}>
       {/* Public Routes */}
       <Route index={true} path="/" element={<HomeScreen />} />
-      <Route path="about" element={<AboutScreen />} />
-      <Route path="gallery" element={<GalleryScreen />} />
-      <Route path="upload" element={<ImageUploadScreen />} />
 
       {/* Private Routes */}
       <Route path="" element={<PrivateRoute />}>
         <Route path="news" element={<NewsScreen />} />
         <Route path="home" element={<MemberScreen />} />
         <Route path="admin" element={<AdminLogin />} />
+        <Route path="about" element={<AboutScreen />} />
+        <Route path="gallery" element={<GalleryScreen />} />
+        <Route path="upload" element={<ImageUploadScreen />} />
+        <Route path="event/:id" element={<EventDetailScreen />} />
       </Route>
 
       {/* Admin Routes */}

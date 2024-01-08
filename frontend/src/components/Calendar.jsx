@@ -1,4 +1,7 @@
 import { useGetFutureEventsQuery } from "../slices/eventsApiSlice";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 function EventCalendar() {
   const { data: events, isLoading, isError } = useGetFutureEventsQuery();
@@ -44,7 +47,16 @@ function EventCalendar() {
           <h2 className="event-title-shade">{new Date(date).toDateString()}</h2>
           {events.map((event) => (
             <div className="text-center" key={event._id}>
-              <h3>{`${event.title} - ${extractTime(event.date)}`}</h3>
+              <h3>
+                {`${event.title} - ${extractTime(event.date)}`}{" "}
+                <Link to={`/event/${event._id}`}>
+                  <FontAwesomeIcon
+                    aria-label="Expand image"
+                    icon={faMagnifyingGlass}
+                  />
+                </Link>
+              </h3>
+
               <hr />
             </div>
           ))}

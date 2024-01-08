@@ -108,3 +108,7 @@ body {
   border-radius: 10px;
   background-color: rgba(192, 214, 255, 0.9);
 }
+
+.event-detail-container {
+  padding: 5rem;
+}

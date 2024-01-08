@@ -8,7 +8,7 @@ const router = express.Router();
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
-    const dir = `uploads/events/fullsize`;
+    const dir = `frontend/public/uploads/events/fullsize`;
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir, { recursive: true });
     }
@@ -65,16 +65,20 @@ router.post("/u", protect, admin, (req, res) => {
     if (err) {
       return res.status(400).send({ message: err.message });
     }
+    const truePath = `frontend/public/uploads/events/fullsize/${req.file.filename}`;
+    const trueThumbPath = `frontend/public/uploads/events/thumbnail/${req.file.filename}`;
     const fullPath = `uploads/events/fullsize/${req.file.filename}`;
     const thumbPath = `uploads/events/thumbnail/${req.file.filename}`;
 
-    if (!fs.existsSync(`uploads/events/thumbnail`)) {
-      fs.mkdirSync(`uploads/events/thumbnail`, { recursive: true });
+    if (!fs.existsSync(`frontend/public/uploads/events/thumbnail`)) {
+      fs.mkdirSync(`frontend/public/uploads/events/thumbnail`, {
+        recursive: true,
+      });
     }
 
-    sharp(fullPath)
+    sharp(truePath)
       .resize(200)
-      .toFile(thumbPath, (err, info) => {
+      .toFile(trueThumbPath, (err, info) => {
         if (err) {
           return res.status(400).send({ message: err.message });
         }

@@ -1,7 +1,14 @@
 import { LinkContainer } from "react-router-bootstrap";
 import { Link } from "react-router-dom";
 import { Table, Button, Container, Row, Col } from "react-bootstrap";
-import { FaTrash, FaTimes, FaEdit, FaCheck } from "react-icons/fa";
+import {
+  FaTrash,
+  FaTimes,
+  FaEdit,
+  FaCheck,
+  FaBong,
+  FaNewspaper,
+} from "react-icons/fa";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import { toast } from "react-toastify";
@@ -65,7 +72,9 @@ const EventListScreen = () => {
               <tr key={event._id}>
                 <td>{event.title}</td>
                 <td>{event.date}</td>
-                <td>{event.location}</td>
+                <td>
+                  {event.location} <FaBong />
+                </td>
                 <td>
                   {event.image ? (
                     <FaCheck style={{ color: "green" }} />
@@ -79,13 +88,14 @@ const EventListScreen = () => {
                       <FaEdit />
                     </Button>
                   </LinkContainer>
-                  <Button
-                    variant="danger"
-                    className="btn-sm"
-                    onClick={() => deleteHandler(event._id)}
-                  >
-                    <FaTrash />
-                  </Button>
+                  <Link onClick={() => deleteHandler(event._id)}>
+                    <FaTrash color="red" />
+                  </Link>
+                  <LinkContainer to={`/event/${event._id}`}>
+                    <Button variant="light" className="btn-sm">
+                      <FaNewspaper />
+                    </Button>
+                  </LinkContainer>
                 </td>
               </tr>
             ))}
