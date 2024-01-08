@@ -11,6 +11,7 @@ const eventSchema = mongoose.Schema({
   location: { type: String, required: false },
   description: { type: String, required: true },
   image: { type: String },
+  thumbnail: { type: String },
 });
 
 const Event = mongoose.model("Event", eventSchema);

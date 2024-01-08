@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import { Container, Modal, Row, Col, Card, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import Calendar from "../components/Calendar";
-// import FullCalendar from "@fullcalendar/react";
-// import dayGridPlugin from "@fullcalendar/daygrid";
-// import googleCalendarPlugin from "@fullcalendar/google-calendar";
+import LatestNews from "../components/LatestNews";
 
 import club_bylaws from "../assets/images/club_bylaws.jpg";
 import member_directory from "../assets/images/member_directory.jpg";
@@ -36,30 +33,7 @@ const MemberScreen = () => {
       <Container className="member-page-container">
         <Row>
           <Col md={6}>
-            <Card className="radial-gradient-card">
-              <div className="news-card-header d-flex justify-content-between align-items-center">
-                <div className="news-card-title">Latest news</div>
-                <Link to="/news" className="btn btn-secondary">
-                  Previous Posts
-                </Link>
-              </div>
-
-              <Card.Title className="news-post-title text-center">
-                News post title
-              </Card.Title>
-              <Card.Body>
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. At
-                auctor urna nunc id cursus metus aliquam eleifend mi. Eget
-                mauris pharetra et ultrices neque ornare aenean. Proin libero
-                nunc consequat interdum varius sit amet mattis vulputate. Et
-                ultrices neque ornare aenean."
-              </Card.Body>
-              <Card.Footer className="ms-auto">
-                <div className="news-card-signature">-Laura DeCinque</div>
-                <div className="news-card-sig-position">Secretary</div>
-              </Card.Footer>
-            </Card>
+            <LatestNews />
           </Col>
           <Col md={2}></Col>
           <br />
@@ -83,18 +57,8 @@ const MemberScreen = () => {
           <Col md={8}>
             <br />
 
-            <div className="text-center" style={{ backgroundColor: "#f5f5f5" }}>
+            <div style={{ backgroundColor: "#f5f5f5" }}>
               <Calendar />
-              {/* <FullCalendar
-                plugins={[dayGridPlugin, googleCalendarPlugin]}
-                initialView="dayGridMonth"
-                dateClick={handleDateClick}
-                googleCalendarApiKey={apiKey}
-                events={{
-                  googleCalendarId: calId,
-                  className: "gcal-event",
-                }}
-              /> */}
             </div>
           </Col>
         </Row>

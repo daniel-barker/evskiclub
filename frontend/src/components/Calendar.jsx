@@ -1,17 +1,21 @@
-// src/components/EventCalendar.js
-import React from "react";
 import { useGetFutureEventsQuery } from "../slices/eventsApiSlice";
 
 function EventCalendar() {
   const { data: events, isLoading, isError } = useGetFutureEventsQuery();
 
-  if (isLoading) return <p>Loading...</p>;
-  if (isError) return <p>Error fetching events</p>;
+  const extractTime = (datetime) => {
+    const time = new Date(datetime).toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
+    return time;
+  };
 
   const groupEventsByDate = (events) => {
     const groups = events.reduce((groups, event) => {
       // Extract the date part from the datetime string
-      const date = event.date.split("T")[0]; // Adjust if your date format is different
+      const date = event.date.split("T")[0];
       if (!groups[date]) {
         groups[date] = [];
       }
@@ -28,17 +32,20 @@ function EventCalendar() {
       }, {});
   };
 
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>Error fetching events</p>;
+
   const groupedEvents = groupEventsByDate(events);
 
   return (
     <div>
       {Object.entries(groupedEvents).map(([date, events]) => (
         <div key={date}>
-          <h2>{new Date(date).toDateString()}</h2>
+          <h2 className="event-title-shade">{new Date(date).toDateString()}</h2>
           {events.map((event) => (
-            <div key={event._id}>
-              <h3>{event.title}</h3>
-              {/* Render other details */}
+            <div className="text-center" key={event._id}>
+              <h3>{`${event.title} - ${extractTime(event.date)}`}</h3>
+              <hr />
             </div>
           ))}
         </div>

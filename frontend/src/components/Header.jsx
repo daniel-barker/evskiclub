@@ -37,7 +37,6 @@ const Header = () => {
       <Navbar expand="lg" collapseOnSelect className="custom-navbar">
         <LinkContainer to="/">
           <Navbar.Brand>
-            {/* <img src={logo} alt="ProShop" /> */}
             <h1>Ellicottville Ski Club</h1>
           </Navbar.Brand>
         </LinkContainer>
@@ -46,10 +45,10 @@ const Header = () => {
           <Nav className="ms-auto d-flex align-items-center">
             {userInfo && userInfo.isAdmin && (
               <NavDropdown title="Admin" id="adminmenu">
-                <LinkContainer to="/admin/userlist">
+                <LinkContainer to="/admin/user/list">
                   <NavDropdown.Item>User List</NavDropdown.Item>
                 </LinkContainer>
-                <LinkContainer to="/admin/eventlist">
+                <LinkContainer to="/admin/event/list">
                   <NavDropdown.Item>Event List</NavDropdown.Item>
                 </LinkContainer>
               </NavDropdown>

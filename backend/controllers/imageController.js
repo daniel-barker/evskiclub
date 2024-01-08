@@ -23,12 +23,13 @@ const uploadImage = asyncHandler(async (req, res) => {
   const metadata = await sharp(file.path).metadata();
   const image = new Image({
     url: `uploads/${file.filename}`,
-    thumbnailUrl: thumbnailPath,
+    image: req.body.image,
+    thumbnail: req.body.thumbnail,
     width: metadata.width,
     height: metadata.height,
     title: req.body.title,
     description: req.body.description,
-    tags: req.body.tags,
+    tags: JSON.parse(req.body.tags),
   });
 
   const createdImage = await image.save();

@@ -6,26 +6,21 @@ import User from "../models/userModel.js";
 const protect = asyncHandler(async (req, res, next) => {
   let token;
 
-  //Check if the user is a general user
-  if (req.isGeneralUser) {
-    next();
-  } else {
-    token = req.cookies.jwt;
+  token = req.cookies.jwt;
 
-    if (token) {
-      try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = await User.findById(decoded.userId).select("-password");
-        next();
-      } catch (error) {
-        console.log(error);
-        res.status(401);
-        throw new Error("Not authorized, token failed");
-      }
-    } else {
+  if (token) {
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      req.user = await User.findById(decoded.userId).select("-password");
+      next();
+    } catch (error) {
+      console.log(error);
       res.status(401);
-      throw new Error("Not authorized, no token");
+      throw new Error("Not authorized, token failed");
     }
+  } else {
+    res.status(401);
+    throw new Error("Not authorized, no token");
   }
 });
 

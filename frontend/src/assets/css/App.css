@@ -30,6 +30,8 @@ body {
 }
 
 .news-card-title {
+  font-size: 1.2rem;
+  font-weight: 500;
   text-decoration-line: underline;
   text-decoration-thickness: 1px;
 }
@@ -53,66 +55,6 @@ body {
   font-weight: 400;
 }
 
-.fc {
-  padding: 10px;
-}
-
-/* Container for FullCalendar */
-.calendar-container {
-  background-color: #fff;
-  /* Set background color */
-  border-radius: 10px;
-  /* Add rounded edges */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  /* Add shadow effect */
-  padding: 20px;
-}
-
-/* Event styling */
-.fc-event {
-  background-color: #3498db;
-  /* Set event background color */
-  color: #fff;
-  /* Set event text color */
-  border-radius: 5px;
-  /* Add rounded edges to events */
-  padding: 5px;
-  /* Add padding to events */
-  margin-bottom: 5px;
-  /* Add margin between events */
-}
-
-/* Event title styling */
-.fc-event-title {
-  font-size: 14px;
-  /* Adjust font size */
-}
-
-/* Header and button styling */
-.fc-header-toolbar {
-  background-color: #f2f2f2;
-  /* Set header background color */
-  border-radius: 10px 10px 0 0;
-  /* Add rounded edges to the header */
-}
-
-.fc-button {
-  background-color: #3498db;
-  /* Set button background color */
-  color: #fff;
-  /* Set button text color */
-  border-radius: 5px;
-  /* Add rounded edges to buttons */
-  margin-right: 5px;
-  /* Add margin between buttons */
-}
-
-/* Today highlight */
-.fc-day-today {
-  background-color: #f5a623;
-  /* Set today cell background color */
-}
-
 .news-card-header {
   display: flex;
   justify-content: space-between;
@@ -124,10 +66,6 @@ body {
   border-radius: 10px;
   margin-top: 100px;
   background-color: rgba(192, 214, 255, 0.8);
-}
-
-.roif {
-  font-style: italic;
 }
 
 .news-screen-date {
@@ -154,4 +92,19 @@ body {
 .admin-login-form {
   width: 450px;
   height: 450px;
+}
+
+.event-title-shade {
+  background-color: rgba(125, 125, 125, 0.8);
+  padding-left: 10px;
+}
+
+.event-list {
+  border-radius: 10px;
+}
+
+.form-background {
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgba(192, 214, 255, 0.9);
 }

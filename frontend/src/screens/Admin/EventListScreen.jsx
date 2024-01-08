@@ -1,5 +1,6 @@
 import { LinkContainer } from "react-router-bootstrap";
-import { Table, Button, Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { Table, Button, Container, Row, Col } from "react-bootstrap";
 import { FaTrash, FaTimes, FaEdit, FaCheck } from "react-icons/fa";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
@@ -28,7 +29,21 @@ const EventListScreen = () => {
 
   return (
     <Container className="mt-4">
-      <h1>Events</h1>
+      <Row className="align-items-center">
+        <Col>
+          <Link to="/" className="btn btn-secondary my-3">
+            Go Back
+          </Link>
+        </Col>
+        <Col>
+          <h1>Events</h1>
+        </Col>
+        <Col className="text-end">
+          <Link to="/admin/event/create" className="btn btn-secondary my-3">
+            <FaEdit /> Create Event
+          </Link>
+        </Col>
+      </Row>
       {loadingDelete && <Loader />}
       {isLoading ? (
         <Loader />

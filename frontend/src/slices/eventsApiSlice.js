@@ -1,4 +1,4 @@
-import { EVENTS_URL, IMAGES_URL } from "../constants";
+import { EVENTS_URL } from "../constants";
 import { apiSlice } from "./apiSlice";
 
 export const eventsApiSlice = apiSlice.injectEndpoints({
@@ -9,6 +9,7 @@ export const eventsApiSlice = apiSlice.injectEndpoints({
     }),
     getFutureEvents: builder.query({
       query: () => `${EVENTS_URL}/future`,
+      keepUnusedDataFor: 5,
       providesTags: ["Event"],
     }),
     getEventById: builder.query({
@@ -46,7 +47,7 @@ export const eventsApiSlice = apiSlice.injectEndpoints({
     }),
     uploadEventImage: builder.mutation({
       query: (data) => ({
-        url: `${IMAGES_URL}`,
+        url: `${EVENTS_URL}/u`,
         method: "POST",
         body: data,
       }),

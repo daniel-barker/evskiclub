@@ -56,6 +56,7 @@ const createEvent = asyncHandler(async (req, res) => {
       location: req.body.location,
       description: req.body.description,
       image: req.body.image,
+      thumbnail: req.body.thumbnail,
     });
 
     const createdEvent = await event.save();
@@ -70,7 +71,7 @@ const createEvent = asyncHandler(async (req, res) => {
 // @access  Admins
 
 const updateEvent = asyncHandler(async (req, res) => {
-  const { title, date, location, description, image } = req.body;
+  const { title, date, location, description, image, thumbnail } = req.body;
 
   const event = await Event.findById(req.params.id);
 
@@ -80,6 +81,7 @@ const updateEvent = asyncHandler(async (req, res) => {
     event.location = location;
     event.description = description;
     event.image = image;
+    event.thumbnail = thumbnail;
 
     const updatedEvent = await event.save();
     res.json(updatedEvent);

@@ -21,7 +21,8 @@ const ImageUploadScreen = () => {
     const formData = new FormData();
     formData.append("title", title);
     formData.append("description", description);
-    formData.append("tags", tags);
+    const tagArray = tags.split(" ").filter((tag) => tag.trim() !== "");
+    formData.append("tags", JSON.stringify(tagArray));
     if (image) {
       formData.append("image", image);
     }

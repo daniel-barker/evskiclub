@@ -8,15 +8,21 @@ import generateToken from "../utils/generateToken.js";
 
 const generalUser = asyncHandler(async (req, res) => {
   const { password } = req.body;
-  const ga_user_id = process.env.GA_USER_ID;
+
+  const user = await User.findOne({ isGeneral: true });
+
   const ga_password = process.env.GA_PASSWORD;
 
   if (password === ga_password) {
-    generateToken(res, ga_user_id);
+    generateToken(res, user._id);
 
     res.status(200).json({
-      name: "General admission",
-      isGeneral: true,
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      bio: user.bio,
+      picture: user.picture,
+      isAdmin: user.isAdmin,
     });
   } else {
     res.status(401);

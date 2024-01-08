@@ -6,6 +6,8 @@ import cookieParser from "cookie-parser";
 import userRoutes from "./routes/userRoutes.js";
 import imageRoutes from "./routes/imageRoutes.js";
 import eventRoutes from "./routes/eventRoutes.js";
+import uploadRoutes from "./routes/uploadRoutes.js";
+import newsRoutes from "./routes/newsRoutes.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 
 const port = process.env.PORT || 5000;
@@ -18,6 +20,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/users", userRoutes);
 app.use("/api/images", imageRoutes);
 app.use("/api/events", eventRoutes);
+app.use("/api/upload", uploadRoutes);
+app.use("/api/news", newsRoutes);
 
 app.get("/", (req, res) => {
   res.send("What are you doing here?!");
