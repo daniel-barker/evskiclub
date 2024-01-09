@@ -40,8 +40,9 @@ const upload = multer({ storage, fileFilter });
 const uploadSingleImage = upload.single("image");
 
 import {
-  getNews,
+  getAllNews,
   getLatestNews,
+  getPublishedNews,
   getNewsById,
   createNews,
   updateNews,
@@ -51,8 +52,12 @@ import {
 import { protect, admin } from "../middleware/authMiddleware.js";
 import checkObjectId from "../middleware/checkObjectId.js";
 
-router.route("/").get(protect, getNews).post(protect, admin, createNews);
+router
+  .route("/")
+  .get(protect, getPublishedNews)
+  .post(protect, admin, createNews);
 router.route("/latest").get(protect, getLatestNews);
+router.route("/all").get(protect, admin, getAllNews);
 router
   .route("/:id")
   .get(protect, checkObjectId, getNewsById)

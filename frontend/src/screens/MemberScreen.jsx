@@ -57,7 +57,7 @@ const MemberScreen = () => {
           <Col md={8}>
             <br />
 
-            <div style={{ backgroundColor: "#f5f5f5" }}>
+            <div className="event-container">
               <Calendar />
             </div>
           </Col>

@@ -3,19 +3,28 @@ import News from "../models/newsModel.js";
 
 // @desc    Get all news
 // @route   GET /api/news
-// @access  Members/Admins
+// @access  Admins
 
-const getNews = asyncHandler(async (req, res) => {
+const getAllNews = asyncHandler(async (req, res) => {
   const news = await News.find({}).populate("user");
   res.json(news);
 });
 
-// @desc   Get all latest news post
+// @desc    Get published news
+// @route   GET /api/news/published
+// @access  Members/Admins
+
+const getPublishedNews = asyncHandler(async (req, res) => {
+  const news = await News.find({ isPublished: true }).populate("user");
+  res.json(news);
+});
+
+// @desc   Get latest news post
 // @route  GET /api/news/latest
 // @access Members/Admins
 
 const getLatestNews = asyncHandler(async (req, res) => {
-  const news = await News.find({})
+  const news = await News.find({ isPublished: true })
     .sort({ createdAt: -1 })
     .limit(1)
     .populate("user");
@@ -27,7 +36,7 @@ const getLatestNews = asyncHandler(async (req, res) => {
 // @access  Members/Admins
 
 const getNewsById = asyncHandler(async (req, res) => {
-  const news = await News.findById(req.params.id);
+  const news = await News.findById(req.params.id).populate("user");
 
   if (news) {
     res.json(news);
@@ -49,6 +58,7 @@ const createNews = asyncHandler(async (req, res) => {
       post: req.body.post,
       image: req.body.image,
       thumbnail: req.body.thumbnail,
+      isPublished: req.body.isPublished,
     });
 
     const createdNews = await news.save();
@@ -64,7 +74,7 @@ const createNews = asyncHandler(async (req, res) => {
 // @access  Admins
 
 const updateNews = asyncHandler(async (req, res) => {
-  const { title, post, image, thumbnail } = req.body;
+  const { title, post, image, thumbnail, isPublished } = req.body;
 
   const news = await News.findById(req.params.id);
 
@@ -73,6 +83,7 @@ const updateNews = asyncHandler(async (req, res) => {
     news.post = post;
     news.image = image;
     news.thumbnail = thumbnail;
+    news.isPublished = isPublished;
 
     const updatedNews = await news.save();
     res.json(updatedNews);
@@ -99,7 +110,8 @@ const deleteNews = asyncHandler(async (req, res) => {
 });
 
 export {
-  getNews,
+  getAllNews,
+  getPublishedNews,
   getLatestNews,
   getNewsById,
   createNews,

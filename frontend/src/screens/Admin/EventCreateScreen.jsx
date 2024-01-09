@@ -51,10 +51,6 @@ const EventCreateScreen = () => {
     if (file) {
       const formData = new FormData();
       formData.append("image", e.target.files[0]);
-      formData.append("type", "event");
-      for (let [key, value] of formData.entries()) {
-        console.log(key, value);
-      }
       try {
         const res = await uploadImage(formData).unwrap();
         toast.success(res.message);
@@ -71,17 +67,17 @@ const EventCreateScreen = () => {
   };
 
   return (
-    <Container>
+    <Container className="mt-3">
       <Link to="/admin/event/list" className="btn btn-secondary my-3">
         Go Back
       </Link>
       <FormContainer>
         <div className="form-background">
-          <h1>Create Event</h1>
+          <h1 className="text-center">Create Event</h1>
           {loadingCreate && <Loader />}
           {loadingUpload && <Loader />}
           <Form onSubmit={submitHandler}>
-            <Form.Group controlId="title">
+            <Form.Group className="pb-3" controlId="title">
               <Form.Label>Title</Form.Label>
               <Form.Control
                 type="text"
@@ -90,7 +86,7 @@ const EventCreateScreen = () => {
                 onChange={(e) => setTitle(e.target.value)}
               ></Form.Control>
             </Form.Group>
-            <Form.Group controlId="date">
+            <Form.Group className="pb-3" controlId="date">
               <Form.Label>Date & Time</Form.Label>
               <Form.Control
                 type="datetime-local"
@@ -98,7 +94,7 @@ const EventCreateScreen = () => {
                 onChange={(e) => setDate(e.target.value)}
               ></Form.Control>
             </Form.Group>
-            <Form.Group controlId="location">
+            <Form.Group className="pb-3" controlId="location">
               <Form.Label>Location</Form.Label>
               <Form.Control
                 type="text"
@@ -107,18 +103,18 @@ const EventCreateScreen = () => {
                 onChange={(e) => setLocation(e.target.value)}
               ></Form.Control>
             </Form.Group>
-            <Form.Group controlId="description">
+            <Form.Group className="pb-3" controlId="description">
               <Form.Label>Description</Form.Label>
               <Form.Control
                 as="textarea"
-                rows={3}
+                rows={8}
                 placeholder="Enter description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               ></Form.Control>
             </Form.Group>
-            <Form.Group>
-              <Form.Label>Choose Image</Form.Label>
+            <Form.Group className="pb-4">
+              <Form.Label>Choose Image (optional)</Form.Label>
               <Form.Control
                 type="file"
                 id="image-file"

@@ -17,16 +17,20 @@ import MemberScreen from "./screens/MemberScreen";
 import AboutScreen from "./screens/AboutScreen";
 import GalleryScreen from "./screens/GalleryScreen";
 import ImageUploadScreen from "./screens/Admin/ImageUploadScreen";
-import NewsScreen from "./screens/NewsScreen";
 import HomeScreen from "./screens/HomeScreen";
 import UserListScreen from "./screens/Admin/UserListScreen";
 import AdminLogin from "./screens/Admin/AdminLogin";
 import PrivateRoute from "./components/PrivateRoute";
 import AdminRoute from "./components/AdminRoute";
-import Modal from "react-modal";
 import EventListScreen from "./screens/Admin/EventListScreen";
 import EventCreateScreen from "./screens/Admin/EventCreateScreen";
 import EventDetailScreen from "./screens/EventDetailScreen";
+import EventEditScreen from "./screens/Admin/EventEditScreen";
+import NewsScreen from "./screens/NewsScreen";
+import NewsCreateScreen from "./screens/Admin/NewsCreateScreen";
+import NewsListScreen from "./screens/Admin/NewsListScreen";
+import NewsEditScreen from "./screens/Admin/NewsEditScreen";
+import Modal from "react-modal";
 
 Modal.setAppElement("#root");
 
@@ -52,6 +56,10 @@ const router = createBrowserRouter(
         <Route path="user/list" element={<UserListScreen />} />
         <Route path="event/list" element={<EventListScreen />} />
         <Route path="event/create" element={<EventCreateScreen />} />
+        <Route path="event/:id/edit" element={<EventEditScreen />} />
+        <Route path="news/list" element={<NewsListScreen />} />
+        <Route path="news/create" element={<NewsCreateScreen />} />
+        <Route path="news/:id/edit" element={<NewsEditScreen />} />
       </Route>
     </Route>
   )

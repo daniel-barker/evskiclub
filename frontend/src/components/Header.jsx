@@ -51,6 +51,9 @@ const Header = () => {
                 <LinkContainer to="/admin/event/list">
                   <NavDropdown.Item>Events</NavDropdown.Item>
                 </LinkContainer>
+                <LinkContainer to="/admin/news/list">
+                  <NavDropdown.Item>News</NavDropdown.Item>
+                </LinkContainer>
               </NavDropdown>
             )}
             {userInfo && (

@@ -72,9 +72,9 @@ const createEvent = asyncHandler(async (req, res) => {
 
 const updateEvent = asyncHandler(async (req, res) => {
   const { title, date, location, description, image, thumbnail } = req.body;
-
   const event = await Event.findById(req.params.id);
 
+  console.log(event);
   if (event) {
     event.title = title;
     event.date = date;

@@ -32,10 +32,10 @@ export const eventsApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: ["Event"],
     }),
     updateEvent: builder.mutation({
-      query: ({ id, body }) => ({
-        url: `${EVENTS_URL}/${id}`,
+      query: (data) => ({
+        url: `${EVENTS_URL}/${data.id}`,
         method: "PUT",
-        body,
+        body: data,
       }),
       invalidatesTags: ["Event"],
     }),

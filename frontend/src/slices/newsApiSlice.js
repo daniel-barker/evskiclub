@@ -3,7 +3,12 @@ import { apiSlice } from "./apiSlice";
 
 export const newsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getNews: builder.query({
+    getAllNews: builder.query({
+      query: () => `${NEWS_URL}/all`,
+      keepUnusedDataFor: 5,
+      providesTags: ["News"],
+    }),
+    getPublishedNews: builder.query({
       query: () => `${NEWS_URL}`,
       keepUnusedDataFor: 5,
       providesTags: ["News"],
@@ -52,7 +57,8 @@ export const newsApiSlice = apiSlice.injectEndpoints({
 });
 
 export const {
-  useGetNewsQuery,
+  useGetAllNewsQuery,
+  useGetPublishedNewsQuery,
   useGetNewsByIdQuery,
   useGetLatestNewsQuery,
   useCreateNewsMutation,

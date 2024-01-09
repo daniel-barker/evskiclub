@@ -1,9 +1,9 @@
 import { Row, Col, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useGetNewsQuery } from "../slices/newsApiSlice";
+import { useGetPublishedNewsQuery } from "../slices/newsApiSlice";
 
 const NewsScreen = () => {
-  const { data: news, isLoading, isError } = useGetNewsQuery();
+  const { data: news, isLoading, isError } = useGetPublishedNewsQuery();
 
   const formatDate = (datetime) => {
     const date = new Date(datetime).toLocaleDateString("en-US", {
