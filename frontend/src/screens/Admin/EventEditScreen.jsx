@@ -68,11 +68,7 @@ const EventEditScreen = () => {
     const file = e.target.files[0];
     if (file) {
       const formData = new FormData();
-      formData.append("image", e.target.files[0]);
-      formData.append("type", "event");
-      for (let [key, value] of formData.entries()) {
-        console.log(key, value);
-      }
+      formData.append("image", file);
       try {
         const res = await uploadImage(formData).unwrap();
         toast.success(res.message);
@@ -144,12 +140,6 @@ const EventEditScreen = () => {
 
                 <Form.Group className="pb-3" controlId="image">
                   <Form.Label>Image</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Enter image url"
-                    value={image}
-                    onChange={(e) => setImage(e.target.value)}
-                  ></Form.Control>
                   <Form.Control
                     type="file"
                     label="Choose File"

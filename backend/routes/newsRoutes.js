@@ -8,7 +8,7 @@ const router = express.Router();
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
-    const dir = `uploads/news/fullsize`;
+    const dir = `frontend/public/uploads/news/fullsize`;
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir, { recursive: true });
     }
@@ -70,28 +70,30 @@ router.post("/u", (req, res) => {
     if (err) {
       return res.status(400).send({ message: err.message });
     }
+    const truePath = `frontend/public/uploads/news/fullsize/${req.file.filename}`;
+    const trueThumbPath = `frontend/public/uploads/news/thumbnail/${req.file.filename}`;
     const fullPath = `uploads/news/fullsize/${req.file.filename}`;
     const thumbPath = `uploads/news/thumbnail/${req.file.filename}`;
 
-    if (!fs.existsSync(`uploads/news/thumbnail`)) {
-      fs.mkdirSync(`uploads/news/thumbnail`, { recursive: true });
+    if (!fs.existsSync(`frontend/public/uploads/news/thumbnail`)) {
+      fs.mkdirSync(`frontend/public/uploads/news/thumbnail`, {
+        recursive: true,
+      });
     }
 
-    sharp(req.file.path)
-      .resize(200, 200)
-      .toFile(thumbPath, (err, info) => {
+    sharp(truePath)
+      .resize(200)
+      .toFile(trueThumbPath, (err, info) => {
         if (err) {
-          console.log("error:", err);
+          return res.status(400).send({ message: err.message });
         } else {
-          console.log("info:", info);
+          res.status(201).send({
+            message: "Image uploaded successfully",
+            image: fullPath,
+            thumbnail: thumbPath,
+          });
         }
       });
-
-    res.status(200).send({
-      message: "Image uploaded successfully",
-      image: fullPath,
-      thumbnail: thumbPath,
-    });
   });
 });
 

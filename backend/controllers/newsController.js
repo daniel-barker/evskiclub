@@ -15,7 +15,9 @@ const getAllNews = asyncHandler(async (req, res) => {
 // @access  Members/Admins
 
 const getPublishedNews = asyncHandler(async (req, res) => {
-  const news = await News.find({ isPublished: true }).populate("user");
+  const news = await News.find({ isPublished: true })
+    .populate("user")
+    .sort({ createdAt: -1 });
   res.json(news);
 });
 
@@ -101,7 +103,7 @@ const deleteNews = asyncHandler(async (req, res) => {
   const news = await News.findById(req.params.id);
 
   if (news) {
-    await news.remove();
+    await news.deleteOne({ _id: news._id });
     res.json({ message: "Post removed" });
   } else {
     res.status(404);

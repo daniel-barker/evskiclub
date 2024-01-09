@@ -57,10 +57,6 @@ const EventCreateScreen = () => {
         setImage(res.image);
         setThumbnail(res.thumbnail);
       } catch (err) {
-        console.error("Upload error:", err);
-        if (err.data && typeof err.data === "object") {
-          console.error("Error details:", JSON.stringify(err.data, null, 2));
-        }
         toast.error(err?.data?.message || err.error || "An error occurred");
       }
     }
