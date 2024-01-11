@@ -12,6 +12,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // import "./assets/styles/index.css";
 // import "./assets/styles/bootstrap.custom.css";
 import App from "./App";
+import Modal from "react-modal";
 import reportWebVitals from "./reportWebVitals";
 import MemberScreen from "./screens/MemberScreen";
 import AboutScreen from "./screens/AboutScreen";
@@ -30,7 +31,9 @@ import NewsScreen from "./screens/NewsScreen";
 import NewsCreateScreen from "./screens/Admin/NewsCreateScreen";
 import NewsListScreen from "./screens/Admin/NewsListScreen";
 import NewsEditScreen from "./screens/Admin/NewsEditScreen";
-import Modal from "react-modal";
+import MemberCreateScreen from "./screens/Admin/MemberCreateScreen";
+import MemberListScreen from "./screens/Admin/MemberListScreen";
+import MemberEditScreen from "./screens/Admin/MemberEditScreen";
 
 Modal.setAppElement("#root");
 
@@ -60,6 +63,9 @@ const router = createBrowserRouter(
         <Route path="news/list" element={<NewsListScreen />} />
         <Route path="news/create" element={<NewsCreateScreen />} />
         <Route path="news/:id/edit" element={<NewsEditScreen />} />
+        <Route path="members/list" element={<MemberListScreen />} />
+        <Route path="members/create" element={<MemberCreateScreen />} />
+        <Route path="members/:id/edit" element={<MemberEditScreen />} />
       </Route>
     </Route>
   )

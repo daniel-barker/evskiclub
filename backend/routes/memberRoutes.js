@@ -8,7 +8,7 @@ const router = express.Router();
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
-    const dir = `frontend/public/uploads/events/fullsize`;
+    const dir = `frontend/public/uploads/members/fullsize`;
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir, { recursive: true });
     }
@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
   filename(req, file, cb) {
     cb(
       null,
-      `event-${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
+      `member-${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
     );
   },
 });
@@ -40,40 +40,36 @@ const upload = multer({ storage, fileFilter });
 const uploadSingleImage = upload.single("image");
 
 import {
-  getEvents,
-  getFutureEvents,
-  getPastEvents,
-  getEventById,
-  createEvent,
-  updateEvent,
-  deleteEvent,
-} from "../controllers/eventController.js";
+  getMembers,
+  getMemberById,
+  createMember,
+  updateMember,
+  deleteMember,
+} from "../controllers/memberController.js";
 import { protect, admin } from "../middleware/authMiddleware.js";
 import checkObjectId from "../middleware/checkObjectId.js";
 
-router.route("/").get(protect, getEvents).post(protect, admin, createEvent);
-router.route("/future").get(protect, getFutureEvents);
-router.route("/past").get(protect, getPastEvents);
+router.route("/").get(protect, getMembers).post(protect, admin, createMember);
 router
   .route("/:id")
-  .get(protect, checkObjectId, getEventById)
-  .put(protect, admin, checkObjectId, updateEvent)
-  .delete(protect, admin, checkObjectId, deleteEvent);
+  .get(protect, checkObjectId, getMemberById)
+  .put(protect, admin, checkObjectId, updateMember)
+  .delete(protect, admin, checkObjectId, deleteMember);
 
 router.post("/u", protect, admin, (req, res) => {
   uploadSingleImage(req, res, function (err) {
     if (err) {
-      return res.status(400).send({ message: err.message });
+      return res.status(400).json({ message: err.message });
     }
     //paths for the backend
-    const truePath = `frontend/public/uploads/events/fullsize/${req.file.filename}`;
-    const trueThumbPath = `frontend/public/uploads/events/thumbnail/${req.file.filename}`;
+    const truePath = `frontend/public/uploads/members/fullsize/${req.file.filename}`;
+    const trueThumbPath = `frontend/public/uploads/members/thumbnail/${req.file.filename}`;
     //paths for the frontend
-    const fullPath = `uploads/events/fullsize/${req.file.filename}`;
-    const thumbPath = `uploads/events/thumbnail/${req.file.filename}`;
+    const fullPath = `uploads/members/fullsize/${req.file.filename}`;
+    const thumbPath = `uploads/members/thumbnail/${req.file.filename}`;
 
-    if (!fs.existsSync(`frontend/public/uploads/events/thumbnail`)) {
-      fs.mkdirSync(`frontend/public/uploads/events/thumbnail`, {
+    if (!fs.existsSync(`frontend/public/uploads/members/thumbnail`)) {
+      fs.mkdirSync(`frontend/public/uploads/members/thumbnail`, {
         recursive: true,
       });
     }
@@ -82,7 +78,7 @@ router.post("/u", protect, admin, (req, res) => {
       .resize(200)
       .toFile(trueThumbPath, (err, info) => {
         if (err) {
-          return res.status(400).send({ message: err.message });
+          return res.status(400).json({ message: err.message });
         }
         res.status(201).send({
           message: "Image uploaded successfully",

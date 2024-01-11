@@ -6,20 +6,21 @@ import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import { toast } from "react-toastify";
 import {
-  useGetAllEventsQuery,
-  useDeleteEventMutation,
-} from "../../slices/eventsApiSlice";
+  useGetAllMembersQuery,
+  useDeleteMemberMutation,
+} from "../../slices/memberApiSlice.js";
 
-const EventListScreen = () => {
-  const { data: events, refetch, isLoading, error } = useGetAllEventsQuery();
+const MemberListScreen = () => {
+  const { data: members, refetch, isLoading, error } = useGetAllMembersQuery();
 
-  const [deleteEvent, { isLoading: loadingDelete }] = useDeleteEventMutation();
+  const [deleteMember, { isLoading: loadingDelete }] =
+    useDeleteMemberMutation();
 
   const deleteHandler = async (id) => {
-    if (window.confirm("Are you sure you want to delete an event?")) {
+    if (window.confirm("Are you sure you want to delete a member?")) {
       try {
-        await deleteEvent(id);
-        toast.success("Event deleted successfully");
+        await deleteMember(id);
+        toast.success("Member deleted successfully");
         refetch();
       } catch (err) {
         toast.error(err?.data?.message || err.error);
@@ -36,11 +37,11 @@ const EventListScreen = () => {
           </Link>
         </Col>
         <Col>
-          <h1>Events</h1>
+          <h1>Members</h1>
         </Col>
         <Col className="text-end">
-          <Link to="/admin/event/create" className="btn btn-secondary my-3">
-            <FaEdit /> Create Event
+          <Link to="/admin/member/create" className="btn btn-secondary my-3">
+            <FaEdit /> Create Member
           </Link>
         </Col>
       </Row>
@@ -54,39 +55,39 @@ const EventListScreen = () => {
           <thead>
             <tr>
               <th>NAME</th>
-              <th>DATE & TIME</th>
-              <th>LOCATION</th>
+              <th>EMAIL</th>
+              <th>PHONE</th>
               <th>PICTURE</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            {events.map((event) => (
-              <tr key={event._id}>
-                <td>{event.title}</td>
-                <td>{event.date}</td>
-                <td>{event.location}</td>
+            {members?.map((member) => (
+              <tr key={member._id}>
+                <td>{member.name}</td>
+                <td>{member.email}</td>
+                <td>{member.phone}</td>
                 <td>
-                  {event.image ? (
-                    <FaCheck style={{ color: "green" }} />
-                  ) : (
-                    <FaTimes style={{ color: "red" }} />
-                  )}
+                  <img
+                    src={member.picture}
+                    alt={member.name}
+                    className="img-fluid"
+                    style={{ width: "100px" }}
+                  />
                 </td>
                 <td>
-                  <LinkContainer to={`/admin/event/${event._id}/edit`}>
+                  <LinkContainer to={`/admin/member/${member._id}/edit`}>
                     <Button variant="light" className="btn-sm">
                       <FaEdit />
                     </Button>
                   </LinkContainer>
-                  <Link onClick={() => deleteHandler(event._id)}>
-                    <FaTrash color="red" />
-                  </Link>
-                  <LinkContainer to={`/event/${event._id}`}>
-                    <Button variant="light" className="btn-sm">
-                      <FaNewspaper />
-                    </Button>
-                  </LinkContainer>
+                  <Button
+                    variant="danger"
+                    className="btn-sm"
+                    onClick={() => deleteHandler(member._id)}
+                  >
+                    <FaTrash />
+                  </Button>
                 </td>
               </tr>
             ))}
@@ -96,5 +97,4 @@ const EventListScreen = () => {
     </Container>
   );
 };
-
-export default EventListScreen;
+export default MemberListScreen;
