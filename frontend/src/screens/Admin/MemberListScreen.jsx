@@ -64,16 +64,11 @@ const MemberListScreen = () => {
           <tbody>
             {members?.map((member) => (
               <tr key={member._id}>
-                <td>{member.name}</td>
-                <td>{member.email}</td>
-                <td>{member.phone}</td>
+                <td>{member.name1}</td>
+                <td>{member.email1}</td>
+                <td>{member.phone1}</td>
                 <td>
-                  <img
-                    src={member.picture}
-                    alt={member.name}
-                    className="img-fluid"
-                    style={{ width: "100px" }}
-                  />
+                  {/* replace with tertiary (green check if yes red x if no) */}
                 </td>
                 <td>
                   <LinkContainer to={`/admin/member/${member._id}/edit`}>
