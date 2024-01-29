@@ -56,20 +56,28 @@ const MemberScreen = () => {
         <Row className="dflex justify-content-center">
           <Col md={8}>
             <br />
+            <br />
+            <br />
+            <br />
 
             <div className="event-container">
               <Calendar />
             </div>
+            <br />
+            <br />
+            <br />
+            <br />
           </Col>
         </Row>
         <br />
         <Row>
-          <Col>
+          <Col md={2}>
             <Card onClick={handleShowHistory} style={{ cursor: "pointer" }}>
               <Card.Img src={club_history} />
             </Card>
           </Col>
-          <Col>
+          <Col md={1}></Col>
+          <Col md={2}>
             <Card
               onClick={handleShowMemberDirectory}
               style={{ cursor: "pointer" }}
@@ -77,12 +85,14 @@ const MemberScreen = () => {
               <Card.Img src={member_directory} />
             </Card>
           </Col>
-          <Col>
+          <Col md={1}></Col>
+          <Col md={2}>
             <Card onClick={handleShowBylaws} style={{ cursor: "pointer" }}>
               <Card.Img src={club_bylaws} />
             </Card>
           </Col>
-          <Col>
+          <Col md={1}></Col>
+          <Col md={2}>
             <Card onClick={handleShowHouseRules} style={{ cursor: "pointer" }}>
               <Card.Img src={house_rules} />
             </Card>
