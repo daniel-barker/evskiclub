@@ -91,14 +91,12 @@ const LoginScreen = () => {
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <div className="d-flex justify-content-between">
-          <Button type="submit" variant="primary">
-            Sign In
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Register
-          </Button>
-        </div>
+        <Button type="submit" variant="primary">
+          Sign In
+        </Button>
+        <br />
+        <br />
+        Don't have an account? <a href="/register">Register</a>
         {isLoading && <Loader />}
       </Form>
     </Modal>

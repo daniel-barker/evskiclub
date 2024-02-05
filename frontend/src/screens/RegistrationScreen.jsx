@@ -89,7 +89,6 @@ const RegistrationScreen = () => {
             onChange={(e) => setName(e.target.value)}
           ></Form.Control>
         </Form.Group>
-
         <Form.Group controlId="email" className="my-3">
           <Form.Label>Email Address</Form.Label>
           <Form.Control
@@ -99,7 +98,6 @@ const RegistrationScreen = () => {
             onChange={(e) => setEmail(e.target.value)}
           ></Form.Control>
         </Form.Group>
-
         <Form.Group controlId="password" className="my-3">
           <Form.Label>Password</Form.Label>
           <Form.Control
@@ -109,7 +107,6 @@ const RegistrationScreen = () => {
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
-
         <Form.Group controlId="confirmPassword" className="my-3">
           <Form.Label>Confirm password</Form.Label>
           <Form.Control
@@ -119,20 +116,18 @@ const RegistrationScreen = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <div className="d-flex justify-content-between">
-          <Button
-            type="submit"
-            variant="primary"
-            className="mt-2"
-            disabled={isLoading}
-          >
-            Register
-          </Button>
-          <Button variant="primary" className="mt-2" href="/login">
-            Sign In
-          </Button>
-          {isLoading && <Loader />}
-        </div>
+        <Button
+          type="submit"
+          variant="primary"
+          className="mt-2"
+          disabled={isLoading}
+        >
+          Register
+        </Button>
+        <br />
+        <br />
+        Already have an account? <a href="/login">Sign In</a>
+        {isLoading && <Loader />}
       </Form>
     </Modal>
   );
