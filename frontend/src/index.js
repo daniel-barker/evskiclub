@@ -31,9 +31,6 @@ import NewsScreen from "./screens/NewsScreen";
 import NewsCreateScreen from "./screens/Admin/NewsCreateScreen";
 import NewsListScreen from "./screens/Admin/NewsListScreen";
 import NewsEditScreen from "./screens/Admin/NewsEditScreen";
-import MemberCreateScreen from "./screens/Admin/MemberCreateScreen";
-import MemberListScreen from "./screens/Admin/MemberListScreen";
-import MemberEditScreen from "./screens/Admin/MemberEditScreen";
 
 Modal.setAppElement("#root");
 
@@ -63,9 +60,6 @@ const router = createBrowserRouter(
         <Route path="news/list" element={<NewsListScreen />} />
         <Route path="news/create" element={<NewsCreateScreen />} />
         <Route path="news/:id/edit" element={<NewsEditScreen />} />
-        <Route path="members/list" element={<MemberListScreen />} />
-        <Route path="members/create" element={<MemberCreateScreen />} />
-        <Route path="members/:id/edit" element={<MemberEditScreen />} />
       </Route>
     </Route>
   )

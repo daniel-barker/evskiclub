@@ -8,7 +8,6 @@ import imageRoutes from "./routes/imageRoutes.js";
 import eventRoutes from "./routes/eventRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
 import newsRoutes from "./routes/newsRoutes.js";
-import memberRoutes from "./routes/memberRoutes.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 
 const port = process.env.PORT || 5000;
@@ -23,7 +22,6 @@ app.use("/api/images", imageRoutes);
 app.use("/api/events", eventRoutes);
 app.use("/api/upload", uploadRoutes);
 app.use("/api/news", newsRoutes);
-app.use("/api/members", memberRoutes);
 
 app.get("/", (req, res) => {
   res.send("What are you doing here?!");
