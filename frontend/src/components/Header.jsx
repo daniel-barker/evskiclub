@@ -1,26 +1,17 @@
 import React from "react";
 import { Navbar, Nav, NavDropdown, Image, NavLink } from "react-bootstrap";
-import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { useLogoutMutation } from "../slices/usersApiSlice";
 import { logout } from "../slices/authSlice";
 import logo from "../assets/logo.png";
-import LoginModal from "./LoginModal";
 
 const Header = () => {
   const { userInfo } = useSelector((state) => state.auth);
-  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [logoutApiCall] = useLogoutMutation();
-
-  const handleCloseSignInModal = () => {
-    setIsSignInModalOpen(false);
-  };
-
-  useEffect(() => {}, [isSignInModalOpen]);
 
   const logoutHandler = async () => {
     try {
@@ -70,10 +61,6 @@ const Header = () => {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-      <LoginModal
-        isOpen={isSignInModalOpen}
-        onRequestClose={handleCloseSignInModal}
-      />
     </header>
   );
 };

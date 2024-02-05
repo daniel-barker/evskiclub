@@ -2,56 +2,37 @@ import asyncHandler from "../middleware/asyncHandler.js";
 import User from "../models/userModel.js";
 import generateToken from "../utils/generateToken.js";
 
-// @desc General admission
-// @route POST /api/users/auth
-// @access Public
-
-const generalUser = asyncHandler(async (req, res) => {
-  const { password } = req.body;
-
-  const user = await User.findOne({ isGeneral: true });
-
-  const ga_password = process.env.GA_PASSWORD;
-
-  if (password === ga_password) {
-    generateToken(res, user._id);
-
-    res.status(200).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      bio: user.bio,
-      picture: user.picture,
-      isAdmin: user.isAdmin,
-    });
-  } else {
-    res.status(401);
-    throw new Error("Invalid password");
-  }
-});
-
 // @desc Auth user & get token
 // @route POST /api/users/login
 // @access Public
 const authUser = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
+  const { username, password } = req.body;
 
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ username });
 
   if (user && (await user.matchPassword(password))) {
     generateToken(res, user._id);
 
     res.status(200).json({
       _id: user._id,
-      name: user.name,
-      email: user.email,
+      username: user.username,
+      name1: user.name1,
+      email1: user.email1,
+      phone1: user.phone1,
+      address1: user.address1,
+      memberSince: user.memberSince,
+      name2: user.name2,
+      email2: user.email2,
+      phone2: user.phone2,
+      address2: user.address2,
+      position: user.position,
       bio: user.bio,
       picture: user.picture,
       isAdmin: user.isAdmin,
     });
   } else {
     res.status(401);
-    throw new Error("Invalid email or password");
+    throw new Error("Invalid username or password");
   }
 });
 
@@ -59,9 +40,9 @@ const authUser = asyncHandler(async (req, res) => {
 // @route POST /api/users/
 // @access Pu
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password, bio, picture } = req.body;
+  const { username, email1, password, bio, picture } = req.body;
 
-  const userExists = await User.findOne({ email });
+  const userExists = await User.findOne({ username });
 
   if (userExists) {
     res.status(400);
@@ -69,19 +50,10 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 
   const userData = {
-    name,
-    email,
+    username,
+    email1,
     password,
   };
-
-  // Only add bio and picture fields if they exist in the request body
-  if (bio) {
-    userData.bio = bio;
-  }
-
-  if (picture) {
-    userData.picture = picture;
-  }
 
   const user = await User.create(userData);
 
@@ -90,7 +62,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
     res.status(201).json({
       _id: user._id,
-      name: user.name,
+      username: user.username,
       email: user.email,
       isAdmin: user.isAdmin,
       bio: user.bio, // Include bio even if it's undefined
@@ -123,8 +95,17 @@ const getUserProfile = asyncHandler(async (req, res) => {
   if (user) {
     res.status(200).json({
       _id: user._id,
-      name: user.name,
-      email: user.email,
+      username: user.name,
+      name1: user.name1,
+      email1: user.email,
+      phone1: user.phone1,
+      address1: user.address1,
+      name2: user.name2,
+      email2: user.email2,
+      phone2: user.phone2,
+      address2: user.address2,
+      memberSince: user.memberSince,
+      position: user.position,
       isAdmin: user.isAdmin,
       bio: user.bio,
       picture: user.picture,
@@ -243,5 +224,4 @@ export {
   deleteUser,
   getUserByID,
   updateUser,
-  generalUser,
 };

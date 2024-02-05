@@ -3,19 +3,27 @@ import Modal from "react-modal";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Image } from "react-bootstrap";
-import Loader from "./Loader";
+import Loader from "../components/Loader";
 import { useLoginMutation } from "../slices/usersApiSlice";
 import { setCredentials } from "../slices/authSlice";
 import { toast } from "react-toastify";
 import club_logo from "../assets/images/club_logo.jpg";
 
-const LoginModal = () => {
+const LoginScreen = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const [login, { isLoading }] = useLoginMutation();
-  // const { userInfo } = useSelector((state) => state.auth);
+  const { userInfo } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/home");
+    }
+  }, [userInfo, navigate]);
 
   const isModalOpen = true;
 
@@ -83,16 +91,18 @@ const LoginModal = () => {
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <Button type="submit" variant="primary" className="my-3">
-          Sign In
-        </Button>
-        <Button variant="primary" className="ms-auto" onClick={handleClose}>
-          Register
-        </Button>
+        <div className="d-flex justify-content-between">
+          <Button type="submit" variant="primary">
+            Sign In
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Register
+          </Button>
+        </div>
         {isLoading && <Loader />}
       </Form>
     </Modal>
   );
 };
 
-export default LoginModal;
+export default LoginScreen;

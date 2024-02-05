@@ -9,6 +9,8 @@ const HomeScreen = () => {
   useEffect(() => {
     if (userInfo) {
       navigate("/home");
+    } else {
+      navigate("/login");
     }
   }, [userInfo, navigate]);
 

@@ -1,15 +1,14 @@
-import React from "react";
 import Modal from "react-modal";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
-import Loader from "./Loader";
+import Loader from "../components/Loader";
 import { useRegisterMutation } from "../slices/usersApiSlice";
 import { setCredentials } from "../slices/authSlice";
 import { toast } from "react-toastify";
 
-const RegistrationModal = ({ isOpen, onRequestClose }) => {
+const RegistrationScreen = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -17,7 +16,6 @@ const RegistrationModal = ({ isOpen, onRequestClose }) => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [position, setPosition] = useState("");
 
   const [register, { isLoading }] = useRegisterMutation();
   const { userInfo } = useSelector((state) => state.auth);
@@ -27,6 +25,12 @@ const RegistrationModal = ({ isOpen, onRequestClose }) => {
       navigate("/home");
     }
   }, [userInfo, navigate]);
+
+  const isModalOpen = true;
+
+  const handleClose = () => {
+    navigate("/register");
+  };
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -39,7 +43,6 @@ const RegistrationModal = ({ isOpen, onRequestClose }) => {
           name,
           email,
           password,
-          position,
         }).unwrap();
         dispatch(setCredentials({ ...res }));
         navigate("/");
@@ -51,27 +54,27 @@ const RegistrationModal = ({ isOpen, onRequestClose }) => {
 
   const customStyles = {
     overlay: {
-      backgroundColor: "rgba(0, 0, 0, 0.75)", // Semi-transparent black background
+      backgroundColor: "rgba(0, 0, 0, 0.0)", // Semi-transparent black background
     },
     content: {
       top: "50%",
       left: "50%",
       right: "auto",
       bottom: "auto",
-      width: "20rem",
+      width: "35rem",
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
       padding: "20px",
       border: "1px solid #ccc",
-      boxShadow: "0 5px 15px rgba(0, 0, 0, 0.5)",
+      boxShadow: "0 5px 15px rgba(0, 0, 0, 0.9)",
       borderRadius: "10px",
     },
   };
 
   return (
     <Modal
-      isOpen={isOpen}
-      onRequestClose={onRequestClose}
+      isOpen={isModalOpen}
+      onRequestClose={handleClose}
       contentLabel="Sign In Modal"
       style={customStyles}
     >
@@ -84,16 +87,6 @@ const RegistrationModal = ({ isOpen, onRequestClose }) => {
             placeholder="Enter name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
-
-        <Form.Group controlId="name" className="my-3">
-          <Form.Label>Position</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter position"
-            value={position}
-            onChange={(e) => setPosition(e.target.value)}
           ></Form.Control>
         </Form.Group>
 
@@ -126,19 +119,22 @@ const RegistrationModal = ({ isOpen, onRequestClose }) => {
             onChange={(e) => setConfirmPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
-
-        <Button
-          type="submit"
-          variant="primary"
-          className="mt-2"
-          disabled={isLoading}
-        >
-          Register
-        </Button>
-        {isLoading && <Loader />}
+        <div className="d-flex justify-content-between">
+          <Button
+            type="submit"
+            variant="primary"
+            className="mt-2"
+            disabled={isLoading}
+          >
+            Register
+          </Button>
+          <Button variant="primary" className="mt-2" href="/login">
+            Sign In
+          </Button>
+          {isLoading && <Loader />}
+        </div>
       </Form>
     </Modal>
   );
 };
-
-export default RegistrationModal;
+export default RegistrationScreen;

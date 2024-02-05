@@ -14,13 +14,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import App from "./App";
 import Modal from "react-modal";
 import reportWebVitals from "./reportWebVitals";
+import LoginScreen from "./screens/LoginScreen";
+import RegistrationScreen from "./screens/RegistrationScreen";
 import MemberScreen from "./screens/MemberScreen";
 import AboutScreen from "./screens/AboutScreen";
 import GalleryScreen from "./screens/GalleryScreen";
 import ImageUploadScreen from "./screens/Admin/ImageUploadScreen";
 import HomeScreen from "./screens/HomeScreen";
 import UserListScreen from "./screens/Admin/UserListScreen";
-import AdminLogin from "./screens/Admin/AdminLogin";
 import PrivateRoute from "./components/PrivateRoute";
 import AdminRoute from "./components/AdminRoute";
 import EventListScreen from "./screens/Admin/EventListScreen";
@@ -39,12 +40,13 @@ const router = createBrowserRouter(
     <Route path="/" element={<App />}>
       {/* Public Routes */}
       <Route index={true} path="/" element={<HomeScreen />} />
+      <Route path="register" element={<RegistrationScreen />} />
+      <Route path="login" element={<LoginScreen />} />
 
       {/* Private Routes */}
       <Route path="" element={<PrivateRoute />}>
         <Route path="news" element={<NewsScreen />} />
         <Route path="home" element={<MemberScreen />} />
-        <Route path="admin" element={<AdminLogin />} />
         <Route path="about" element={<AboutScreen />} />
         <Route path="gallery" element={<GalleryScreen />} />
         <Route path="upload" element={<ImageUploadScreen />} />
