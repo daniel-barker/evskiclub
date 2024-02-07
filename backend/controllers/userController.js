@@ -16,19 +16,10 @@ const authUser = asyncHandler(async (req, res) => {
     res.status(200).json({
       _id: user._id,
       username: user.username,
-      name1: user.name1,
-      email1: user.email1,
-      phone1: user.phone1,
-      address1: user.address1,
-      memberSince: user.memberSince,
-      name2: user.name2,
-      email2: user.email2,
-      phone2: user.phone2,
-      address2: user.address2,
-      position: user.position,
-      bio: user.bio,
-      picture: user.picture,
+      name: user.name,
+      email: user.email,
       isAdmin: user.isAdmin,
+      position: user.position,
     });
   } else {
     res.status(401);
@@ -38,9 +29,9 @@ const authUser = asyncHandler(async (req, res) => {
 
 // @desc Register user
 // @route POST /api/users/
-// @access Pu
+// @access Public
 const registerUser = asyncHandler(async (req, res) => {
-  const { username, email1, password, bio, picture } = req.body;
+  const { username, email, password, name } = req.body;
 
   const userExists = await User.findOne({ username });
 
@@ -49,13 +40,12 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error("User already exists");
   }
 
-  const userData = {
+  const user = await User.create({
     username,
-    email1,
+    name,
+    email,
     password,
-  };
-
-  const user = await User.create(userData);
+  });
 
   if (user) {
     generateToken(res, user._id);
@@ -64,9 +54,9 @@ const registerUser = asyncHandler(async (req, res) => {
       _id: user._id,
       username: user.username,
       email: user.email,
+      name: user.name,
       isAdmin: user.isAdmin,
-      bio: user.bio, // Include bio even if it's undefined
-      picture: user.picture, // Include picture even if it's undefined
+      position: user.position,
     });
   } else {
     res.status(400);
@@ -95,20 +85,11 @@ const getUserProfile = asyncHandler(async (req, res) => {
   if (user) {
     res.status(200).json({
       _id: user._id,
-      username: user.name,
-      name1: user.name1,
-      email1: user.email,
-      phone1: user.phone1,
-      address1: user.address1,
-      name2: user.name2,
-      email2: user.email2,
-      phone2: user.phone2,
-      address2: user.address2,
-      memberSince: user.memberSince,
-      position: user.position,
+      username: user.username,
+      name: user.name,
+      email: user.email,
       isAdmin: user.isAdmin,
-      bio: user.bio,
-      picture: user.picture,
+      position: user.position,
     });
   } else {
     res.status(404);
@@ -116,7 +97,8 @@ const getUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc Update user profile
+// @desc Allows a user to update name, email, and password fields
+// @desc (things like username, position, and isAdmin should be updated by an admin user only)
 // @route PUT /api/users/profile
 // @access Private
 const updateUserProfile = asyncHandler(async (req, res) => {
@@ -125,8 +107,6 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   if (user) {
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
-    user.bio = req.body.bio || user.bio;
-    user.picture = req.body.picture || user.picture;
 
     if (req.body.password) {
       user.password = req.body.password;
@@ -135,12 +115,12 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     const updatedUser = await user.save();
 
     res.status(200).json({
-      _id: updatedUser._id,
-      name: updatedUser.name,
-      email: updatedUser.email,
-      bio: updatedUser.bio,
-      picture: updatedUser.picture,
-      isAdmin: updatedUser.isAdmin,
+      _id: user._id,
+      username: user.username,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+      position: user.position,
     });
   } else {
     res.status(404);
@@ -187,31 +167,57 @@ const deleteUser = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc Update user
+// @desc Update user (Admin only)
 // @route PUT /api/users/:id
 // @access Private/admin
 const updateUser = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.params.id);
+  const userId = req.params.id;
+  const { username, email } = req.body; //Only need to destructure these two as they're the only unique fields
 
-  if (user) {
-    user.name = req.body.name || user.name;
-    user.email = req.body.email || user.email;
-    user.bio = req.body.bio || user.bio;
-    user.picture = req.body.picture || user.picture;
-    user.isAdmin = Boolean(req.body.isAdmin);
-
-    const updatedUser = await user.save();
-
-    res.status(200).json({
-      _id: updatedUser._id,
-      name: updatedUser.name,
-      email: updatedUser.email,
-      isAdmin: updatedUser.isAdmin,
-    });
-  } else {
-    res.status(404);
-    throw new Error("User not found");
+  const userToUpdate = await User.findById(userId);
+  if (!userToUpdate) {
+    return res.status(404).send("User not found");
   }
+
+  // Check for username uniqueness
+  if (username && username !== userToUpdate.username) {
+    const existingUserByUsername = await User.findOne({
+      username,
+      _id: { $ne: userId },
+    }); // $ne stands for "not equal", this excludes the current user
+    if (existingUserByUsername) {
+      return res.status(400).send("Username already exists");
+    }
+  }
+
+  // Check for email uniqueness
+  if (email && email !== userToUpdate.email) {
+    const existingUserByEmail = await User.findOne({
+      email,
+      _id: { $ne: userId },
+    });
+    if (existingUserByEmail) {
+      return res.status(400).send("Email already exists");
+    }
+  }
+
+  // Update fields if provided, otherwise keep existing values
+  userToUpdate.username = username || userToUpdate.username;
+  userToUpdate.email = email || userToUpdate.email;
+  userToUpdate.name = req.body.name || userToUpdate.name;
+  userToUpdate.position = req.body.position || userToUpdate.position;
+  // I chose to leave out the ability to update the isAdmin field for security reasons. Admin flag should only be updated in the database.
+
+  const updatedUser = await userToUpdate.save();
+
+  res.status(200).json({
+    _id: updatedUser._id,
+    username: updatedUser.username,
+    name: updatedUser.name,
+    email: updatedUser.email,
+    isAdmin: updatedUser.isAdmin,
+    position: updatedUser.position,
+  });
 });
 
 export {

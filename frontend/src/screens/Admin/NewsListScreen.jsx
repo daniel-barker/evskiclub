@@ -2,7 +2,7 @@ import { useState } from "react";
 import { LinkContainer } from "react-router-bootstrap";
 import { Link } from "react-router-dom";
 import { Table, Button, Container, Row, Col } from "react-bootstrap";
-import { FaTrash, FaTimes, FaEdit, FaCheck, FaNewspaper } from "react-icons/fa";
+import { FaTrash, FaTimes, FaEdit, FaCheck } from "react-icons/fa";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import { toast } from "react-toastify";
@@ -37,7 +37,7 @@ const NewsListScreen = () => {
   };
 
   return (
-    <Container className="mt-4">
+    <Container className="mt-4 form-background">
       <Row className="align-items-center">
         <Col>
           <Link to="/" className="btn btn-secondary my-3">

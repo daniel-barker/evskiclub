@@ -80,23 +80,6 @@ body {
   padding: 15px;
 }
 
-.radial-gradient-card {
-  background: radial-gradient(circle, rgb(255, 255, 255) 0%, rgba(148, 187, 233, 1) 100%);
-}
-
-.admin-login {
-  margin-top: 100px;
-  width: 500px;
-  height: 550px;
-  background-color: rgba(192, 214, 255, 1);
-  border-radius: 10px;
-}
-
-.admin-login-form {
-  width: 450px;
-  height: 450px;
-}
-
 .event-title-shade {
   background-color: rgba(125, 125, 125, 0.8);
   padding-left: 10px;
@@ -111,9 +94,13 @@ body {
 .form-background {
   padding: 10px;
   border-radius: 10px;
-  background-color: rgba(233, 233, 233, 0.8);
+  background-color: rgba(255, 255, 255, 1);
 }
 
 .event-detail-container {
   padding: 5rem;
+}
+
+#navbar-font {
+  color: #ffffff;
 }

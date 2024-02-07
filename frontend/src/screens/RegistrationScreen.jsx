@@ -12,8 +12,9 @@ const RegistrationScreen = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [email, setEmail] = useState("");
+  const [username, setUserName] = useState("");
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -40,6 +41,7 @@ const RegistrationScreen = () => {
     } else {
       try {
         const res = await register({
+          username,
           name,
           email,
           password,
@@ -80,6 +82,15 @@ const RegistrationScreen = () => {
     >
       <h2>Register</h2>
       <Form onSubmit={submitHandler}>
+        <Form.Group controlId="username" className="my-3">
+          <Form.Label>Username</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter username"
+            value={username}
+            onChange={(e) => setUserName(e.target.value)}
+          ></Form.Control>
+        </Form.Group>
         <Form.Group controlId="name" className="my-3">
           <Form.Label>Name</Form.Label>
           <Form.Control

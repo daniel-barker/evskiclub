@@ -12,54 +12,14 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    name1: {
+    email: {
       type: String,
       required: true,
       unique: true,
     },
-    name2: {
-      type: String,
-      required: false,
-      unique: true,
-    },
-    email1: {
+    name: {
       type: String,
       required: true,
-      unique: true,
-    },
-    email2: {
-      type: String,
-      required: false,
-      unique: true,
-    },
-    bio: {
-      type: String,
-      required: false,
-    },
-    picture: {
-      type: String,
-      required: false,
-    },
-    phone1: {
-      type: String,
-      required: false,
-    },
-    phone2: {
-      type: String,
-      required: false,
-    },
-    address1: {
-      type: String,
-      required: false,
-    },
-    address2: {
-      type: String,
-      required: false,
-    },
-    memberSince: {
-      type: String,
-      required: true,
-      default: "2023",
     },
     isAdmin: {
       type: Boolean,
@@ -68,7 +28,8 @@ const userSchema = mongoose.Schema(
     },
     position: {
       type: String,
-      required: false,
+      required: true,
+      default: "Member",
     },
   },
   {

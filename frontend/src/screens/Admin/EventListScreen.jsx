@@ -28,7 +28,7 @@ const EventListScreen = () => {
   };
 
   return (
-    <Container className="mt-4">
+    <Container className="mt-4 form-background">
       <Row className="align-items-center">
         <Col>
           <Link to="/" className="btn btn-secondary my-3">

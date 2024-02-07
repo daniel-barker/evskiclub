@@ -35,7 +35,7 @@ const Header = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto d-flex align-items-center">
             {userInfo && userInfo.isAdmin && (
-              <NavDropdown title="Admin" id="adminmenu">
+              <NavDropdown title="Admin" id="navbar-font">
                 <LinkContainer to="/admin/user/list">
                   <NavDropdown.Item>Users</NavDropdown.Item>
                 </LinkContainer>
@@ -49,7 +49,9 @@ const Header = () => {
             )}
             {userInfo && (
               <>
-                <NavLink to="/home">Home</NavLink>
+                <NavLink to="/home" id="navbar-font">
+                  Home
+                </NavLink>
                 <Image
                   src={logo}
                   alt="logo"
