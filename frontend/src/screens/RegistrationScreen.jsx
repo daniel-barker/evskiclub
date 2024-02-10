@@ -50,7 +50,6 @@ const RegistrationScreen = () => {
         navigate("/");
       } catch (err) {
         toast.error(err?.data?.message || err.data || err.error);
-        console.log(err);
       }
     }
   };

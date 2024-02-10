@@ -83,7 +83,6 @@ const registerUser = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(400).send("Invalid user data");
-    console.log(error);
   }
 });
 
