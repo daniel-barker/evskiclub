@@ -21,15 +21,20 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    isAdmin: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
     position: {
       type: String,
       required: true,
       default: "Member",
+    },
+    isApproved: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    isAdmin: {
+      type: Boolean,
+      required: true,
+      default: false,
     },
   },
   {

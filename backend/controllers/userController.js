@@ -48,15 +48,16 @@ const registerUser = asyncHandler(async (req, res) => {
   });
 
   if (user) {
-    generateToken(res, user._id);
+    // generateToken(res, user._id);
 
     res.status(201).json({
       _id: user._id,
       username: user.username,
       email: user.email,
       name: user.name,
-      isAdmin: user.isAdmin,
       position: user.position,
+      isAdmin: user.isAdmin,
+      isApproved: user.isApproved,
     });
   } else {
     res.status(400);
