@@ -32,6 +32,7 @@ import NewsScreen from "./screens/NewsScreen";
 import NewsCreateScreen from "./screens/Admin/NewsCreateScreen";
 import NewsListScreen from "./screens/Admin/NewsListScreen";
 import NewsEditScreen from "./screens/Admin/NewsEditScreen";
+import PendingApprovalScreen from "./screens/PendingApprovalScreen";
 
 Modal.setAppElement("#root");
 
@@ -42,6 +43,7 @@ const router = createBrowserRouter(
       <Route index={true} path="/" element={<HomeScreen />} />
       <Route path="register" element={<RegistrationScreen />} />
       <Route path="login" element={<LoginScreen />} />
+      <Route path="pending-approval" element={<PendingApprovalScreen />} />
 
       {/* Private Routes */}
       <Route path="" element={<PrivateRoute />}>
