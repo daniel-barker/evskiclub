@@ -37,7 +37,7 @@ function fileFilter(req, file, cb) {
 }
 
 const upload = multer({ storage, fileFilter });
-const uploadSingleImage = upload.single("image");
+const uploadSingleImage = upload.single("newsImage");
 
 import {
   getAllNews,
@@ -64,7 +64,7 @@ router
   .put(protect, admin, checkObjectId, updateNews)
   .delete(protect, admin, checkObjectId, deleteNews);
 
-router.post("/u", (req, res) => {
+router.post("/u", protect, admin, (req, res) => {
   uploadSingleImage(req, res, function (err) {
     console.log("file:", JSON.stringify(req.file, null, 2));
     if (err) {

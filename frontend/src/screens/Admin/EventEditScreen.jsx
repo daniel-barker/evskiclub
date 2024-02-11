@@ -92,67 +92,64 @@ const EventEditScreen = () => {
           <Link to="/admin/event/list" className="btn btn-light my-3">
             Go Back
           </Link>
-
           <FormContainer>
-            <div className="form-background">
-              <h1 className="text-center">Edit Event</h1>
-              <Form onSubmit={submitHandler}>
-                <Form.Group className="pb-3" controlId="title">
-                  <Form.Label>Title</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Enter title"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                  ></Form.Control>
-                </Form.Group>
+            <h1 className="text-center">Edit Event</h1>
+            <Form onSubmit={submitHandler}>
+              <Form.Group className="pb-3" controlId="title">
+                <Form.Label>Title</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter title"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                ></Form.Control>
+              </Form.Group>
 
-                <Form.Group className="pb-3" controlId="date">
-                  <Form.Label>Date</Form.Label>
-                  <Form.Control
-                    type="date-time"
-                    placeholder="Enter date"
-                    value={date}
-                    onChange={(e) => setDate(e.target.value)}
-                  ></Form.Control>
-                </Form.Group>
+              <Form.Group className="pb-3" controlId="date">
+                <Form.Label>Date</Form.Label>
+                <Form.Control
+                  type="date-time"
+                  placeholder="Enter date"
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                ></Form.Control>
+              </Form.Group>
 
-                <Form.Group className="pb-3" controlId="location">
-                  <Form.Label>Location</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Enter location"
-                    value={location}
-                    onChange={(e) => setLocation(e.target.value)}
-                  ></Form.Control>
-                </Form.Group>
+              <Form.Group className="pb-3" controlId="location">
+                <Form.Label>Location</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter location"
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                ></Form.Control>
+              </Form.Group>
 
-                <Form.Group className="pb-3" controlId="description">
-                  <Form.Label>Description</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    rows={3}
-                    placeholder="Enter description"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                  ></Form.Control>
-                </Form.Group>
+              <Form.Group className="pb-3" controlId="description">
+                <Form.Label>Description</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={3}
+                  placeholder="Enter description"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                ></Form.Control>
+              </Form.Group>
 
-                <Form.Group className="pb-3" controlId="image">
-                  <Form.Label>Image</Form.Label>
-                  <Form.Control
-                    type="file"
-                    label="Choose File"
-                    onChange={uploadFileHandler}
-                  ></Form.Control>
-                </Form.Group>
+              <Form.Group className="pb-3" controlId="image">
+                <Form.Label>Image</Form.Label>
+                <Form.Control
+                  type="file"
+                  label="Choose File"
+                  onChange={uploadFileHandler}
+                ></Form.Control>
+              </Form.Group>
 
-                {loadingUpload && <Loader />}
-                <Button type="submit" variant="primary">
-                  Update
-                </Button>
-              </Form>
-            </div>
+              {loadingUpload && <Loader />}
+              <Button type="submit" variant="primary">
+                Update
+              </Button>
+            </Form>
           </FormContainer>
         </Container>
       )}

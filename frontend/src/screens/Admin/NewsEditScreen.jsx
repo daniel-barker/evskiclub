@@ -65,14 +65,14 @@ const NewsEditScreen = () => {
     const file = e.target.files[0];
     if (file) {
       const formData = new FormData();
-      formData.append("newsImage", file);
+      formData.append("image", file);
       try {
         const res = await uploadImage(formData).unwrap();
         toast.success(res.message);
         setImage(res.image);
         setThumbnail(res.thumbnail);
-      } catch (error) {
-        toast.error(error.message);
+      } catch (err) {
+        toast.error(err?.data?.message || err.error);
       }
     }
   };
@@ -90,53 +90,52 @@ const NewsEditScreen = () => {
             Go Back
           </Link>
           <FormContainer>
-            <div className="form-background">
-              <h1 className="text-center">Edit News</h1>
-              <Form onSubmit={submitHandler}>
-                <Form.Group controlId="title">
-                  <Form.Label>Title</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Enter title"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                  ></Form.Control>
-                </Form.Group>
+            <h1 className="text-center">Edit News</h1>
+            <Form onSubmit={submitHandler}>
+              <Form.Group controlId="title">
+                <Form.Label>Title</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter title"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                ></Form.Control>
+              </Form.Group>
 
-                <Form.Group controlId="post">
-                  <Form.Label>Post</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    rows={10}
-                    placeholder="Enter post"
-                    value={post}
-                    onChange={(e) => setPost(e.target.value)}
-                  ></Form.Control>
-                </Form.Group>
+              <Form.Group controlId="post">
+                <Form.Label>Post</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={10}
+                  placeholder="Enter post"
+                  value={post}
+                  onChange={(e) => setPost(e.target.value)}
+                ></Form.Control>
+              </Form.Group>
 
-                <Form.Group controlId="isPublished">
-                  <Form.Check
-                    type="checkbox"
-                    label="Published"
-                    checked={isPublished}
-                    onChange={(e) => setIsPublished(e.target.checked)}
-                  ></Form.Check>
-                </Form.Group>
-                <Form.Group>
-                  <Form.Label>Image</Form.Label>
-                  <Form.Control
-                    type="file"
-                    label="Choose File"
-                    onChange={uploadFileHandler}
-                  ></Form.Control>
-                  {loadingUpload && <Loader />}
-                </Form.Group>
+              <Form.Group controlId="isPublished">
+                <Form.Check
+                  type="checkbox"
+                  label="Published"
+                  checked={isPublished}
+                  onChange={(e) => setIsPublished(e.target.checked)}
+                ></Form.Check>
+              </Form.Group>
 
-                <Button type="submit" variant="primary">
-                  Update
-                </Button>
-              </Form>
-            </div>
+              <Form.Group className="pb-3" controlId="image">
+                <Form.Label>Image</Form.Label>
+                <Form.Control
+                  type="file"
+                  label="Choose File"
+                  onChange={uploadFileHandler}
+                ></Form.Control>
+                {loadingUpload && <Loader />}
+              </Form.Group>
+
+              <Button type="submit" variant="primary">
+                Update
+              </Button>
+            </Form>
           </FormContainer>
         </Container>
       )}

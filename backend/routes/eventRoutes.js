@@ -48,6 +48,7 @@ import {
   updateEvent,
   deleteEvent,
 } from "../controllers/eventController.js";
+
 import { protect, admin } from "../middleware/authMiddleware.js";
 import checkObjectId from "../middleware/checkObjectId.js";
 

@@ -57,6 +57,7 @@ const UserListScreen = () => {
               <th>NAME</th>
               <th>EMAIL</th>
               <th>ADMIN</th>
+              <th>STATUS</th>
               <th></th>
             </tr>
           </thead>
@@ -76,24 +77,27 @@ const UserListScreen = () => {
                 </td>
 
                 <td>
+                  {user.isApproved ? (
+                    <FaCheck style={{ color: "green" }} />
+                  ) : (
+                    <FaTimes style={{ color: "red" }} />
+                  )}
+                </td>
+
+                <td>
                   <LinkContainer to={`/admin/user/${user._id}/edit`}>
                     <Button variant="primary" className="btn-sm">
                       <FaEdit />
                     </Button>
                   </LinkContainer>
-                  {user.isGeneral ? (
-                    //do not show the delete button if the user is general
-                    <></>
-                  ) : (
-                    //show the delete button if the user is not general
-                    <Button
-                      variant="danger"
-                      className="btn-sm"
-                      onClick={() => deleteHandler(user._id)}
-                    >
-                      <FaTrash style={{ color: "white" }} />
-                    </Button>
-                  )}
+
+                  <Button
+                    variant="danger"
+                    className="btn-sm"
+                    onClick={() => deleteHandler(user._id)}
+                  >
+                    <FaTrash style={{ color: "white" }} />
+                  </Button>
                 </td>
               </tr>
             ))}

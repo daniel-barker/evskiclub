@@ -33,10 +33,10 @@ export const newsApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: ["News"],
     }),
     updateNews: builder.mutation({
-      query: ({ id, body }) => ({
-        url: `${NEWS_URL}/${id}`,
+      query: (data) => ({
+        url: `${NEWS_URL}/${data.id}`,
         method: "PUT",
-        body,
+        body: data,
       }),
       invalidatesTags: ["News"],
     }),
