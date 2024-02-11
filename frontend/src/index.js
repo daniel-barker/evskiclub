@@ -13,6 +13,8 @@ import App from "./App";
 import Modal from "react-modal";
 import reportWebVitals from "./reportWebVitals";
 import LoginScreen from "./screens/LoginScreen";
+import ForgotPasswordScreen from "./screens/ForgotPasswordScreen";
+import ResetPasswordScreen from "./screens/ResetPasswordScreen";
 import RegistrationScreen from "./screens/RegistrationScreen";
 import MemberScreen from "./screens/MemberScreen";
 import AboutScreen from "./screens/AboutScreen";
@@ -43,6 +45,8 @@ const router = createBrowserRouter(
       <Route path="register" element={<RegistrationScreen />} />
       <Route path="login" element={<LoginScreen />} />
       <Route path="pending-approval" element={<PendingApprovalScreen />} />
+      <Route path="forgot-password" element={<ForgotPasswordScreen />} />
+      <Route path="reset-password/:token" element={<ResetPasswordScreen />} />
 
       {/* Private Routes */}
       <Route path="" element={<PrivateRoute />}>
