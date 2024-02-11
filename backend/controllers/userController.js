@@ -3,7 +3,6 @@ import User from "../models/userModel.js";
 import generateToken from "../utils/generateToken.js";
 import nodemailer from "nodemailer";
 import crypto from "crypto";
-import bcrypt from "bcryptjs";
 
 // @desc Auth user & get token
 // @route POST /api/users/login
