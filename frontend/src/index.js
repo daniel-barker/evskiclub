@@ -9,8 +9,6 @@ import {
 import { Provider } from "react-redux";
 import store from "./store";
 import "bootstrap/dist/css/bootstrap.min.css";
-// import "./assets/styles/index.css";
-// import "./assets/styles/bootstrap.custom.css";
 import App from "./App";
 import Modal from "react-modal";
 import reportWebVitals from "./reportWebVitals";
@@ -22,6 +20,7 @@ import GalleryScreen from "./screens/GalleryScreen";
 import ImageUploadScreen from "./screens/Admin/ImageUploadScreen";
 import HomeScreen from "./screens/HomeScreen";
 import UserListScreen from "./screens/Admin/UserListScreen";
+import UserEditScreen from "./screens/Admin/UserEditScreen";
 import PrivateRoute from "./components/PrivateRoute";
 import AdminRoute from "./components/AdminRoute";
 import EventListScreen from "./screens/Admin/EventListScreen";
@@ -32,6 +31,7 @@ import NewsScreen from "./screens/NewsScreen";
 import NewsCreateScreen from "./screens/Admin/NewsCreateScreen";
 import NewsListScreen from "./screens/Admin/NewsListScreen";
 import NewsEditScreen from "./screens/Admin/NewsEditScreen";
+import PendingApprovalScreen from "./screens/PendingApprovalScreen";
 
 Modal.setAppElement("#root");
 
@@ -42,6 +42,7 @@ const router = createBrowserRouter(
       <Route index={true} path="/" element={<HomeScreen />} />
       <Route path="register" element={<RegistrationScreen />} />
       <Route path="login" element={<LoginScreen />} />
+      <Route path="pending-approval" element={<PendingApprovalScreen />} />
 
       {/* Private Routes */}
       <Route path="" element={<PrivateRoute />}>
@@ -56,6 +57,7 @@ const router = createBrowserRouter(
       {/* Admin Routes */}
       <Route path="admin" element={<AdminRoute />}>
         <Route path="user/list" element={<UserListScreen />} />
+        <Route path="user/:id/edit" element={<UserEditScreen />} />
         <Route path="event/list" element={<EventListScreen />} />
         <Route path="event/create" element={<EventCreateScreen />} />
         <Route path="event/:id/edit" element={<EventEditScreen />} />

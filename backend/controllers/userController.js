@@ -10,7 +10,18 @@ const authUser = asyncHandler(async (req, res) => {
 
   const user = await User.findOne({ username });
 
-  if (user && (await user.matchPassword(password))) {
+  if (!user) {
+    return res.status(401).send("Username doesn't exist");
+  }
+
+  if (user.isApproved === false) {
+    res.status(401);
+    throw new Error(
+      "Account still awaiting approval from an admin. Please contact EVSkiClub Secretary for more information."
+    );
+  }
+
+  if (await user.matchPassword(password)) {
     generateToken(res, user._id);
 
     res.status(200).json({
@@ -19,6 +30,7 @@ const authUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      isApproved: user.isApproved,
       position: user.position,
     });
   } else {
@@ -33,11 +45,23 @@ const authUser = asyncHandler(async (req, res) => {
 const registerUser = asyncHandler(async (req, res) => {
   const { username, email, password, name } = req.body;
 
-  const userExists = await User.findOne({ username });
+  const userByUsername = await User.findOne({ username });
+  const userByEmail = await User.findOne({ email });
 
-  if (userExists) {
-    res.status(400);
-    throw new Error("User already exists");
+  if (userByUsername) {
+    return res.status(400).send("Username already exists.");
+  }
+
+  if (userByEmail) {
+    if (!userByEmail.isApproved) {
+      return res
+        .status(400)
+        .send(
+          "An account with this email is already registered and awaiting approval."
+        );
+    } else {
+      return res.status(400).send("Email already in use.");
+    }
   }
 
   const user = await User.create({
@@ -48,20 +72,17 @@ const registerUser = asyncHandler(async (req, res) => {
   });
 
   if (user) {
-    // generateToken(res, user._id);
-
     res.status(201).json({
       _id: user._id,
       username: user.username,
       email: user.email,
       name: user.name,
-      position: user.position,
       isAdmin: user.isAdmin,
+      position: user.position,
       isApproved: user.isApproved,
     });
   } else {
-    res.status(400);
-    throw new Error("Invalid user data");
+    res.status(400).send("Invalid user data");
   }
 });
 
@@ -207,6 +228,7 @@ const updateUser = asyncHandler(async (req, res) => {
   userToUpdate.email = email || userToUpdate.email;
   userToUpdate.name = req.body.name || userToUpdate.name;
   userToUpdate.position = req.body.position || userToUpdate.position;
+  userToUpdate.isApproved = req.body.isApproved || userToUpdate.isApproved;
   // I chose to leave out the ability to update the isAdmin field for security reasons. Admin flag should only be updated in the database.
 
   const updatedUser = await userToUpdate.save();
