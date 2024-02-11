@@ -193,7 +193,6 @@ const deleteUser = asyncHandler(async (req, res) => {
 // @route PUT /api/users/:id
 // @access Private/admin
 const updateUser = asyncHandler(async (req, res) => {
-  console.log(req.body);
   const userId = req.params.id;
   const { username, email } = req.body; //Only need to destructure these two as they're the only unique fields
 
