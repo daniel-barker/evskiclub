@@ -281,7 +281,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
     await transporter.sendMail({
       from: process.env.GMAIL_ADDRESS,
       to: email,
-      subject: 'Ellicottville Ski Club Password Reset Request',
+      subject: "Ellicottville Ski Club Password Reset Request",
       text: textMessage,
       html: htmlMessage,
     });
@@ -301,32 +301,32 @@ const forgotPassword = asyncHandler(async (req, res) => {
 // @route POST /api/users/reset-password/:token
 // @access Public
 const resetPassword = asyncHandler(async (req, res) => {
-    const { token } = req.params;
-    const { password } = req.body;
-    console.log(req)
-    // Hashes the token to compare with the database
-    const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+  const { token } = req.params;
+  const { password } = req.body;
+  // Hashes the token to compare with the database
+  const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
 
-    // Finds the user by the hashed token and ensure the token hasn't expired
-    const user = await User.findOne({
-        resetPasswordToken: hashedToken,
-        resetPasswordExpire: { $gt: Date.now() },
-    });
+  // Finds the user by the hashed token and ensure the token hasn't expired
+  const user = await User.findOne({
+    resetPasswordToken: hashedToken,
+    resetPasswordExpire: { $gt: Date.now() },
+  });
 
-    if (!user) {
-        res.status(400);
-        throw new Error('Token is invalid or has expired');
-    }
+  if (!user) {
+    res.status(400);
+    throw new Error("Token is invalid or has expired");
+  }
 
-    // Updates the user's password and clear the reset token fields
-    user.password = password;
-    user.resetPasswordToken = undefined;
-    user.resetPasswordExpire = undefined;
-    await user.save();
+  // Updates the user's password and clear the reset token fields
+  user.password = password;
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpire = undefined;
+  await user.save();
 
-    res.status(200).json({
-        message: 'Your password has been reset successfully! Please log in with your new password.',
-    });
+  res.status(200).json({
+    message:
+      "Your password has been reset successfully! Please log in with your new password.",
+  });
 });
 
 export {
