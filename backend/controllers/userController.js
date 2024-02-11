@@ -1,6 +1,9 @@
 import asyncHandler from "../middleware/asyncHandler.js";
 import User from "../models/userModel.js";
 import generateToken from "../utils/generateToken.js";
+import nodemailer from "nodemailer";
+import crypto from "crypto";
+import bcrypt from "bcryptjs";
 
 // @desc Auth user & get token
 // @route POST /api/users/login
@@ -243,6 +246,89 @@ const updateUser = asyncHandler(async (req, res) => {
   });
 });
 
+// @desc Forgot password - sends a reset link
+// @route POST /api/users/forgot-password
+// @access Public
+const forgotPassword = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
+  const resetToken = user.generateResetPasswordToken();
+  await user.save();
+  const resetUrl = `http://localhost:3000/reset-password/${resetToken}`;
+  const textMessage = `
+    You are receiving this email because you (or someone else) has requested the reset of a password. Please click on the following link, or paste it into your browser to reset your password:
+    \n\n${resetUrl}
+    \n\nIf you did not request this, please ignore this email and your password will remain unchanged.
+  `;
+  const htmlMessage = `
+    <p>You are receiving this email because you (or someone else) has requested the reset of a password. Please click on the following link, or paste it into your browser to reset your password:</p>
+    <a href="${resetUrl}" target="_blank">Reset Password</a>
+    <p>If you did not request this, please ignore this email and your password will remain unchanged.</p>
+  `;
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.GMAIL_ADDRESS,
+        pass: process.env.GMAIL_APP_PASSWORD,
+      },
+    });
+
+    await transporter.sendMail({
+      from: process.env.GMAIL_ADDRESS,
+      to: email,
+      subject: 'Ellicottville Ski Club Password Reset Request',
+      text: textMessage,
+      html: htmlMessage,
+    });
+
+    res.status(200).json({ message: "Email sent" });
+  } catch (error) {
+    console.error(error);
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+    await user.save();
+
+    return res.status(500).json({ message: "Email could not be sent" });
+  }
+});
+
+// @desc Reset user's password
+// @route POST /api/users/reset-password/:token
+// @access Public
+const resetPassword = asyncHandler(async (req, res) => {
+    const { token } = req.params;
+    const { password } = req.body;
+    console.log(req)
+    // Hashes the token to compare with the database
+    const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+
+    // Finds the user by the hashed token and ensure the token hasn't expired
+    const user = await User.findOne({
+        resetPasswordToken: hashedToken,
+        resetPasswordExpire: { $gt: Date.now() },
+    });
+
+    if (!user) {
+        res.status(400);
+        throw new Error('Token is invalid or has expired');
+    }
+
+    // Updates the user's password and clear the reset token fields
+    user.password = password;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+    await user.save();
+
+    res.status(200).json({
+        message: 'Your password has been reset successfully! Please log in with your new password.',
+    });
+});
+
 export {
   authUser,
   registerUser,
@@ -253,4 +339,6 @@ export {
   deleteUser,
   getUserByID,
   updateUser,
+  forgotPassword,
+  resetPassword,
 };

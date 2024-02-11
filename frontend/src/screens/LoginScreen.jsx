@@ -38,6 +38,11 @@ const LoginScreen = () => {
     }
   };
 
+  const handleForgotPassword = (e) => {
+    e.preventDefault();
+    navigate("/forgot-password"); // Assuming you have a route set up for this
+  };
+
   const customStyles = {
     overlay: {
       backgroundColor: "rgba(0, 0, 0, 0.0)", // Semi-transparent black background
@@ -91,12 +96,15 @@ const LoginScreen = () => {
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <Button type="submit" variant="primary">
+        <Button type="submit" variant="primary" className="my-3">
           Sign In
         </Button>
-        <br />
-        <br />
-        Don't have an account? <a href="/register">Register</a>
+        <div className="text-center">
+          <a href="#" onClick={handleForgotPassword}>Forgot Password?</a>
+        </div>
+        <div className="text-center mt-3">
+          Don't have an account? <a href="/register">Register</a>
+        </div>
         {isLoading && <Loader />}
       </Form>
     </Modal>
