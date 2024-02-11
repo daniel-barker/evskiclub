@@ -66,54 +66,52 @@ const NewsCreateScreen = () => {
         Go Back
       </Link>
       <FormContainer>
-        <div className="form-background">
-          <h1 className="text-center">Create News Post</h1>
-          {loadingCreate && <Loader />}
-          {loadingUpload && <Loader />}
-          <Form onSubmit={submitHandler}>
-            <Form.Group controlId="title">
-              <Form.Label>Title</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
+        <h1 className="text-center">Create News Post</h1>
+        {loadingCreate && <Loader />}
+        {loadingUpload && <Loader />}
+        <Form onSubmit={submitHandler}>
+          <Form.Group controlId="title">
+            <Form.Label>Title</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            ></Form.Control>
+          </Form.Group>
 
-            <Form.Group controlId="post">
-              <Form.Label>Post</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={8}
-                placeholder="Enter post"
-                value={post}
-                onChange={(e) => setPost(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
-            <Form.Group controlId="isPublished">
-              <Form.Check
-                type="checkbox"
-                label="Publish"
-                checked={isPublished}
-                onChange={(e) => setIsPublished(e.target.checked)}
-              ></Form.Check>
-            </Form.Group>
+          <Form.Group controlId="post">
+            <Form.Label>Post</Form.Label>
+            <Form.Control
+              as="textarea"
+              rows={8}
+              placeholder="Enter post"
+              value={post}
+              onChange={(e) => setPost(e.target.value)}
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group controlId="isPublished">
+            <Form.Check
+              type="checkbox"
+              label="Publish"
+              checked={isPublished}
+              onChange={(e) => setIsPublished(e.target.checked)}
+            ></Form.Check>
+          </Form.Group>
 
-            <Form.Group controlId="image">
-              <Form.Label>Choose Image (optional)</Form.Label>
-              <Form.Control
-                type="file"
-                id="image-file"
-                label="Choose Image"
-                onChange={uploadFileHandler}
-              ></Form.Control>
-            </Form.Group>
-            <Button type="submit" variant="primary">
-              Create
-            </Button>
-          </Form>
-        </div>
+          <Form.Group controlId="image">
+            <Form.Label>Choose Image (optional)</Form.Label>
+            <Form.Control
+              type="file"
+              id="image-file"
+              label="Choose Image"
+              onChange={uploadFileHandler}
+            ></Form.Control>
+          </Form.Group>
+          <Button type="submit" variant="primary">
+            Create
+          </Button>
+        </Form>
       </FormContainer>
     </Container>
   );

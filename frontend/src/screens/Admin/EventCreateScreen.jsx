@@ -68,61 +68,59 @@ const EventCreateScreen = () => {
         Go Back
       </Link>
       <FormContainer>
-        <div className="form-background">
-          <h1 className="text-center">Create Event</h1>
-          {loadingCreate && <Loader />}
-          {loadingUpload && <Loader />}
-          <Form onSubmit={submitHandler}>
-            <Form.Group className="pb-3" controlId="title">
-              <Form.Label>Title</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
-            <Form.Group className="pb-3" controlId="date">
-              <Form.Label>Date & Time</Form.Label>
-              <Form.Control
-                type="datetime-local"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
-            <Form.Group className="pb-3" controlId="location">
-              <Form.Label>Location</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter location"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
-            <Form.Group className="pb-3" controlId="description">
-              <Form.Label>Description</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={8}
-                placeholder="Enter description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
-            <Form.Group className="pb-4">
-              <Form.Label>Choose Image (optional)</Form.Label>
-              <Form.Control
-                type="file"
-                id="image-file"
-                label="Choose Image"
-                onChange={uploadFileHandler}
-              ></Form.Control>
-            </Form.Group>
-            <Button type="submit" variant="primary">
-              Create
-            </Button>
-          </Form>
-        </div>
+        <h1 className="text-center">Create Event</h1>
+        {loadingCreate && <Loader />}
+        {loadingUpload && <Loader />}
+        <Form onSubmit={submitHandler}>
+          <Form.Group className="pb-3" controlId="title">
+            <Form.Label>Title</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group className="pb-3" controlId="date">
+            <Form.Label>Date & Time</Form.Label>
+            <Form.Control
+              type="datetime-local"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group className="pb-3" controlId="location">
+            <Form.Label>Location</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter location"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group className="pb-3" controlId="description">
+            <Form.Label>Description</Form.Label>
+            <Form.Control
+              as="textarea"
+              rows={8}
+              placeholder="Enter description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group className="pb-4">
+            <Form.Label>Choose Image (optional)</Form.Label>
+            <Form.Control
+              type="file"
+              id="image-file"
+              label="Choose Image"
+              onChange={uploadFileHandler}
+            ></Form.Control>
+          </Form.Group>
+          <Button type="submit" variant="primary">
+            Create
+          </Button>
+        </Form>
       </FormContainer>
     </Container>
   );
