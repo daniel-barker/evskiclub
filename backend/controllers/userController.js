@@ -196,6 +196,7 @@ const deleteUser = asyncHandler(async (req, res) => {
 // @route PUT /api/users/:id
 // @access Private/admin
 const updateUser = asyncHandler(async (req, res) => {
+  console.log(req.body);
   const userId = req.params.id;
   const { username, email } = req.body; //Only need to destructure these two as they're the only unique fields
 
@@ -227,12 +228,16 @@ const updateUser = asyncHandler(async (req, res) => {
   }
 
   // Update fields if provided, otherwise keep existing values
+  // I chose to leave out the ability to update the isAdmin field for security reasons. Admin flag should only be updated in the database.
   userToUpdate.username = username || userToUpdate.username;
   userToUpdate.email = email || userToUpdate.email;
   userToUpdate.name = req.body.name || userToUpdate.name;
   userToUpdate.position = req.body.position || userToUpdate.position;
-  userToUpdate.isApproved = req.body.isApproved || userToUpdate.isApproved;
-  // I chose to leave out the ability to update the isAdmin field for security reasons. Admin flag should only be updated in the database.
+
+  // When using the a ternary, the value on the right will be used if the value on the left is falsy.
+  // Using the ternary was causing the application to leave the value as it was, when attempting to set it to false.
+
+  userToUpdate.isApproved = req.body.isApproved;
 
   const updatedUser = await userToUpdate.save();
 
@@ -242,6 +247,7 @@ const updateUser = asyncHandler(async (req, res) => {
     name: updatedUser.name,
     email: updatedUser.email,
     isAdmin: updatedUser.isAdmin,
+    isApproved: updatedUser.isApproved,
     position: updatedUser.position,
   });
 });
