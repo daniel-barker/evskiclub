@@ -37,7 +37,7 @@ function fileFilter(req, file, cb) {
 }
 
 const upload = multer({ storage, fileFilter });
-const uploadSingleImage = upload.single("newsImage");
+const uploadSingleImage = upload.single("image");
 
 import {
   getAllNews,

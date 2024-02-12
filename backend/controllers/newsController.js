@@ -1,5 +1,6 @@
 import asyncHandler from "../middleware/asyncHandler.js";
 import News from "../models/newsModel.js";
+import fs from "fs";
 
 // @desc    Get all news
 // @route   GET /api/news
@@ -104,6 +105,20 @@ const deleteNews = asyncHandler(async (req, res) => {
   const news = await News.findById(req.params.id);
 
   if (news) {
+    // check for images and delete if present
+    if (news.image) {
+      const fullPath = `frontend/public/${news.image}`;
+      if (fs.existsSync(fullPath)) {
+        fs.unlinkSync(fullPath);
+      }
+    }
+    if (news.thumbnail) {
+      const thumbPath = `frontend/public/${news.thumbnail}`;
+      if (fs.existsSync(thumbPath)) {
+        fs.unlinkSync(thumbPath);
+      }
+    }
+
     await news.deleteOne({ _id: news._id });
     res.json({ message: "Post removed" });
   } else {
