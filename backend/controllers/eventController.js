@@ -1,5 +1,6 @@
 import asyncHandler from "../middleware/asyncHandler.js";
 import Event from "../models/eventModel.js";
+import fs from "fs";
 
 // @desc    Get all events
 // @route   GET /api/events
@@ -99,7 +100,22 @@ const updateEvent = asyncHandler(async (req, res) => {
 const deleteEvent = asyncHandler(async (req, res) => {
   const event = await Event.findById(req.params.id);
 
+  console.log(event);
   if (event) {
+    // Delete the image and thumbnail from the server when an event is deleted
+    if (event.image) {
+      const fullPath = `frontend/public/${event.image}`;
+      if (fs.existsSync(fullPath)) {
+        fs.unlinkSync(fullPath);
+      }
+    }
+    if (event.thumbnail) {
+      const thumbPath = `frontend/public/${event.thumbnail}`;
+      if (fs.existsSync(thumbPath)) {
+        fs.unlinkSync(thumbPath);
+      }
+    }
+
     await event.deleteOne({ _id: event._id });
     res.json({ message: "Event removed" });
   } else {
