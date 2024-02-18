@@ -13,21 +13,20 @@ import {
 
 const EventEditScreen = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
   const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
-  const [image, setImage] = useState("");
-  const [thumbnail, setThumbnail] = useState("");
+  const [image, setImage] = useState(""); // For new image file selection
+  const [originalImage, setOriginalImage] = useState(""); // Store original image URL
+  const [originalThumbnail, setOriginalThumbnail] = useState(""); // Store original thumbnail URL
+  const [removeImage, setRemoveImage] = useState(false);
 
   const { data: event, isLoading, error } = useGetEventByIdQuery(id);
-
   const [updateEvent, { isLoading: loadingUpdate }] = useUpdateEventMutation();
-
   const [uploadImage, { isLoading: loadingUpload }] =
     useUploadEventImageMutation();
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (event) {
@@ -35,49 +34,72 @@ const EventEditScreen = () => {
       setDate(event.date);
       setLocation(event.location);
       setDescription(event.description);
-      setImage(event.image);
-      setThumbnail(event.thumbnail);
+      setOriginalImage(event.image); // Assuming 'event.image' holds the URL to the existing image
+      setOriginalThumbnail(event.thumbnail); // Assuming 'event.thumbnail' holds the URL to the existing thumbnail
     }
   }, [event]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const updatedEvent = {
+
+    // Start with the base event details
+    let updatedEvent = {
       id,
       title,
       date,
       location,
       description,
-      image,
-      thumbnail,
     };
+
+    // If the 'removeImage' checkbox is not checked and a new image has been selected, proceed with image upload
+    if (!removeImage && image instanceof File) {
+      try {
+        const formData = new FormData();
+        formData.append("image", image);
+        const uploadResult = await uploadImage(formData).unwrap();
+        updatedEvent.image = uploadResult.image;
+        updatedEvent.thumbnail = uploadResult.thumbnail;
+      } catch (error) {
+        toast.error(
+          "Failed to upload new image: " +
+            (error?.data?.message || error.message)
+        );
+        return; // Exit early if image upload fails
+      }
+    } else if (removeImage) {
+      // If 'removeImage' is checked, ensure 'image' and 'thumbnail' are not included in the payload
+      // This is effectively done by not adding them to 'updatedEvent'
+    } else {
+      // If not removing the image and no new image is selected, retain the original image data
+      if (originalImage) updatedEvent.image = originalImage;
+      if (originalThumbnail) updatedEvent.thumbnail = originalThumbnail;
+    }
+
+    // Proceed with event update
     try {
       const result = await updateEvent(updatedEvent);
-      if (result.error) {
-        toast.error(result.error);
-      } else {
+      if (!result.error) {
         toast.success("Event updated successfully");
         navigate("/admin/event/list");
+      } else {
+        throw new Error("Event update failed");
       }
     } catch (error) {
-      toast.error(error?.data?.message || error.error);
+      toast.error(
+        "Failed to update event: " + (error?.data?.message || error.error)
+      );
     }
   };
 
-  const uploadFileHandler = async (e) => {
+  const imageHandler = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const formData = new FormData();
-      formData.append("image", file);
-      try {
-        const res = await uploadImage(formData).unwrap();
-        toast.success(res.message);
-        setImage(res.image);
-        setThumbnail(res.thumbnail);
-      } catch (err) {
-        toast.error(err?.data?.message || err.error);
-      }
+      setImage(file);
     }
+  };
+
+  const handleRemoveImageChange = (e) => {
+    setRemoveImage(e.target.checked);
   };
 
   return (
@@ -140,9 +162,18 @@ const EventEditScreen = () => {
                 <Form.Label>Image</Form.Label>
                 <Form.Control
                   type="file"
-                  label="Choose File"
-                  onChange={uploadFileHandler}
+                  label="Choose New File"
+                  onChange={imageHandler}
                 ></Form.Control>
+              </Form.Group>
+
+              <Form.Group controlId="removeImage">
+                <Form.Check
+                  type="checkbox"
+                  label="Remove Image"
+                  checked={removeImage}
+                  onChange={handleRemoveImageChange}
+                />
               </Form.Group>
 
               {loadingUpload && <Loader />}

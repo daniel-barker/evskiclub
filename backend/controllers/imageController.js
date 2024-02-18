@@ -1,6 +1,7 @@
 import asyncHandler from "../middleware/asyncHandler.js";
 import Image from "../models/imageModel.js";
 import sharp from "sharp";
+import fs from "fs";
 
 // @desc    Get all images
 // @route   GET /api/images
@@ -18,6 +19,11 @@ const getImages = asyncHandler(async (req, res) => {
 const uploadImage = asyncHandler(async (req, res) => {
   const file = req.file;
   const thumbnailPath = `uploads/thumbnails/${file.filename}`;
+
+  if (!fs.existsSync(thumbnailPath)) {
+    fs.mkdirSync(thumbnailPath, { recursive: true });
+  }
+
   await sharp(file.path).resize(200).toFile(thumbnailPath);
 
   const metadata = await sharp(file.path).metadata();

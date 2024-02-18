@@ -86,12 +86,6 @@ const ImageUploadScreen = () => {
           <Form.Group controlId="image">
             <Form.Label>Image</Form.Label>
             <Form.Control
-              type="text"
-              placeholder="Enter image url"
-              value={image}
-              onChange={(e) => setImage(e.target.value)}
-            ></Form.Control>
-            <Form.Control
               type="file"
               id="image-file"
               label="Choose File"

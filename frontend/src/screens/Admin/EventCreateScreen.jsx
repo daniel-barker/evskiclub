@@ -15,7 +15,6 @@ const EventCreateScreen = () => {
   const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
-  const [thumbnail, setThumbnail] = useState("");
 
   const [createEvent, { isLoading: loadingCreate }] = useCreateEventMutation();
   const [uploadImage, { isLoading: loadingUpload }] =
@@ -25,40 +24,57 @@ const EventCreateScreen = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const newEvent = {
-      title,
-      date,
-      location,
-      description,
-      image,
-      thumbnail,
-    };
-    try {
-      const result = await createEvent(newEvent);
-      if (result.error) {
-        toast.error(result.error);
-      } else {
-        toast.success("Event created successfully");
-        navigate("/admin/event/list");
+    if (image) {
+      const formData = new FormData();
+      formData.append("image", image);
+
+      try {
+        const uploadResult = await uploadImage(formData).unwrap();
+
+        const newEvent = {
+          title,
+          date,
+          location,
+          description,
+          image: uploadResult.image,
+          thumbnail: uploadResult.thumbnail,
+        };
+
+        const createResult = await createEvent(newEvent);
+        if (createResult.data) {
+          toast.success("Event created successfully");
+          navigate("/admin/event/list");
+        } else {
+          throw new Error("Event creation failed");
+        }
+      } catch (error) {
+        toast.error(
+          error?.data?.message ||
+            error.error ||
+            "An error occurred during upload or event creation."
+        );
       }
-    } catch (error) {
-      toast.error(error?.data?.message || error.error);
+    } else {
+      //handle events without images
+      try {
+        const newEvent = { title, date, location, description };
+        const result = await createEvent(newEvent);
+        if (result.error) {
+          throw new Error(result.error);
+        } else {
+          toast.success("Event created successfully");
+          navigate("/admin/event/list");
+        }
+      } catch (error) {
+        toast.error(error?.data?.message || error.error);
+      }
     }
   };
 
-  const uploadFileHandler = async (e) => {
+  const imageHandler = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const formData = new FormData();
-      formData.append("image", e.target.files[0]);
-      try {
-        const res = await uploadImage(formData).unwrap();
-        toast.success(res.message);
-        setImage(res.image);
-        setThumbnail(res.thumbnail);
-      } catch (err) {
-        toast.error(err?.data?.message || err.error || "An error occurred");
-      }
+      setImage(file);
     }
   };
 
@@ -114,7 +130,7 @@ const EventCreateScreen = () => {
               type="file"
               id="image-file"
               label="Choose Image"
-              onChange={uploadFileHandler}
+              onChange={imageHandler}
             ></Form.Control>
           </Form.Group>
           <Button type="submit" variant="primary">
