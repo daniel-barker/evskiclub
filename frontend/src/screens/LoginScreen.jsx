@@ -38,11 +38,6 @@ const LoginScreen = () => {
     }
   };
 
-  const handleForgotPassword = (e) => {
-    e.preventDefault();
-    navigate("/forgot-password"); // Assuming you have a route set up for this
-  };
-
   const customStyles = {
     overlay: {
       backgroundColor: "rgba(0, 0, 0, 0.0)", // Semi-transparent black background
@@ -63,7 +58,7 @@ const LoginScreen = () => {
   };
 
   const handleClose = () => {
-    navigate("/register");
+    navigate("/login");
   };
 
   return (
@@ -100,7 +95,7 @@ const LoginScreen = () => {
           Sign In
         </Button>
         <div className="text-center">
-          <a href="#" onClick={handleForgotPassword}>Forgot Password?</a>
+          <a href="/forgot-password">Forgot Password?</a>
         </div>
         <div className="text-center mt-3">
           Don't have an account? <a href="/register">Register</a>

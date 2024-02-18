@@ -4,11 +4,6 @@
   "private": true,
   "proxy": "http://localhost:5000",
   "dependencies": {
-    "@fullcalendar/core": "^6.1.10",
-    "@fullcalendar/daygrid": "^6.1.10",
-    "@fullcalendar/google-calendar": "^6.1.10",
-    "@fullcalendar/interaction": "^6.1.10",
-    "@fullcalendar/react": "^6.1.10",
     "@react-pdf/renderer": "^3.1.14",
     "@reduxjs/toolkit": "^1.9.7",
     "@testing-library/jest-dom": "^5.17.0",
