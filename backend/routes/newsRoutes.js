@@ -66,12 +66,13 @@ router
 
 router.post("/u", protect, admin, (req, res) => {
   uploadSingleImage(req, res, function (err) {
-    console.log("file:", JSON.stringify(req.file, null, 2));
     if (err) {
       return res.status(400).send({ message: err.message });
     }
+    //backend paths
     const truePath = `frontend/public/uploads/news/fullsize/${req.file.filename}`;
     const trueThumbPath = `frontend/public/uploads/news/thumbnail/${req.file.filename}`;
+    //frontend paths
     const fullPath = `uploads/news/fullsize/${req.file.filename}`;
     const thumbPath = `uploads/news/thumbnail/${req.file.filename}`;
 

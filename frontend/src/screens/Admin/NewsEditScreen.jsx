@@ -13,68 +13,87 @@ import {
 
 const NewsEditScreen = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [post, setPost] = useState("");
   const [image, setImage] = useState("");
-  const [thumbnail, setThumbnail] = useState("");
+  const [originalImage, setOriginalImage] = useState(""); // Store original image URL
+  const [originalThumbnail, setOriginalThumbnail] = useState(""); // Store original thumbnail URL
+  const [removeImage, setRemoveImage] = useState(false);
   const [isPublished, setIsPublished] = useState(false);
 
   const { data: news, isLoading, error } = useGetNewsByIdQuery(id);
-
   const [updateNews, { isLoading: loadingUpdate }] = useUpdateNewsMutation();
-
   const [uploadImage, { isLoading: loadingUpload }] =
     useUploadNewsImageMutation();
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (news) {
       setTitle(news.title);
       setPost(news.post);
-      setImage(news.image);
-      setThumbnail(news.thumbnail);
+      setOriginalImage(news.image);
+      setOriginalThumbnail(news.thumbnail);
       setIsPublished(news.isPublished);
     }
   }, [news]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
+
     const updatedNews = {
       id,
       title,
       post,
-      image,
-      thumbnail,
       isPublished,
     };
+
+    if (!removeImage && image instanceof File) {
+      try {
+        const formData = new FormData();
+        formData.append("image", image);
+        const uploadResult = await uploadImage(formData).unwrap();
+        updatedNews.image = uploadResult.image;
+        updatedNews.thumbnail = uploadResult.thumbnail;
+      } catch (error) {
+        toast.error(
+          "Image upload failed: " + (error?.data?.message || error.message)
+        );
+        return;
+      }
+    } else if (removeImage) {
+      // Leaving this blank will remove the image from the news post, by essentially not adding them to the updatedNews object
+    } else {
+      // retain original images
+      if (originalImage) updatedNews.image = originalImage;
+      if (originalThumbnail) updatedNews.thumbnail = originalThumbnail;
+    }
+
+    //update the post
+
     try {
       const result = await updateNews(updatedNews);
-      if (result.error) {
-        toast.error(result.error);
-      } else {
+      if (!result.error) {
         toast.success("News updated successfully");
         navigate("/admin/news/list");
+      } else {
+        throw new Error("News update failed");
       }
     } catch (error) {
-      toast.error(error.message);
+      toast.error(
+        "News update failed: " + (error?.data?.message || error.message)
+      );
     }
   };
 
-  const uploadFileHandler = async (e) => {
+  const imageHandler = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const formData = new FormData();
-      formData.append("image", file);
-      try {
-        const res = await uploadImage(formData).unwrap();
-        toast.success(res.message);
-        setImage(res.image);
-        setThumbnail(res.thumbnail);
-      } catch (err) {
-        toast.error(err?.data?.message || err.error);
-      }
+      setImage(file);
     }
+  };
+
+  const handleRemoveImageChange = (e) => {
+    setRemoveImage(e.target.checked);
   };
 
   return (
@@ -126,12 +145,21 @@ const NewsEditScreen = () => {
                 <Form.Label>Image</Form.Label>
                 <Form.Control
                   type="file"
-                  label="Choose File"
-                  onChange={uploadFileHandler}
+                  label="Choose New Image (optional)"
+                  onChange={imageHandler}
                 ></Form.Control>
-                {loadingUpload && <Loader />}
               </Form.Group>
 
+              <Form.Group controlId="removeImage">
+                <Form.Check
+                  type="checkbox"
+                  label="Remove Image"
+                  checked={removeImage}
+                  onChange={handleRemoveImageChange}
+                />
+              </Form.Group>
+
+              {loadingUpload && <Loader />}
               <Button type="submit" variant="primary">
                 Update
               </Button>

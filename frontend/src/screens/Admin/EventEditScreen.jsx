@@ -162,7 +162,7 @@ const EventEditScreen = () => {
                 <Form.Label>Image</Form.Label>
                 <Form.Control
                   type="file"
-                  label="Choose New File"
+                  label="Choose New Image (optional)"
                   onChange={imageHandler}
                 ></Form.Control>
               </Form.Group>
