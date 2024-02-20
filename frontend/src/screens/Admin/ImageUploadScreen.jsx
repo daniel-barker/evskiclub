@@ -23,14 +23,12 @@ const ImageUploadScreen = () => {
     formData.append("description", description);
     const tagArray = tags.split(" ").filter((tag) => tag.trim() !== "");
     formData.append("tags", JSON.stringify(tagArray));
-    if (image) {
-      formData.append("image", image);
-    }
+    formData.append("image", image);
 
     try {
       const res = await uploadImage(formData).unwrap();
       toast.success(res.message);
-      navigate("/images");
+      navigate("/");
     } catch (err) {
       toast.error(err?.data?.message || err.error);
       console.log(err);
@@ -87,9 +85,7 @@ const ImageUploadScreen = () => {
             <Form.Label>Image</Form.Label>
             <Form.Control
               type="file"
-              id="image-file"
               label="Choose File"
-              custom
               onChange={uploadFileHandler}
             ></Form.Control>
           </Form.Group>

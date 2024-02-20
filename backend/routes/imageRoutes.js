@@ -44,38 +44,42 @@ function fileFilter(req, file, cb) {
 const upload = multer({ storage, fileFilter, limits: { fileSize: 3000000 } });
 const uploadSingleImage = upload.single("image");
 
-router.get("/", getImages);
+router.get("/", protect, getImages);
 router.post(
   "/",
   protect,
   admin,
   uploadSingleImage,
-  uploadImage,
-  (error, req, res) => {
-    if (error) {
-      return res.status(400).json({ message: error.message });
+  async (req, res, next) => {
+    if (req.file) {
+      const dir = `frontend/public/uploads/gallery/thumbnails`;
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+      }
+
+      const fullPath = `frontend/public/uploads/gallery/fullsize/${req.file.filename}`;
+      const thumbPath = `${dir}/gallery-image-${Date.now()}${path.extname(
+        req.file.originalname
+      )}`;
+
+      try {
+        await sharp(req.file.path).resize(200).toFile(thumbPath);
+
+        // Update the paths to be relative to the frontend/public directory for client access
+        req.body.image = fullPath.replace("frontend/public/", "");
+        req.body.thumbnail = thumbPath.replace("frontend/public/", "");
+
+        next(); // move to uploadImage controller to get metadata and save to database
+      } catch (err) {
+        return res
+          .status(400)
+          .json({ message: `Error creating thumbnail: ${err.message}` });
+      }
+    } else {
+      return res.status(400).json({ message: "No image file uploaded." });
     }
-
-    const fullPath = `uploads/gallery/fullsize/${req.file.filename}`;
-    const thumbPath = `uploads/gallery/thumbnails/${req.file.filename}`;
-
-    if (!fs.existsSync(`uploads/gallery/thumbnails`)) {
-      fs.mkdirSync(`uploads/gallery/thumbnails`, { recursive: true });
-    }
-
-    sharp(fullPath)
-      .resize(200)
-      .toFile(thumbPath, (err, info) => {
-        if (err) {
-          return res.status(400).json({ message: err.message });
-        }
-        res.status(200).send({
-          message: "Image uploaded successfully",
-          image: fullPath,
-          thumbnail: thumbPath,
-        });
-      });
-  }
+  },
+  uploadImage
 );
 
 export default router;
