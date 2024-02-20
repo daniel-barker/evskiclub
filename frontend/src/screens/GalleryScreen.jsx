@@ -11,10 +11,9 @@ const GalleryScreen = () => {
       const formattedImages = images.map((img) => ({
         src: img.image,
         thumbnail: img.thumbnail,
-        thumbnailWidth: img.width / 2, // Adjust these values as needed
+        thumbnailWidth: img.width / 2,
         thumbnailHeight: img.height / 2,
         caption: img.title,
-        // You can include other properties as needed, such as `tags`, `description`, etc.
       }));
       setGalleryImages(formattedImages);
     }
