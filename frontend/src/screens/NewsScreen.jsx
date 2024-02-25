@@ -37,7 +37,7 @@ const NewsScreen = () => {
               <h2>{post.title}</h2>
               <p className="news-screen-date">{formatDate(post.createdAt)}</p>
               <p className="news-screen-content">{post.post}</p>
-              <img src={post.image} />
+              <img src={post.image} alt="" />
               <div className="text-end">
                 <div className="news-card-signature">
                   -{post.user && post.user.name}

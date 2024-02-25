@@ -100,7 +100,6 @@ const updateEvent = asyncHandler(async (req, res) => {
 const deleteEvent = asyncHandler(async (req, res) => {
   const event = await Event.findById(req.params.id);
 
-  console.log(event);
   if (event) {
     // Delete the image and thumbnail from the server when an event is deleted
     if (event.image) {
