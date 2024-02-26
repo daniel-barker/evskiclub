@@ -18,7 +18,6 @@ import ResetPasswordScreen from "./screens/ResetPasswordScreen";
 import RegistrationScreen from "./screens/RegistrationScreen";
 import MemberScreen from "./screens/MemberScreen";
 import AboutScreen from "./screens/AboutScreen";
-import GalleryScreen from "./screens/GalleryScreen";
 import ImageUploadScreen from "./screens/Admin/ImageUploadScreen";
 import HomeScreen from "./screens/HomeScreen";
 import UserListScreen from "./screens/Admin/UserListScreen";
@@ -34,6 +33,9 @@ import NewsCreateScreen from "./screens/Admin/NewsCreateScreen";
 import NewsListScreen from "./screens/Admin/NewsListScreen";
 import NewsEditScreen from "./screens/Admin/NewsEditScreen";
 import PendingApprovalScreen from "./screens/PendingApprovalScreen";
+import GalleryScreen from "./screens/GalleryScreen";
+import ImageListScreen from "./screens/Admin/ImageListScreen";
+import GalleryByTagScreen from "./screens/GalleryByTagScreen";
 
 Modal.setAppElement("#root");
 
@@ -54,7 +56,7 @@ const router = createBrowserRouter(
         <Route path="home" element={<MemberScreen />} />
         <Route path="about" element={<AboutScreen />} />
         <Route path="gallery" element={<GalleryScreen />} />
-        <Route path="upload" element={<ImageUploadScreen />} />
+        <Route path="gallery/:tag" element={<GalleryByTagScreen />} />
         <Route path="event/:id" element={<EventDetailScreen />} />
       </Route>
 
@@ -68,6 +70,8 @@ const router = createBrowserRouter(
         <Route path="news/list" element={<NewsListScreen />} />
         <Route path="news/create" element={<NewsCreateScreen />} />
         <Route path="news/:id/edit" element={<NewsEditScreen />} />
+        <Route path="images/upload" element={<ImageUploadScreen />} />
+        <Route path="images/list" element={<ImageListScreen />} />
       </Route>
     </Route>
   )

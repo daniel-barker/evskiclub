@@ -16,6 +16,12 @@ export const imageApiSlice = apiSlice.injectEndpoints({
     getImageTags: builder.query({
       query: () => `${IMAGES_URL}/tags`,
     }),
+    deleteImage: builder.mutation({
+      query: (id) => ({
+        url: `${IMAGES_URL}/${id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
   overrideExisting: false,
 });
@@ -24,4 +30,5 @@ export const {
   useUploadImageMutation,
   useGetImagesQuery,
   useGetImageTagsQuery,
+  useDeleteImageMutation,
 } = imageApiSlice;

@@ -8,6 +8,8 @@ import { protect, admin } from "../middleware/authMiddleware.js";
 import {
   getImages,
   getUniqueTags,
+  getImagesByTag,
+  deleteImage,
   uploadImage,
 } from "../controllers/imageController.js";
 
@@ -49,7 +51,9 @@ const upload = multer({ storage, fileFilter, limits: { fileSize: 3000000 } });
 const uploadSingleImage = upload.single("image");
 
 router.get("/", protect, getImages);
-router.get("/tags", getUniqueTags);
+router.delete("/:id", protect, admin, deleteImage);
+router.get("/tags", protect, getUniqueTags);
+router.get("/tags/:tag", protect, getImagesByTag);
 router.post(
   "/",
   protect,

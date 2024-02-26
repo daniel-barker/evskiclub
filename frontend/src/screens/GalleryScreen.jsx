@@ -3,6 +3,7 @@ import {
   useGetImageTagsQuery,
 } from "../slices/imageApiSlice";
 import { Container } from "react-bootstrap";
+
 import { Gallery, Item } from "react-photoswipe-gallery";
 import "photoswipe/dist/photoswipe.css";
 
@@ -21,7 +22,7 @@ const GalleryScreen = () => {
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <Container>
+    <Container className="form-background mt-4">
       <h2>Gallery</h2>
       <Gallery>
         {images.map((img, index) => (

@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Nav, NavDropdown, Image, NavLink } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown, Image } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
@@ -45,19 +45,28 @@ const Header = () => {
                 <LinkContainer to="/admin/news/list">
                   <NavDropdown.Item>News</NavDropdown.Item>
                 </LinkContainer>
+                <LinkContainer to="/admin/images/list">
+                  <NavDropdown.Item>Image List</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to="/admin/images/upload">
+                  <NavDropdown.Item>Image Upload</NavDropdown.Item>
+                </LinkContainer>
               </NavDropdown>
             )}
             {userInfo && (
               <>
-                <NavLink to="/home" id="navbar-font">
-                  Home
-                </NavLink>
-                <Image
-                  src={logo}
-                  alt="logo"
-                  className="logo"
-                  onClick={logoutHandler}
-                />
+                <LinkContainer id="navbar-font" to="/home">
+                  <Nav.Link>Home</Nav.Link>
+                </LinkContainer>
+                <LinkContainer id="navbar-font" to="/gallery">
+                  <Nav.Link>Gallery</Nav.Link>
+                </LinkContainer>
+                <LinkContainer id="navbar-font" to="/about">
+                  <Nav.Link>About</Nav.Link>
+                </LinkContainer>
+                <Nav.Link onClick={logoutHandler}>
+                  <Image src={logo} alt="logo" className="logo" />
+                </Nav.Link>
               </>
             )}
           </Nav>
