@@ -13,7 +13,8 @@ const authUser = asyncHandler(async (req, res) => {
   const user = await User.findOne({ username });
 
   if (!user) {
-    return res.status(401).send("Username doesn't exist");
+    res.status(401);
+    throw new Error("Username doesn't exist");
   }
 
   if (user.isApproved === false) {
@@ -74,6 +75,29 @@ const registerUser = asyncHandler(async (req, res) => {
   });
 
   if (user) {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.GMAIL_ADDRESS,
+        pass: process.env.GMAIL_APP_PASSWORD,
+      },
+    });
+
+    const mailOptions = {
+      from: process.env.GMAIL_ADDRESS,
+      to: user.email,
+      subject: "Registration Received - Ellicottville Ski Club",
+      text: `Welcome to The Ellicottville Ski Club Website! Your account is currently being reviewed. You will receive an email in the next 48 hours if account has been approved. Please make sure to check your spam folder. Thank you for your patience.`,
+      html: `<p>Welcome to The Ellicottville Ski Club Website!</p><p>Your account is currently being reviewed. You will receive an email in the next 48 hours if account has been approved. Please make sure to check your spam folder.</p><p>Thank you for your patience.</p>`,
+    };
+
+    try {
+      await transporter.sendMail(mailOptions);
+      console.log("Notification email sent successfully.");
+    } catch (error) {
+      console.error("Failed to send notification email:", error);
+    }
+
     res.status(201).json({
       _id: user._id,
       username: user.username,
@@ -82,6 +106,9 @@ const registerUser = asyncHandler(async (req, res) => {
       isAdmin: user.isAdmin,
       position: user.position,
       isApproved: user.isApproved,
+    });
+    res.status(201).json({
+      message: "Registration successful. Your account is under review.",
     });
   } else {
     res.status(400).send("Invalid user data");

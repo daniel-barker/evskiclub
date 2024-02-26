@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import Modal from "react-modal";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Image } from "react-bootstrap";
@@ -25,8 +24,6 @@ const LoginScreen = () => {
     }
   }, [userInfo, navigate]);
 
-  const isModalOpen = true;
-
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
@@ -38,36 +35,33 @@ const LoginScreen = () => {
     }
   };
 
-  const customStyles = {
-    overlay: {
-      backgroundColor: "rgba(0, 0, 0, 0.0)", // Semi-transparent black background
-    },
-    content: {
-      top: "50%",
-      left: "50%",
-      right: "auto",
-      bottom: "auto",
-      width: "35rem",
-      marginRight: "-50%",
-      transform: "translate(-50%, -50%)",
-      padding: "20px",
-      border: "1px solid #ccc",
-      boxShadow: "0 5px 15px rgba(0, 0, 0, 0.9)",
-      borderRadius: "10px",
-    },
+  const handleForgotPassword = (e) => {
+    e.preventDefault();
+    navigate("/forgot-password"); // Assuming you have a route set up for this
   };
 
-  const handleClose = () => {
-    navigate("/login");
+  // Adjusted modalStyle for container
+  const bigModalStyle = {
+    container: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      position: "fixed",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      width: "32rem",
+      padding: "20px",
+      border: "1px solid #ccc",
+      boxShadow: "0 5px 15px rgba(0, 0, 0, 0.5)",
+      borderRadius: "10px",
+      background: "#fff",
+      zIndex: 1050,
+    }
   };
 
   return (
-    <Modal
-      isOpen={isModalOpen}
-      onRequestClose={handleClose}
-      contentLabel="Sign In Modal"
-      style={customStyles}
-    >
+    <div style={bigModalStyle.container}>
       <div className="text-center">
         <Image src={club_logo} fluid />
       </div>
@@ -80,7 +74,7 @@ const LoginScreen = () => {
             placeholder="Enter username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-          ></Form.Control>
+          />
         </Form.Group>
         <Form.Group controlId="password" className="my-3">
           <Form.Label>Password</Form.Label>
@@ -89,20 +83,20 @@ const LoginScreen = () => {
             placeholder="Enter password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-          ></Form.Control>
+          />
         </Form.Group>
         <Button type="submit" variant="primary" className="my-3">
           Sign In
         </Button>
         <div className="text-center">
-          <a href="/forgot-password">Forgot Password?</a>
+          <a href="#" onClick={handleForgotPassword}>Forgot Password?</a>
         </div>
         <div className="text-center mt-3">
           Don't have an account? <a href="/register">Register</a>
         </div>
         {isLoading && <Loader />}
       </Form>
-    </Modal>
+    </div>
   );
 };
 
