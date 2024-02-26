@@ -1,12 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,400;0,500;0,800;1,800&display=swap');
 
 body {
-  font-family: 'Montserrat', sans-serif;
+  /* font-family: 'Montserrat', sans-serif; */
   background-image: url('../images/background2.jpg');
   background-size: cover;
   background-attachment: fixed;
   height: 100vh;
 }
+
+/* Overrides bootstrap fonts */
+body, button, input, textarea, .btn, .form-control {
+  font-family: 'Montserrat', sans-serif !important;
+}
+
 
 .custom-navbar {
 
@@ -100,6 +106,7 @@ body {
 .event-detail-container {
   padding: 5rem;
 }
+
 
 #navbar-font {
   color: #ffffff;
