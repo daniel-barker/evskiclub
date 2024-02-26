@@ -1,6 +1,24 @@
-import { Container, Row, Col, Alert } from "react-bootstrap";
+import { Container, Row, Col, Alert, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useLogoutMutation } from "../slices/usersApiSlice";
+import { logout } from "../slices/authSlice";
 
 const PendingApprovalScreen = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [logoutApiCall] = useLogoutMutation();
+
+  const logoutHandler = async () => {
+    try {
+      await logoutApiCall().unwrap();
+      dispatch(logout());
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <Container className="mt-5">
       <Row>
@@ -44,6 +62,13 @@ const PendingApprovalScreen = () => {
               Thank you for your patience and understanding. We're excited to
               welcome you to our community!
             </p>
+            <Button
+              onClick={logoutHandler}
+              variant="primary"
+              className="float-right"
+            >
+              Go Back
+            </Button>
           </Alert>
         </Col>
       </Row>

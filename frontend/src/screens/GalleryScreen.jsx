@@ -1,32 +1,41 @@
 import React, { useEffect, useState } from "react";
-import { Gallery } from "react-grid-gallery";
 import { useGetImagesQuery } from "../slices/imageApiSlice";
+import { Container } from "react-bootstrap";
+import { Gallery, Item } from "react-photoswipe-gallery";
+import "photoswipe/dist/photoswipe.css";
 
 const GalleryScreen = () => {
   const { data: images, isLoading, error } = useGetImagesQuery();
-  const [galleryImages, setGalleryImages] = useState([]);
-
-  useEffect(() => {
-    if (images) {
-      const formattedImages = images.map((img) => ({
-        src: img.image,
-        thumbnail: img.thumbnail,
-        thumbnailWidth: img.width / 2,
-        thumbnailHeight: img.height / 2,
-        caption: img.title,
-      }));
-      setGalleryImages(formattedImages);
-    }
-  }, [images]);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <div>
+    <Container>
       <h2>Gallery</h2>
-      <Gallery images={galleryImages} enableImageSelection={false} />
-    </div>
+      <Gallery>
+        {images.map((img, index) => (
+          <Item
+            key={index}
+            original={img.image}
+            thumbnail={img.thumbnail}
+            width={img.width}
+            height={img.height}
+            title={img.title}
+          >
+            {({ ref, open }) => (
+              <img
+                ref={ref}
+                onClick={open}
+                src={img.thumbnail}
+                alt={img.title}
+                style={{ margin: "10px", width: "auto", height: "100px" }}
+              />
+            )}
+          </Item>
+        ))}
+      </Gallery>
+    </Container>
   );
 };
 
