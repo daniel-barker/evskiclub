@@ -39,11 +39,7 @@ const UserListScreen = () => {
         <Col>
           <h1>Users</h1>
         </Col>
-        <Col className="text-end">
-          <Link to="/admin/user/create" className="btn btn-secondary my-3">
-            <FaEdit /> Create User
-          </Link>
-        </Col>
+        <Col></Col>
       </Row>
       {loadingDelete && <Loader />}
       {isLoading ? (

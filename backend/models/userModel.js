@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
-import crypto from 'crypto';
+import crypto from "crypto";
 
 const userSchema = mongoose.Schema(
   {
@@ -63,10 +63,13 @@ userSchema.pre("save", async function (next) {
 });
 
 // Adds a method to generate and hash a password reset token
-userSchema.methods.generateResetPasswordToken = function() {
-  const resetToken = crypto.randomBytes(20).toString('hex');
+userSchema.methods.generateResetPasswordToken = function () {
+  const resetToken = crypto.randomBytes(20).toString("hex");
   // Hashes and sets to resetPasswordToken field
-  this.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+  this.resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
   // Sets expiration time (1 hour)
   this.resetPasswordExpire = Date.now() + 3600000; // 1 hour in milliseconds, DUDE
 

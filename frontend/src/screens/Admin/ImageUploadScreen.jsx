@@ -28,7 +28,7 @@ const ImageUploadScreen = () => {
     try {
       const res = await uploadImage(formData).unwrap();
       toast.success(res.message);
-      navigate("/");
+      navigate("/gallery");
     } catch (err) {
       toast.error(err?.data?.message || err.error);
       console.log(err);
