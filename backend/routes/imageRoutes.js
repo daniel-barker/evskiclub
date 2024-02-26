@@ -5,7 +5,11 @@ import sharp from "sharp";
 import fs from "fs";
 
 import { protect, admin } from "../middleware/authMiddleware.js";
-import { getImages, uploadImage } from "../controllers/imageController.js";
+import {
+  getImages,
+  getUniqueTags,
+  uploadImage,
+} from "../controllers/imageController.js";
 
 const router = express.Router();
 
@@ -45,6 +49,7 @@ const upload = multer({ storage, fileFilter, limits: { fileSize: 3000000 } });
 const uploadSingleImage = upload.single("image");
 
 router.get("/", protect, getImages);
+router.get("/tags", getUniqueTags);
 router.post(
   "/",
   protect,
@@ -63,7 +68,7 @@ router.post(
       )}`;
 
       try {
-        await sharp(req.file.path).resize(200).toFile(thumbPath);
+        await sharp(req.file.path).resize(300).toFile(thumbPath);
 
         // Update the paths to be relative to the frontend/public directory for client access
         req.body.image = fullPath.replace("frontend/public/", "");

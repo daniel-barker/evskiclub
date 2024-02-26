@@ -4,11 +4,22 @@ import sharp from "sharp";
 
 // @desc    Get all images
 // @route   GET /api/images
-// @access  Public
+// @access  Members only
 
 const getImages = asyncHandler(async (req, res) => {
   const images = await Image.find({});
   res.json(images);
+});
+
+// @desc: Get all unique image tags
+// @route: GET /api/images/tags
+// @access: Members only
+
+const getUniqueTags = asyncHandler(async (req, res) => {
+  const images = await Image.find({});
+  const allTags = images.map((image) => image.tags).flat();
+  const uniqueTags = [...new Set(allTags)]; // Remove duplicates
+  res.json(uniqueTags);
 });
 
 // @desc Upload image
@@ -37,4 +48,4 @@ const uploadImage = asyncHandler(async (req, res) => {
   }
 });
 
-export { getImages, uploadImage };
+export { getImages, getUniqueTags, uploadImage };
