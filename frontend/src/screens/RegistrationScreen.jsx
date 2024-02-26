@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import Loader from "../components/Loader";
 import { useRegisterMutation } from "../slices/usersApiSlice";
@@ -62,7 +62,7 @@ const RegistrationScreen = () => {
       borderRadius: "10px",
       background: "#fff",
       zIndex: 1050,
-    }
+    },
   };
 
   return (
@@ -125,7 +125,7 @@ const RegistrationScreen = () => {
         </Button>
         <br />
         <br />
-        Already have an account? <a href="/login">Sign In</a>
+        Already have an account? <Link to="/login">Sign In</Link>
         {isLoading && <Loader />}
       </Form>
     </div>

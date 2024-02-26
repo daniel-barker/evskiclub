@@ -16,6 +16,9 @@ export const imageApiSlice = apiSlice.injectEndpoints({
     getImageTags: builder.query({
       query: () => `${IMAGES_URL}/tags`,
     }),
+    getImagesByTag: builder.query({
+      query: (tag) => `${IMAGES_URL}/tags/${tag}`,
+    }),
     deleteImage: builder.mutation({
       query: (id) => ({
         url: `${IMAGES_URL}/${id}`,
