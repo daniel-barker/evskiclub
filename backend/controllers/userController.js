@@ -97,6 +97,7 @@ const registerUser = asyncHandler(async (req, res) => {
     } catch (error) {
       console.error("Failed to send notification email:", error);
     }
+
     res.status(201).json({
       _id: user._id,
       username: user.username,
@@ -105,6 +106,8 @@ const registerUser = asyncHandler(async (req, res) => {
       isAdmin: user.isAdmin,
       position: user.position,
       isApproved: user.isApproved,
+    });
+    res.status(201).json({
       message: "Registration successful. Your account is under review.",
     });
   } else {
