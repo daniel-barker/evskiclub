@@ -1,4 +1,3 @@
-import Modal from "react-modal";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -27,12 +26,6 @@ const RegistrationScreen = () => {
     }
   }, [userInfo, navigate]);
 
-  const isModalOpen = true;
-
-  const handleClose = () => {
-    navigate("/register");
-  };
-
   const submitHandler = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
@@ -54,37 +47,32 @@ const RegistrationScreen = () => {
     }
   };
 
-  const customStyles = {
-    overlay: {
-      backgroundColor: "rgba(0, 0, 0, 0.0)", // Semi-transparent black background
-    },
-    content: {
+  const bigModalStyle = {
+    container: {
+      display: "flex",
+      flexDirection: "column",
+      position: "fixed",
       top: "50%",
       left: "50%",
-      right: "auto",
-      bottom: "auto",
-      width: "35rem",
-      marginRight: "-50%",
       transform: "translate(-50%, -50%)",
+      width: "32rem",
       padding: "20px",
       border: "1px solid #ccc",
-      boxShadow: "0 5px 15px rgba(0, 0, 0, 0.9)",
+      boxShadow: "0 5px 15px rgba(0, 0, 0, 0.5)",
       borderRadius: "10px",
-    },
+      background: "#fff",
+      zIndex: 1050,
+    }
   };
 
   return (
-    <Modal
-      isOpen={isModalOpen}
-      onRequestClose={handleClose}
-      contentLabel="Sign In Modal"
-      style={customStyles}
-    >
+    <div style={bigModalStyle.container}>
       <h2>Register</h2>
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="username" className="my-3">
           <Form.Label>Username</Form.Label>
           <Form.Control
+            className="w-100"
             type="text"
             placeholder="Enter username"
             value={username}
@@ -92,10 +80,10 @@ const RegistrationScreen = () => {
           ></Form.Control>
         </Form.Group>
         <Form.Group controlId="name" className="my-3">
-          <Form.Label>Name</Form.Label>
+          <Form.Label>Full Name</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Enter name"
+            placeholder="Enter full name"
             value={name}
             onChange={(e) => setName(e.target.value)}
           ></Form.Control>
@@ -140,7 +128,7 @@ const RegistrationScreen = () => {
         Already have an account? <a href="/login">Sign In</a>
         {isLoading && <Loader />}
       </Form>
-    </Modal>
+    </div>
   );
 };
 export default RegistrationScreen;
