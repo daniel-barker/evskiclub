@@ -224,7 +224,7 @@ const deleteUser = asyncHandler(async (req, res) => {
 const updateUser = asyncHandler(async (req, res) => {
   console.log(req.body);
   const userId = req.params.id;
-  const { username, email } = req.body; //Only need to destructure these two as they're the only unique fields
+  const { username, email, isApproved } = req.body;
 
   const userToUpdate = await User.findById(userId);
   if (!userToUpdate) {
@@ -253,6 +253,12 @@ const updateUser = asyncHandler(async (req, res) => {
     }
   }
 
+  // Check if user is being approved
+
+  if (isApproved === true && userToUpdate.isApproved === false) {
+    sendApprovalEmail(userToUpdate.email);
+  }
+
   // Update fields if provided, otherwise keep existing values
   // I chose to leave out the ability to update the isAdmin field for security reasons. Admin flag should only be updated in the database.
   userToUpdate.username = username || userToUpdate.username;
@@ -263,7 +269,7 @@ const updateUser = asyncHandler(async (req, res) => {
   // When using the a ternary, the value on the right will be used if the value on the left is falsy.
   // Using the ternary was causing the application to leave the value as it was, when attempting to set it to false.
 
-  userToUpdate.isApproved = req.body.isApproved;
+  userToUpdate.isApproved = isApproved;
 
   const updatedUser = await userToUpdate.save();
 
@@ -277,6 +283,31 @@ const updateUser = asyncHandler(async (req, res) => {
     position: updatedUser.position,
   });
 });
+
+const sendApprovalEmail = async (userEmail) => {
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.GMAIL_ADDRESS,
+      pass: process.env.GMAIL_APP_PASSWORD,
+    },
+  });
+
+  const mailOptions = {
+    from: process.env.GMAIL_ADDRESS,
+    to: userEmail,
+    subject: "Account Approved - Ellicottville Ski Club",
+    text: `Your account has been approved! You can now log in to the Ellicottville Ski Club website.`,
+    html: `<p>Your account has been approved! You can now log in to the Ellicottville Ski Club website.</p>`,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log("Approval email sent successfully.");
+  } catch (error) {
+    console.error("Failed to send approval email:", error);
+  }
+};
 
 // @desc Forgot password - sends a reset link
 // @route POST /api/users/forgot-password
