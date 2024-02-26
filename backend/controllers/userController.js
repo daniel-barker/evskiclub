@@ -256,7 +256,28 @@ const updateUser = asyncHandler(async (req, res) => {
   // Check if user is being approved
 
   if (isApproved === true && userToUpdate.isApproved === false) {
-    sendApprovalEmail(userToUpdate.email);
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.GMAIL_ADDRESS,
+        pass: process.env.GMAIL_APP_PASSWORD,
+      },
+    });
+
+    const mailOptions = {
+      from: process.env.GMAIL_ADDRESS,
+      to: userToUpdate.email,
+      subject: "Account Approved - Ellicottville Ski Club",
+      text: `Your account has been approved! You can now log in to the Ellicottville Ski Club website.`,
+      html: `<p>Your account has been approved! You can now log in to the Ellicottville Ski Club website.</p>`,
+    };
+
+    try {
+      await transporter.sendMail(mailOptions);
+      console.log("Approval email sent successfully.");
+    } catch (error) {
+      console.error("Failed to send approval email:", error);
+    }
   }
 
   // Update fields if provided, otherwise keep existing values
@@ -283,31 +304,6 @@ const updateUser = asyncHandler(async (req, res) => {
     position: updatedUser.position,
   });
 });
-
-const sendApprovalEmail = async (userEmail) => {
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.GMAIL_ADDRESS,
-      pass: process.env.GMAIL_APP_PASSWORD,
-    },
-  });
-
-  const mailOptions = {
-    from: process.env.GMAIL_ADDRESS,
-    to: userEmail,
-    subject: "Account Approved - Ellicottville Ski Club",
-    text: `Your account has been approved! You can now log in to the Ellicottville Ski Club website.`,
-    html: `<p>Your account has been approved! You can now log in to the Ellicottville Ski Club website.</p>`,
-  };
-
-  try {
-    await transporter.sendMail(mailOptions);
-    console.log("Approval email sent successfully.");
-  } catch (error) {
-    console.error("Failed to send approval email:", error);
-  }
-};
 
 // @desc Forgot password - sends a reset link
 // @route POST /api/users/forgot-password
