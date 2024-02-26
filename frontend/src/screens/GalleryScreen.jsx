@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import { useGetImagesQuery } from "../slices/imageApiSlice";
 import { Container } from "react-bootstrap";
 import { Gallery, Item } from "react-photoswipe-gallery";
