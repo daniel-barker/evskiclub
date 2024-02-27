@@ -3,6 +3,7 @@ import {
   useGetImageTagsQuery,
 } from "../slices/imageApiSlice";
 import { Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 import { Gallery, Item } from "react-photoswipe-gallery";
 import "photoswipe/dist/photoswipe.css";
@@ -15,7 +16,7 @@ const GalleryScreen = () => {
     error: errorTags,
   } = useGetImageTagsQuery();
 
-  if (isLoadingTags) return <div>Loading...</div>;
+  if (isLoadingTags) return <div>Loading tags...</div>;
   if (errorTags) return <div>Error: {errorTags.message}</div>;
 
   if (isLoading) return <div>Loading...</div>;
@@ -48,10 +49,15 @@ const GalleryScreen = () => {
       </Gallery>
       <div className="mt-4 form-background">
         <h2>Tags</h2>
-
-        {tags.map((tag, index) => (
-          <a key={index}>| {tag} |</a>
-        ))}
+        <div id="tag-links">
+          {tags.map((tag, index) => (
+            <div key={index}>
+              <Link to={`/gallery/${tag}`} className="tag-link">
+                {tag}
+              </Link>
+            </div>
+          ))}
+        </div>
       </div>
     </Container>
   );
