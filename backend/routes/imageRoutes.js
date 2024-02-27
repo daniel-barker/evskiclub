@@ -6,12 +6,15 @@ import fs from "fs";
 
 import { protect, admin } from "../middleware/authMiddleware.js";
 import {
+  uploadImage,
   getImages,
+  getSingleImage,
   getUniqueTags,
   getImagesByTag,
+  updateImage,
   deleteImage,
-  uploadImage,
 } from "../controllers/imageController.js";
+import checkObjectId from "../middleware/checkObjectId.js";
 
 const router = express.Router();
 
@@ -50,10 +53,14 @@ function fileFilter(req, file, cb) {
 const upload = multer({ storage, fileFilter, limits: { fileSize: 3000000 } });
 const uploadSingleImage = upload.single("image");
 
-router.get("/", protect, getImages);
-router.delete("/:id", protect, admin, deleteImage);
 router.get("/tags", protect, getUniqueTags);
 router.get("/tags/:tag", protect, getImagesByTag);
+router.get("/", protect, getImages);
+router
+  .route("/:id")
+  .get(protect, getSingleImage)
+  .delete(protect, admin, checkObjectId, deleteImage)
+  .put(protect, admin, checkObjectId, updateImage);
 router.post(
   "/",
   protect,

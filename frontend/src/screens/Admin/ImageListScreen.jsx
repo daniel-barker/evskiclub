@@ -55,6 +55,7 @@ const ImageListScreen = () => {
               <th>IMAGE</th>
               <th>TITLE</th>
               <th>TAGS</th>
+              <th>CAROUSEL</th>
               <th></th>
             </tr>
           </thead>
@@ -70,6 +71,7 @@ const ImageListScreen = () => {
                 </td>
                 <td>{image.title}</td>
                 <td>{image.tags.join(", ")}</td>
+                <td>{image.carousel ? "Yes" : "No"}</td>
                 <td>
                   <LinkContainer to={`/admin/images/${image._id}/edit`}>
                     <Button variant="light" className="btn-sm">
