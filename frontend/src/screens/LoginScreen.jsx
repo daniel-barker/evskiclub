@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Form, Button, Image } from "react-bootstrap";
 import Loader from "../components/Loader";
 import { useLoginMutation } from "../slices/usersApiSlice";
@@ -35,11 +35,6 @@ const LoginScreen = () => {
     }
   };
 
-  const handleForgotPassword = (e) => {
-    e.preventDefault();
-    navigate("/forgot-password"); // Assuming you have a route set up for this
-  };
-
   // Adjusted modalStyle for container
   const bigModalStyle = {
     container: {
@@ -57,7 +52,7 @@ const LoginScreen = () => {
       borderRadius: "10px",
       background: "#fff",
       zIndex: 1050,
-    }
+    },
   };
 
   return (
@@ -88,11 +83,11 @@ const LoginScreen = () => {
         <Button type="submit" variant="primary" className="my-3">
           Sign In
         </Button>
-        <div className="text-center">
-          <a href="#" onClick={handleForgotPassword}>Forgot Password?</a>
+        <div>
+          <Link to="/forgot-password">Forgot Password?</Link>
         </div>
-        <div className="text-center mt-3">
-          Don't have an account? <a href="/register">Register</a>
+        <div className="mt-3">
+          Don't have an account? <Link to="/register">Register</Link>
         </div>
         {isLoading && <Loader />}
       </Form>

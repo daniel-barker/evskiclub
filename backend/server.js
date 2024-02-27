@@ -22,7 +22,7 @@ app.use("/api/events", eventRoutes);
 app.use("/api/news", newsRoutes);
 
 app.get("/", (req, res) => {
-  res.send("What are you doing here?!");
+  res.send("What are you doing here?");
 });
 
 app.use(notFound);
