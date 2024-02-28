@@ -28,6 +28,7 @@ const unitSchema = mongoose.Schema({
     },
   ],
   memberSince: { type: Number, required: true },
+  bio: { type: String },
   image: { type: String },
 });
 

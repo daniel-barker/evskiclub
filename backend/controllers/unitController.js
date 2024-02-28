@@ -18,6 +18,7 @@ const createUnit = asyncHandler(async (req, res) => {
       addresses: req.body.addresses,
       memberSince: req.body.memberSince,
       image: req.body.image,
+      bio: req.body.bio,
     });
 
     const createdUnit = await unit.save();
@@ -62,6 +63,7 @@ const updateUnit = asyncHandler(async (req, res) => {
     unit.addresses = req.body.addresses || unit.addresses;
     unit.memberSince = req.body.memberSince || unit.memberSince;
     unit.image = req.body.image || unit.image;
+    unit.bio = req.body.bio || unit.bio;
 
     const updatedUnit = await unit.save();
     res.json(updatedUnit);

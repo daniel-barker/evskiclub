@@ -115,7 +115,7 @@ const MemberListScreen = () => {
                 </td>
                 <td>{unit.memberSince}</td>
                 <td>
-                  <LinkContainer to={`/admin/unit/${unit._id}/edit`}>
+                  <LinkContainer to={`/admin/members/${unit._id}/edit`}>
                     <Button variant="light" className="btn-sm">
                       <FaEdit />
                     </Button>

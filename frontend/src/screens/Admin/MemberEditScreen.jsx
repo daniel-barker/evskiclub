@@ -1,36 +1,100 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import Loader from "../../components/Loader";
 import CreateContainer from "../../components/CreateContainer";
 import { toast } from "react-toastify";
+import Message from "../../components/Message";
 import {
-  useCreateUnitMutation,
+  useGetUnitByIdQuery,
+  useUpdateUnitMutation,
   useUploadUnitImageMutation,
 } from "../../slices/unitApiSlice";
 
-const MemberCreateScreen = () => {
-  const [members, setMembers] = useState([
-    {
-      firstName: "",
-      lastName: "",
-      email: "",
-      phoneNumber: [{ number: "", type: "home" }],
-    },
-  ]);
-  const [addresses, setAddresses] = useState([
-    { addressType: "primary", street: "", city: "", state: "", zip: "" },
-  ]);
+const MemberEditScreen = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [members, setMembers] = useState([]);
+  const [addresses, setAddresses] = useState([]);
   const [memberSince, setMemberSince] = useState("");
   const [image, setImage] = useState("");
   const [bio, setBio] = useState("");
+  const [removeImage, setRemoveImage] = useState(false);
+  const [originalImage, setOriginalImage] = useState("");
 
-  const [createUnit, { isLoading: loadingCreate }] = useCreateUnitMutation();
-  const [uploadUnitImage, { isLoading: loadingImage }] =
+  const { data: unit, isLoading, error } = useGetUnitByIdQuery(id);
+  const [updateUnit, { isLoading: loadingUpdate }] = useUpdateUnitMutation();
+  const [uploadImage, { isLoading: loadingUpload }] =
     useUploadUnitImageMutation();
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    if (unit) {
+      setMembers(unit.members);
+      setAddresses(unit.addresses);
+      setMemberSince(unit.memberSince);
+      setBio(unit.bio);
+      setOriginalImage(unit.image);
+    }
+  }, [unit]);
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+
+    const updatedUnit = {
+      id,
+      members,
+      addresses,
+      memberSince,
+      bio,
+    };
+
+    if (!removeImage && image instanceof File) {
+      try {
+        const formData = new FormData();
+        formData.append("image", image);
+        const uploadResult = await uploadImage(formData).unwrap();
+        updatedUnit.image = uploadResult.image;
+      } catch (err) {
+        toast.error(
+          "Failed to upload image: " + (err?.data?.message || err.error)
+        );
+        return;
+      }
+    } else if (removeImage) {
+      // explanation in EventEditScreen.jsx
+    } else {
+      if (originalImage) {
+        updatedUnit.image = originalImage;
+      }
+    }
+    // update the unit
+    try {
+      const result = await updateUnit(updatedUnit).unwrap();
+      if (!result.error) {
+        toast.success("Member unit updated successfully");
+        navigate("/admin/members/list");
+      } else {
+        throw new Error("Update failed: " + result.error.message);
+      }
+    } catch (error) {
+      toast.error(
+        "Failed to update member unit: " + error?.data?.message || error.error
+      );
+      console.error(error?.data?.message || error.error);
+    }
+  };
+
+  const imageHandler = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImage(file);
+    }
+  };
+
+  const handleRemoveImageChange = (e) => {
+    setRemoveImage(e.target.checked);
+  };
 
   const addMemberFields = () => {
     setMembers([
@@ -94,67 +158,6 @@ const MemberCreateScreen = () => {
     setAddresses(updatedAddresses);
   };
 
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    if (image) {
-      const formData = new FormData();
-      formData.append("image", image);
-
-      try {
-        const uploadResult = await uploadUnitImage(formData).unwrap();
-        const newUnit = {
-          members,
-          addresses,
-          memberSince,
-          image: uploadResult.image,
-          bio,
-        };
-        console.log(newUnit);
-
-        const result = await createUnit(newUnit).unwrap();
-
-        if (result) {
-          toast.success("Unit created successfully");
-          navigate("/admin/members/list");
-        } else {
-          throw new Error("Unit creation failed");
-        }
-      } catch (error) {
-        toast.error(
-          error?.data?.message ||
-            error.message ||
-            "An error occurred during unit creation."
-        );
-      }
-    } else {
-      try {
-        const newUnit = { members, addresses, memberSince, bio };
-        console.log(newUnit);
-
-        const result = await createUnit(newUnit).unwrap();
-        if (result) {
-          toast.success("Unit created successfully");
-          navigate("/admin/members/list");
-        } else {
-          throw new Error("Unit creation failed");
-        }
-      } catch (error) {
-        toast.error(
-          error?.data?.message ||
-            error.message ||
-            "An error occurred during unit creation."
-        );
-      }
-    }
-  };
-
-  const imageHandler = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setImage(file);
-    }
-  };
-
   return (
     <div className="blurred-background">
       <br />
@@ -165,14 +168,16 @@ const MemberCreateScreen = () => {
           Go Back
         </Link>
         <CreateContainer>
-          <h1 className="text-center">Create (Directory/Membership) Entry</h1>
+          <h1 className="text-center">Edit (Directory/Membership) Entry</h1>
           <hr />
-          {loadingCreate && <Loader />}
-          {loadingImage && <Loader />}
+          {isLoading && <Loader />}
+          {loadingUpdate && <Loader />}
+          {error && <Message variant="danger">{error}</Message>}
+
           <Form onSubmit={submitHandler}>
             <Form.Group controlId="members">
               <Form.Label>
-                <h3>Add Members</h3>
+                <h3>Member(s)</h3>
               </Form.Label>
               {members.map((member, index) => (
                 <div key={index}>
@@ -347,13 +352,21 @@ const MemberCreateScreen = () => {
             <Row>
               <Col>
                 <Form.Group controlId="image">
-                  <Form.Label>Choose Image (optional)</Form.Label>
+                  <Form.Label>Image</Form.Label>
                   <Form.Control
                     type="file"
-                    id="image-file"
-                    label="Choose Image"
+                    label="Choose New Image (optional)"
                     onChange={imageHandler}
                   ></Form.Control>
+                </Form.Group>
+
+                <Form.Group controlId="removeImage">
+                  <Form.Check
+                    type="checkbox"
+                    label="Remove Image"
+                    checked={removeImage}
+                    onChange={handleRemoveImageChange}
+                  />
                 </Form.Group>
               </Col>
               <Col>
@@ -380,6 +393,7 @@ const MemberCreateScreen = () => {
                     as="textarea"
                     placeholder="Enter short biography (optional)"
                     value={bio}
+                    rows={8}
                     onChange={(e) => setBio(e.target.value)}
                   ></Form.Control>
                 </Form.Group>
@@ -387,9 +401,10 @@ const MemberCreateScreen = () => {
               <Col></Col>
             </Row>
             <br />
+            {loadingUpload && <Loader />}
             <div className="text-center">
               <Button type="submit" variant="primary">
-                Create Unit
+                Update Unit
               </Button>
             </div>
           </Form>
@@ -398,5 +413,4 @@ const MemberCreateScreen = () => {
     </div>
   );
 };
-
-export default MemberCreateScreen;
+export default MemberEditScreen;

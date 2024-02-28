@@ -11,7 +11,7 @@ const MemberDirectory = () => {
 
   return (
     <Container className="mt-4 form-background">
-      <Row className="align-items-center pt-2 pb-5">
+      <Row className="align-items-center pt-2pb-5">
         <Col className="text-center">
           <h1>Membership Directory</h1>
         </Col>
@@ -25,17 +25,17 @@ const MemberDirectory = () => {
       ) : (
         <Row>
           {units.map((unit) => (
-            <Col key={unit._id} sm={12} md={6} lg={4} xl={3}>
-              {unit.members.map((member, index) => (
-                <div key={index}>
-                  <h3>{`${member.firstName} ${member.lastName}`}</h3>
-                  <p>{member.email}</p>
-                  {member.phoneNumber.map((phone, index) => (
-                    <p key={index}>{`${phone.type}: ${phone.number}`}</p>
-                  ))}
-                </div>
-              ))}
-              <Card className="my-3 p-3 rounded">
+            <Card className="my-3 p-3 rounded">
+              <Col key={unit._id} sm={12} md={6} lg={4} xl={3}>
+                {unit.members.map((member, index) => (
+                  <div key={index}>
+                    <h3>{`${member.firstName} ${member.lastName}`}</h3>
+                    <p>{member.email}</p>
+                    {member.phoneNumber.map((phone, index) => (
+                      <p key={index}>{`${phone.type}: ${phone.number}`}</p>
+                    ))}
+                  </div>
+                ))}
                 <Card.Img src={unit.image} variant="top" />
                 <Card.Body>
                   <Card.Title as="div">
@@ -47,8 +47,8 @@ const MemberDirectory = () => {
                     <div className="my-3"></div>
                   </Card.Text>
                 </Card.Body>
-              </Card>
-            </Col>
+              </Col>
+            </Card>
           ))}
         </Row>
       )}

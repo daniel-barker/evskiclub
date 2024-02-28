@@ -43,7 +43,7 @@ const EventEditScreen = () => {
     e.preventDefault();
 
     // Start with the base event details
-    let updatedEvent = {
+    const updatedEvent = {
       id,
       title,
       date,
@@ -82,12 +82,13 @@ const EventEditScreen = () => {
         toast.success("Event updated successfully");
         navigate("/admin/event/list");
       } else {
-        throw new Error("Event update failed");
+        throw new Error("Update failed: " + result.error.message);
       }
     } catch (error) {
       toast.error(
         "Failed to update event: " + (error?.data?.message || error.error)
       );
+      console.error(error?.data?.message || error.error);
     }
   };
 
@@ -151,7 +152,7 @@ const EventEditScreen = () => {
                 <Form.Label>Description</Form.Label>
                 <Form.Control
                   as="textarea"
-                  rows={3}
+                  rows={8}
                   placeholder="Enter description"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
