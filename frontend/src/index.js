@@ -38,6 +38,7 @@ import ImageEditScreen from "./screens/Admin/ImageEditScreen";
 import GalleryScreen from "./screens/GalleryScreen";
 import GalleryByTagScreen from "./screens/GalleryByTagScreen";
 import MemberListScreen from "./screens/Admin/MemberListScreen";
+import MemberCreateScreen from "./screens/Admin/MemberCreateScreen";
 
 Modal.setAppElement("#root");
 
@@ -76,6 +77,7 @@ const router = createBrowserRouter(
         <Route path="images/list" element={<ImageListScreen />} />
         <Route path="images/:id/edit" element={<ImageEditScreen />} />
         <Route path="members/list" element={<MemberListScreen />} />
+        <Route path="members/create" element={<MemberCreateScreen />} />
       </Route>
     </Route>
   )

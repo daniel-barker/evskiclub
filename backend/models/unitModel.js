@@ -3,9 +3,9 @@ import mongoose from "mongoose";
 const unitSchema = mongoose.Schema({
   members: [
     {
-      name: { type: String, required: true },
+      firstName: { type: String, required: true },
+      lastName: { type: String, required: true },
       email: { type: String },
-      image: { type: String },
       phoneNumber: [
         {
           number: { type: String },
@@ -28,6 +28,7 @@ const unitSchema = mongoose.Schema({
     },
   ],
   memberSince: { type: Number, required: true },
+  image: { type: String },
 });
 
 const Unit = mongoose.model("Unit", unitSchema);
