@@ -8,14 +8,16 @@ body {
   height: 100vh;
 }
 
-/* Overrides bootstrap fonts */
-body,
-button,
-input,
-textarea,
-.btn,
-.form-control {
-  font-family: 'Montserrat', sans-serif !important;
+.btn-primary {
+  background-color: #01467f !important;
+  border-color: #013567 !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+  background-color: #012345 !important;/* Even darker for hover */
+  border-color: #012345 !important; /* Optional: adjust if you also want a darker border */
 }
 
 .blurred-background {
@@ -45,6 +47,24 @@ textarea,
   margin: 0;
   padding: 0;
 }
+
+.custom-navbar .dropdown-item:hover,
+.custom-navbar .dropdown-item:focus
+ {
+  background-color: #01467f;
+  color: white;
+}
+
+.custom-navbar .dropdown-item.active,
+.custom-navbar .dropdown-item:active {
+  background-color: transparent; /* or the default dropdown background color */
+  border-color: #01467f;
+  border-width: 2px; /* Optional: Set the border width if needed */
+  border-style: solid;
+  border-radius: 8px;
+  color: inherit; /* Use inherit or set a specific color */
+}
+
 
 .body-padding {
   padding-top: 64px;
@@ -117,6 +137,12 @@ textarea,
 
 .event-detail-container {
   padding: 5rem;
+}
+
+@media (min-width: 768px) { /* Adjust the pixel value based on your needs */
+  .nowrap-on-desktop {
+    white-space: nowrap;
+  }
 }
 
 
