@@ -37,11 +37,11 @@ const MemberListScreen = () => {
     <Container className="mt-4 form-background">
       <Row className="align-items-center">
         <Col>
-          <h1>Membership Units</h1>
+          <h1>Membership Directory</h1>
         </Col>
         <Col className="text-end">
           <Link to="/admin/members/create" className="btn btn-primary my-3">
-            <FaEdit /> Create Membership Unit
+            <FaEdit /> Add Member to Directory
           </Link>
         </Col>
       </Row>
@@ -116,10 +116,10 @@ const MemberListScreen = () => {
                 <td>{unit.memberSince}</td>
                 <td>
                   <LinkContainer to={`/admin/unit/${unit._id}/edit`}>
-                    <Button variant="light">
+                    <Button variant="light" className="btn-sm">
                       <FaEdit />
                     </Button>
-                  </LinkContainer>
+                  </LinkContainer>{" "}
                   <Button
                     variant="light"
                     className="btn-sm"

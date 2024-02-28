@@ -20,7 +20,7 @@ const MemberCreateScreen = () => {
     },
   ]);
   const [addresses, setAddresses] = useState([
-    { addressType: "", street: "", city: "", state: "", zip: "" },
+    { addressType: "primary", street: "", city: "", state: "", zip: "" },
   ]);
   const [memberSince, setMemberSince] = useState("");
   const [image, setImage] = useState("");
@@ -160,9 +160,10 @@ const MemberCreateScreen = () => {
           Go Back
         </Link>
         <CreateContainer>
-          <h1 className="text-center">Add Membership Unit</h1>
+          <h1 className="text-center">Create (Directory/Membership) Entry</h1>
           <hr />
           {loadingCreate && <Loader />}
+          {loadingImage && <Loader />}
           <Form onSubmit={submitHandler}>
             <Form.Group controlId="members">
               <Form.Label>

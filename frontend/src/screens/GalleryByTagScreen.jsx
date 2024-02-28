@@ -1,5 +1,5 @@
 import { useGetImagesByTagQuery } from "../slices/imageApiSlice";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Container } from "react-bootstrap";
 
@@ -7,7 +7,6 @@ import { Gallery, Item } from "react-photoswipe-gallery";
 import "photoswipe/dist/photoswipe.css";
 
 const GalleryByTagScreen = () => {
-  const navigate = useNavigate();
   const { tag } = useParams();
   const { data: images, isLoading, error } = useGetImagesByTagQuery(tag);
 

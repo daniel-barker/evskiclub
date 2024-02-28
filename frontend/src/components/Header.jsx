@@ -46,13 +46,10 @@ const Header = () => {
                   <NavDropdown.Item>News</NavDropdown.Item>
                 </LinkContainer>
                 <LinkContainer to="/admin/images/list">
-                  <NavDropdown.Item>Image List</NavDropdown.Item>
-                </LinkContainer>
-                <LinkContainer to="/admin/images/upload">
-                  <NavDropdown.Item>Image Upload</NavDropdown.Item>
+                  <NavDropdown.Item>Gallery</NavDropdown.Item>
                 </LinkContainer>
                 <LinkContainer to="/admin/members/list">
-                  <NavDropdown.Item>Add Membership Unit</NavDropdown.Item>
+                  <NavDropdown.Item>Member Directory</NavDropdown.Item>
                 </LinkContainer>
               </NavDropdown>
             )}
@@ -63,6 +60,9 @@ const Header = () => {
                 </LinkContainer>
                 <LinkContainer id="navbar-font" to="/gallery">
                   <Nav.Link>Gallery</Nav.Link>
+                </LinkContainer>
+                <LinkContainer id="navbar-font" to="/directory">
+                  <Nav.Link>Directory</Nav.Link>
                 </LinkContainer>
                 <LinkContainer id="navbar-font" to="/about">
                   <Nav.Link>About</Nav.Link>
