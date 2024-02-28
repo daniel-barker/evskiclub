@@ -1,4 +1,3 @@
-
 import React from "react";
 import { LinkContainer } from "react-router-bootstrap";
 import { Link } from "react-router-dom";
@@ -13,7 +12,13 @@ import {
 } from "../../slices/unitApiSlice";
 
 const MemberListScreen = () => {
-  const { data: units, refetch, isLoading, isError, error } = useGetAllUnitsQuery();
+  const {
+    data: units,
+    refetch,
+    isLoading,
+    isError,
+    error,
+  } = useGetAllUnitsQuery();
   const [deleteUnit, { isLoading: isDeleting }] = useDeleteUnitMutation();
 
   const deleteHandler = async (id) => {
@@ -35,13 +40,17 @@ const MemberListScreen = () => {
           <h1>Membership Units</h1>
         </Col>
         <Col className="text-end">
-          <Link to="/admin/unit/create" className="btn btn-primary my-3">
+          <Link to="/admin/members/create" className="btn btn-primary my-3">
             <FaEdit /> Create Membership Unit
           </Link>
         </Col>
       </Row>
-      {isLoading || isDeleting ? <Loader /> : isError ? (
-        <Message variant="danger">{error?.data?.message || 'Failed to fetch units'}</Message>
+      {isLoading || isDeleting ? (
+        <Loader />
+      ) : isError ? (
+        <Message variant="danger">
+          {error?.data?.message || "Failed to fetch units"}
+        </Message>
       ) : (
         <Table striped bordered hover responsive className="table-sm">
           <thead>
@@ -59,12 +68,18 @@ const MemberListScreen = () => {
               <tr key={unit._id}>
                 <td className="nowrap-on-desktop">
                   {unit.members.map((member, index) => (
-                    <div key={index}>{`${member.firstName} ${member.lastName}`}<br /></div>
+                    <div key={index}>
+                      {`${member.firstName} ${member.lastName}`}
+                      <br />
+                    </div>
                   ))}
                 </td>
                 <td>
                   {unit.members.map((member, index) => (
-                    <div key={index}>{member.email || 'No Email Entered'}<br /></div>
+                    <div key={index}>
+                      {member.email || "No Email Entered"}
+                      <br />
+                    </div>
                   ))}
                 </td>
                 <td className="nowrap-on-desktop">
@@ -74,10 +89,10 @@ const MemberListScreen = () => {
                       {member.phoneNumber
                         .slice() // Make a shallow copy to avoid mutating the original array
                         .sort((a, b) => {
-                          if (a.type === 'cell') return -1;
-                          if (b.type === 'cell') return 1;
-                          if (a.type === 'home') return 1;
-                          if (b.type === 'home') return -1;
+                          if (a.type === "cell") return -1;
+                          if (b.type === "cell") return 1;
+                          if (a.type === "home") return 1;
+                          if (b.type === "home") return -1;
                           return 0;
                         })
                         .map((phone, phoneIndex) => (
@@ -93,7 +108,8 @@ const MemberListScreen = () => {
                   {unit.addresses.map((address, index) => (
                     <div key={index}>
                       {address.addressType === "primary" ? "P: " : "S: "}
-                      {`${address.street}, ${address.city}, ${address.state} ${address.zip}`}<br />
+                      {`${address.street}, ${address.city}, ${address.state} ${address.zip}`}
+                      <br />
                     </div>
                   ))}
                 </td>
@@ -104,7 +120,11 @@ const MemberListScreen = () => {
                       <FaEdit />
                     </Button>
                   </LinkContainer>
-                  <Button variant="light" className="btn-sm" onClick={() => deleteHandler(unit._id)}>
+                  <Button
+                    variant="light"
+                    className="btn-sm"
+                    onClick={() => deleteHandler(unit._id)}
+                  >
                     <FaTrash />
                   </Button>
                 </td>
