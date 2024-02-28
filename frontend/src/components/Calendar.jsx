@@ -53,6 +53,7 @@ function EventCalendar() {
                   <FontAwesomeIcon
                     aria-label="Expand image"
                     icon={faMagnifyingGlass}
+                    color="#01467f"
                   />
                 </Link>
               </h3>

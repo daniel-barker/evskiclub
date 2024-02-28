@@ -31,11 +31,6 @@ const EventListScreen = () => {
     <Container className="mt-4 form-background">
       <Row className="align-items-center">
         <Col>
-          <Link to="/" className="btn btn-secondary my-3">
-            Go Back
-          </Link>
-        </Col>
-        <Col>
           <h1>Events</h1>
         </Col>
         <Col className="text-end">

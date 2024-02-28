@@ -32,7 +32,7 @@ const LatestNews = () => {
       <Card style={{ backgroundColor: "#f5f5f5" }}>
         <div className="news-card-header d-flex justify-content-between align-items-center">
           <div className="news-card-title">Latest news</div>
-          <Link to="/news" className="btn btn-secondary">
+          <Link to="/news" className="btn btn-primary">
             Previous Posts
           </Link>
         </div>
