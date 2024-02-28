@@ -271,7 +271,7 @@ const MemberCreateScreen = () => {
                 <h3>Addresses</h3>
               </Form.Label>
               {addresses.map((address, index) => (
-                <div key={index} className="member-create">
+                <div key={index}>
                   <Form.Group controlId={`addressType-${index}`}>
                     <Form.Label>Address Type</Form.Label>
                     <Form.Control
