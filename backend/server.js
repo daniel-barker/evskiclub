@@ -7,6 +7,7 @@ import userRoutes from "./routes/userRoutes.js";
 import imageRoutes from "./routes/imageRoutes.js";
 import eventRoutes from "./routes/eventRoutes.js";
 import newsRoutes from "./routes/newsRoutes.js";
+import unitRoutes from "./routes/unitRoutes.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 
 const port = process.env.PORT || 5000;
@@ -20,6 +21,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/images", imageRoutes);
 app.use("/api/events", eventRoutes);
 app.use("/api/news", newsRoutes);
+app.use("/api/unit", unitRoutes);
 
 app.get("/", (req, res) => {
   res.send("What are you doing here?");
