@@ -8,6 +8,7 @@ const imageSchema = mongoose.Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
   tags: { type: [String], required: true },
+  carousel: { type: Boolean, required: true, default: false },
 });
 
 const Image = mongoose.model("Image", imageSchema);

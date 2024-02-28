@@ -18,7 +18,6 @@ import ResetPasswordScreen from "./screens/ResetPasswordScreen";
 import RegistrationScreen from "./screens/RegistrationScreen";
 import MemberScreen from "./screens/MemberScreen";
 import AboutScreen from "./screens/AboutScreen";
-import ImageUploadScreen from "./screens/Admin/ImageUploadScreen";
 import HomeScreen from "./screens/HomeScreen";
 import UserListScreen from "./screens/Admin/UserListScreen";
 import UserEditScreen from "./screens/Admin/UserEditScreen";
@@ -33,8 +32,10 @@ import NewsCreateScreen from "./screens/Admin/NewsCreateScreen";
 import NewsListScreen from "./screens/Admin/NewsListScreen";
 import NewsEditScreen from "./screens/Admin/NewsEditScreen";
 import PendingApprovalScreen from "./screens/PendingApprovalScreen";
-import GalleryScreen from "./screens/GalleryScreen";
+import ImageUploadScreen from "./screens/Admin/ImageUploadScreen";
 import ImageListScreen from "./screens/Admin/ImageListScreen";
+import ImageEditScreen from "./screens/Admin/ImageEditScreen";
+import GalleryScreen from "./screens/GalleryScreen";
 import GalleryByTagScreen from "./screens/GalleryByTagScreen";
 
 Modal.setAppElement("#root");
@@ -72,6 +73,7 @@ const router = createBrowserRouter(
         <Route path="news/:id/edit" element={<NewsEditScreen />} />
         <Route path="images/upload" element={<ImageUploadScreen />} />
         <Route path="images/list" element={<ImageListScreen />} />
+        <Route path="images/:id/edit" element={<ImageEditScreen />} />
       </Route>
     </Route>
   )

@@ -9,7 +9,12 @@ body {
 }
 
 /* Overrides bootstrap fonts */
-body, button, input, textarea, .btn, .form-control {
+body,
+button,
+input,
+textarea,
+.btn,
+.form-control {
   font-family: 'Montserrat', sans-serif !important;
 }
 
@@ -110,4 +115,10 @@ body, button, input, textarea, .btn, .form-control {
 
 #navbar-font {
   color: #ffffff;
+}
+
+#tag-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
 }
