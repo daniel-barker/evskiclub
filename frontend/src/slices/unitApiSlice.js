@@ -18,6 +18,13 @@ export const unitApiSlice = apiSlice.injectEndpoints({
         body,
       }),
     }),
+    uploadUnitImage: builder.mutation({
+      query: (data) => ({
+        url: `${UNIT_URL}/u`,
+        method: "POST",
+        body: data,
+      }),
+    }),
     updateUnit: builder.mutation({
       query: (data) => ({
         url: `${UNIT_URL}/${data.id}`,
@@ -38,6 +45,7 @@ export const {
   useGetAllUnitsQuery,
   useGetUnitByIdQuery,
   useCreateUnitMutation,
+  useUploadUnitImageMutation,
   useUpdateUnitMutation,
   useDeleteUnitMutation,
 } = unitApiSlice;

@@ -17,6 +17,7 @@ const createUnit = asyncHandler(async (req, res) => {
       members: req.body.members,
       addresses: req.body.addresses,
       memberSince: req.body.memberSince,
+      image: req.body.image,
     });
 
     const createdUnit = await unit.save();
@@ -60,6 +61,7 @@ const updateUnit = asyncHandler(async (req, res) => {
     unit.members = req.body.members || unit.members;
     unit.addresses = req.body.addresses || unit.addresses;
     unit.memberSince = req.body.memberSince || unit.memberSince;
+    unit.image = req.body.image || unit.image;
 
     const updatedUnit = await unit.save();
     res.json(updatedUnit);
@@ -76,6 +78,12 @@ const updateUnit = asyncHandler(async (req, res) => {
 const deleteUnit = asyncHandler(async (req, res) => {
   const unit = await Unit.findById(req.params.id);
   if (unit) {
+    if (unit.image) {
+      const path = `frontend/public/${unit.image}`;
+      if (fs.existsSync(path)) {
+        fs.unlinkSync(path);
+      }
+    }
     await unit.deleteOne({ _id: req.params.id });
     res.json({ message: "Unit removed" });
   } else {
