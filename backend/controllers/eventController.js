@@ -73,7 +73,6 @@ const createEvent = asyncHandler(async (req, res) => {
 // @access  Admins
 
 const updateEvent = asyncHandler(async (req, res) => {
-  console.log(req.body);
   const { title, date, location, description, image, thumbnail } = req.body;
   const event = await Event.findById(req.params.id);
 
