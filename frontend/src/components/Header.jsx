@@ -1,6 +1,6 @@
 import React from "react";
 import { Navbar, Nav, NavDropdown, Image } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { useLogoutMutation } from "../slices/usersApiSlice";
@@ -8,6 +8,7 @@ import { logout } from "../slices/authSlice";
 import logo from "../assets/logo.png";
 
 const Header = () => {
+  const location = useLocation();
   const { userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -22,6 +23,11 @@ const Header = () => {
       console.log(err);
     }
   };
+const excludedHeaderPaths = ['/login', '/register', '/forgot-password', '/reset-password'];
+
+  if (excludedHeaderPaths.includes(location.pathname)) {
+    return null;
+  }
 
   return (
     <header>

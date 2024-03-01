@@ -8,6 +8,11 @@ body {
   height: 100vh;
 }
 
+.no-background-image {
+  background-image: none !important;
+  background-color: white;
+}
+
 .btn-primary {
   background-color: #01467f !important;
   border-color: #013567 !important;
@@ -26,9 +31,7 @@ body {
   height: 100%;
 }
 
-
 .custom-navbar {
-
   font-family: 'Montserrat', sans-serif;
   color: #ffffff;
   width: 100%;
@@ -65,9 +68,14 @@ body {
   color: inherit; /* Use inherit or set a specific color */
 }
 
-
 .body-padding {
   padding-top: 64px;
+}
+
+.carousel-item img {
+  height: 700px;
+  object-fit: cover;
+  width: 100%;
 }
 
 .news-card-title {
