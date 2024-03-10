@@ -22,7 +22,6 @@ const MemberScreen = () => {
 
   useEffect(() => {
     document.body.classList.add('no-background-image')
-
     return () => {
       document.body.classList.remove('no-background-image')
     }
@@ -39,12 +38,9 @@ const MemberScreen = () => {
 
   return (
     <>
-      <Container fluid className="p-0"> {/* Use fluid container for full-width */}
-        {/* Carousel at the top */}
+      <Container fluid className="p-0">
         <MemberPageCarousel />
-
-        {/* Latest News and Calendar side by side underneath the carousel */}
-        <Row noGutters className="mt-3">
+        <Row className="mt-3">
           <Col md={6} className="p-2">
             <LatestNews />
           </Col>
@@ -52,10 +48,7 @@ const MemberScreen = () => {
             <Calendar />
           </Col>
         </Row>
-
-        {/* Additional content, adjust as necessary */}
         <Row className="mt-3 mx-1">
-          {/* Your cards for history, directory, bylaws, house rules */}
           <Col md={3} className="p-2">
             <Card onClick={handleShowHistory} style={{ cursor: "pointer" }}>
               <Card.Img src={club_history} />
