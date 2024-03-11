@@ -11,7 +11,6 @@ const MemberPageCarousel = () => {
     isError,
     error,
   } = useGetCarouselImagesQuery();
-  console.log(images);
 
   if (isLoading) return <Loader />;
   if (isError) return <Message variant="danger">{error.toString()}</Message>;

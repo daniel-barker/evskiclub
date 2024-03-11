@@ -23,25 +23,24 @@ const MemberDirectory = () => {
           {error?.data?.message || "Failed to fetch units"}
         </Message>
       ) : (
-        <Row>
-          {units.map((unit) => (
+        units.map((unit) => (
+          <Row key={unit._id}>
             <Card className="my-3 p-3 rounded">
-              <Col key={unit._id} sm={12} md={6} lg={4} xl={3}>
-                {unit.members.map((member, index) => (
-                  <div key={index}>
+              <Col sm={12} md={6} lg={4} xl={3}>
+                {unit.members.map((member) => (
+                  <div key={member._id}>
                     <h3>{`${member.firstName} ${member.lastName}`}</h3>
                     <p>{member.email}</p>
-                    {member.phoneNumber.map((phone, index) => (
-                      <p key={index}>{`${phone.type}: ${phone.number}`}</p>
+                    {member.phoneNumber.map((phone) => (
+                      <p key={phone._id}>{`${phone.type}: ${phone.number}`}</p>
                     ))}
                   </div>
                 ))}
-                <Card.Img src={unit.image} variant="top" />
+                <Card.Img src={unit.image} />
                 <Card.Body>
                   <Card.Title as="div">
-                    <strong>{unit.members.firstName}</strong>
+                    <strong>{unit.members[0]?.firstName}</strong>
                   </Card.Title>
-
                   <Card.Text as="div">
                     <div className="my-3"></div>
                     <div className="my-3"></div>
@@ -49,8 +48,8 @@ const MemberDirectory = () => {
                 </Card.Body>
               </Col>
             </Card>
-          ))}
-        </Row>
+          </Row>
+        ))
       )}
     </Container>
   );
