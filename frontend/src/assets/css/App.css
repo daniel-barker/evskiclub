@@ -6,6 +6,12 @@ body {
   background-size: cover;
   background-attachment: fixed;
   height: 100vh;
+  padding-top: 146px;
+}
+
+.no-background-image {
+  background-image: none !important;
+  background-color: white;
 }
 
 .btn-primary {
@@ -16,8 +22,8 @@ body {
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:active {
-  background-color: #012345 !important;/* Even darker for hover */
-  border-color: #012345 !important; /* Optional: adjust if you also want a darker border */
+  background-color: #012345 !important;
+  border-color: #012345 !important;
 }
 
 .blurred-background {
@@ -26,26 +32,35 @@ body {
   height: 100%;
 }
 
+.nav-link {
+  color: #01467f;
+  font-weight: 600;
+  font-size: larger;
+  transition: color 0.3s;
+}
 
 .custom-navbar {
-
   font-family: 'Montserrat', sans-serif;
-  color: #ffffff;
+  color: #01467f;
   width: 100%;
-  height: 64px;
+  height: auto;
   top: 0;
   z-index: 1030;
-  background-color: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(5px);
+  background-color: white;
+  box-shadow: 0 4px 6px 0 #00000080;
+  position: fixed;
 }
 
 .custom-navbar h1 {
   font-size: 3.7rem;
   font-weight: 500;
-  text-shadow: 3px 3px 5px black;
-  color: #ffffff;
+  color: #01467f;
   margin: 0;
   padding: 0;
+}
+
+.custom-navbar .navbar-nav .nav-link {
+  padding-right: 30px; /* Adjust the padding as needed */
 }
 
 .custom-navbar .dropdown-item:hover,
@@ -65,9 +80,18 @@ body {
   color: inherit; /* Use inherit or set a specific color */
 }
 
+.custom-logo {
+  padding-left: 50px; /* Adjust as needed */
+}
 
 .body-padding {
   padding-top: 64px;
+}
+
+.carousel-item img {
+  height: 700px;
+  object-fit: cover;
+  width: 100%;
 }
 
 .news-card-title {
@@ -139,15 +163,22 @@ body {
   padding: 5rem;
 }
 
-@media (min-width: 768px) { /* Adjust the pixel value based on your needs */
+@media (min-width: 768px) {
   .nowrap-on-desktop {
     white-space: nowrap;
   }
 }
 
+@media (max-width: 767.98px) {
+  .custom-navbar .navbar-brand {
+    padding-left: 20px; /* Removes padding on smaller screens */
+  }
+}
 
-#navbar-font {
-  color: #ffffff;
+@media (max-width: 767.98px) {
+  .custom-navbar .navbar-toggler {
+    margin-right: 20px; /* Adds padding on smaller screens */
+  }
 }
 
 #tag-links {

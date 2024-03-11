@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Image } from "react-bootstrap";
 import Loader from "../components/Loader";
 import { useRegisterMutation } from "../slices/usersApiSlice";
 import { setCredentials } from "../slices/authSlice";
 import { toast } from "react-toastify";
+import club_logo from "../assets/images/club_logo.png";
 
 const RegistrationScreen = () => {
   const navigate = useNavigate();
@@ -60,14 +61,18 @@ const RegistrationScreen = () => {
       border: "1px solid #ccc",
       boxShadow: "0 5px 15px rgba(0, 0, 0, 0.5)",
       borderRadius: "10px",
-      background: "#fff",
+      background: "rgba(255, 255, 255, 0.9)",
+      color: "#01467f",
       zIndex: 1050,
     },
   };
 
   return (
     <div style={bigModalStyle.container}>
-      <h2>Register</h2>
+      <div className="text-center">
+        <Image src={club_logo} fluid />
+      </div>
+      <h2 className="text-center">Register</h2>
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="username" className="my-3">
           <Form.Label>Username</Form.Label>

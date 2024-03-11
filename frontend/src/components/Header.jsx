@@ -1,13 +1,14 @@
 import React from "react";
 import { Navbar, Nav, NavDropdown, Image } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { useLogoutMutation } from "../slices/usersApiSlice";
 import { logout } from "../slices/authSlice";
-import logo from "../assets/logo.png";
+import logo from "../assets/images/club_logo.png";
 
 const Header = () => {
+  const location = useLocation();
   const { userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -22,13 +23,18 @@ const Header = () => {
       console.log(err);
     }
   };
+const excludedHeaderPaths = ['/login', '/register', '/forgot-password', '/reset-password'];
+
+  if (excludedHeaderPaths.includes(location.pathname)) {
+    return null;
+  }
 
   return (
     <header>
       <Navbar expand="lg" collapseOnSelect className="custom-navbar">
         <LinkContainer to="/">
-          <Navbar.Brand>
-            <h1>Ellicottville Ski Club</h1>
+          <Navbar.Brand className="custom-logo">
+            <Image src={logo} alt="Ellicottville Ski Club Logo" style={{ height: '120px' }} />
           </Navbar.Brand>
         </LinkContainer>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -68,7 +74,7 @@ const Header = () => {
                   <Nav.Link>About</Nav.Link>
                 </LinkContainer>
                 <Nav.Link onClick={logoutHandler}>
-                  <Image src={logo} alt="logo" className="logo" />
+                  Logout
                 </Nav.Link>
               </>
             )}

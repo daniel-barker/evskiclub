@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Row, Col } from "react-bootstrap";
 import Loader from "../../components/Loader";
 import FormContainer from "../../components/FormContainer";
 import { toast } from "react-toastify";
@@ -12,6 +12,7 @@ const ImageUploadScreen = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [tags, setTags] = useState("");
+  const [carousel, setCarousel] = useState(false);
 
   const [uploadImage, { isLoading }] = useUploadImageMutation();
 
@@ -24,6 +25,7 @@ const ImageUploadScreen = () => {
     const tagArray = tags.split(", ").filter((tag) => tag.trim() !== "");
     formData.append("tags", JSON.stringify(tagArray));
     formData.append("image", image);
+    formData.append("carousel", carousel);
 
     try {
       const res = await uploadImage(formData).unwrap();
@@ -90,9 +92,22 @@ const ImageUploadScreen = () => {
             ></Form.Control>
           </Form.Group>
 
-          <Button type="submit" variant="primary">
-            Upload
-          </Button>
+          <Row className="align-items-center">
+            <Form.Group as={Col} className="text-left mt-sm-3 mt-md-3">
+              <Button type="submit" variant="primary">
+                Upload
+              </Button>
+            </Form.Group>
+
+            <Form.Group as={Col} controlId="carousel" className="mt-sm-3 mt-md-3 text-right">
+              <Form.Check
+                type="checkbox"
+                label="Include in Carousel"
+                checked={carousel}
+                onChange={(e) => setCarousel(e.target.checked)}
+              />
+            </Form.Group>
+          </Row>
         </Form>
       </FormContainer>
     </>

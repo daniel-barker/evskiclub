@@ -6,7 +6,7 @@ import Loader from "../components/Loader";
 import { useLoginMutation } from "../slices/usersApiSlice";
 import { setCredentials } from "../slices/authSlice";
 import { toast } from "react-toastify";
-import club_logo from "../assets/images/club_logo.jpg";
+import club_logo from "../assets/images/club_logo.png";
 
 const LoginScreen = () => {
   const navigate = useNavigate();
@@ -50,7 +50,8 @@ const LoginScreen = () => {
       border: "1px solid #ccc",
       boxShadow: "0 5px 15px rgba(0, 0, 0, 0.5)",
       borderRadius: "10px",
-      background: "#fff",
+      background: "rgba(255, 255, 255, 0.9)",
+      color: "#01467f",
       zIndex: 1050,
     },
   };

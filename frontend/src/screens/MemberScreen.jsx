@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Modal, Row, Col, Card, Button } from "react-bootstrap";
 import Calendar from "../components/Calendar";
 import LatestNews from "../components/LatestNews";
+import MemberPageCarousel from "../components/MemberPageCarousel";
 
 import club_bylaws from "../assets/images/club_bylaws.jpg";
 import member_directory from "../assets/images/member_directory.jpg";
@@ -19,6 +20,13 @@ const MemberScreen = () => {
   const [showHistory, setShowHistory] = useState(false);
   const [showHouseRules, setShowHouseRules] = useState(false);
 
+  useEffect(() => {
+    document.body.classList.add('no-background-image')
+    return () => {
+      document.body.classList.remove('no-background-image')
+    }
+  }, [])
+
   const handleShowBylaws = () => setShowBylaws(true);
   const handleHideBylaws = () => setShowBylaws(false);
   const handleShowMemberDirectory = () => setShowMemberDirectory(true);
@@ -30,69 +38,33 @@ const MemberScreen = () => {
 
   return (
     <>
-      <Container className="member-page-container">
-        <Row>
-          <Col md={6}>
+      <Container fluid className="p-0">
+        <MemberPageCarousel />
+        <Row className="mt-3">
+          <Col md={6} className="p-2">
             <LatestNews />
           </Col>
-          <Col md={2}></Col>
-          <br />
-          <Col md={4}>
-            <Card>
-              <Card.Body>
-                <Card.Title>Photo Gallery Carousel</Card.Title>
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-              </Card.Body>
-            </Card>
+          <Col md={6} className="p-2">
+            <Calendar />
           </Col>
         </Row>
-        <Row className="dflex justify-content-center">
-          <Col md={8}>
-            <br />
-            <br />
-            <br />
-            <br />
-
-            <div className="event-container">
-              <Calendar />
-            </div>
-            <br />
-            <br />
-            <br />
-            <br />
-          </Col>
-        </Row>
-        <br />
-        <Row>
-          <Col md={2}>
+        <Row className="mt-3 mx-1">
+          <Col md={3} className="p-2">
             <Card onClick={handleShowHistory} style={{ cursor: "pointer" }}>
               <Card.Img src={club_history} />
             </Card>
           </Col>
-          <Col md={1}></Col>
-          <Col md={2}>
-            <Card
-              onClick={handleShowMemberDirectory}
-              style={{ cursor: "pointer" }}
-            >
+          <Col md={3} className="p-2">
+            <Card onClick={handleShowMemberDirectory} style={{ cursor: "pointer" }}>
               <Card.Img src={member_directory} />
             </Card>
           </Col>
-          <Col md={1}></Col>
-          <Col md={2}>
+          <Col md={3} className="p-2">
             <Card onClick={handleShowBylaws} style={{ cursor: "pointer" }}>
               <Card.Img src={club_bylaws} />
             </Card>
           </Col>
-          <Col md={1}></Col>
-          <Col md={2}>
+          <Col md={3} className="p-2">
             <Card onClick={handleShowHouseRules} style={{ cursor: "pointer" }}>
               <Card.Img src={house_rules} />
             </Card>

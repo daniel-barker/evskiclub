@@ -19,6 +19,7 @@ const uploadImage = asyncHandler(async (req, res) => {
       title: req.body.title,
       description: req.body.description,
       tags: JSON.parse(req.body.tags),
+      carousel: req.body.carousel === "true",
     });
 
     const createdImage = await image.save();
@@ -86,6 +87,7 @@ const updateImage = asyncHandler(async (req, res) => {
       image.title = req.body.title || image.title;
       image.description = req.body.description || image.description;
       image.tags = req.body.tags || image.tags;
+      image.carousel = req.body.carousel;
 
       const updatedImage = await image.save();
       res.json(updatedImage);
