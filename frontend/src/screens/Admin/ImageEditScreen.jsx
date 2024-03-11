@@ -20,7 +20,8 @@ const ImageEditScreen = () => {
   const [carousel, setCarousel] = useState(false);
 
   const { data: image, isLoading, error } = useGetSingleImageQuery(id);
-  const [updateImage, { isLoading: isLoadingUpdate }] = useUpdateImageMutation();
+  const [updateImage, { isLoading: isLoadingUpdate }] =
+    useUpdateImageMutation();
 
   useEffect(() => {
     if (image) {
@@ -37,7 +38,7 @@ const ImageEditScreen = () => {
     try {
       await updateImage({ id, title, description, tags: tagArray, carousel });
       toast.success("Image updated successfully");
-      navigate("/admin/images");
+      navigate("/admin/images/list");
     } catch (err) {
       toast.error(err?.data?.message || err.error);
     }
@@ -45,66 +46,72 @@ const ImageEditScreen = () => {
 
   return (
     <>
-      <Link to="/admin/images" className="btn btn-light my-3">
-        Go Back
-      </Link>
-      <FormContainer>
-        <h1>Edit Image</h1>
-        {isLoading || isLoadingUpdate ? <Loader /> : error ? <Message variant="danger">{error}</Message> : (
-          <Form onSubmit={submitHandler}>
-            {/* Form fields for title, description, tags */}
-            <Form.Group controlId="title">
-              <Form.Label>Title</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-              />
-            </Form.Group>
+      <Container>
+        <Link to="/admin/images/list" className="btn btn-light my-3">
+          Go Back
+        </Link>
+        <FormContainer>
+          <h1>Edit Image</h1>
+          {isLoading || isLoadingUpdate ? (
+            <Loader />
+          ) : error ? (
+            <Message variant="danger">{error}</Message>
+          ) : (
+            <Form onSubmit={submitHandler}>
+              {/* Form fields for title, description, tags */}
+              <Form.Group controlId="title">
+                <Form.Label>Title</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter title"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+              </Form.Group>
 
-            <Form.Group controlId="description">
-              <Form.Label>Description</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              />
-            </Form.Group>
+              <Form.Group controlId="description">
+                <Form.Label>Description</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter description"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+              </Form.Group>
 
-            <Form.Group controlId="tags">
-              <Form.Label>Tags</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter tags"
-                value={tags}
-                onChange={(e) => setTags(e.target.value)}
-              />
-            </Form.Group>
+              <Form.Group controlId="tags">
+                <Form.Label>Tags</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter tags"
+                  value={tags}
+                  onChange={(e) => setTags(e.target.value)}
+                />
+              </Form.Group>
 
-            {/* Row for button and checkbox */}
-            <Row className="align-items-center">
-              <Col className="text-left mt-3">
-                <Button type="submit" variant="primary">
-                  Update
-                </Button>
-              </Col>
+              {/* Row for button and checkbox */}
+              <Row className="align-items-center">
+                <Col className="text-left mt-3">
+                  <Button type="submit" variant="primary">
+                    Update
+                  </Button>
+                </Col>
 
-              <Col className="text-right mt-3">
-                <Form.Group controlId="carousel">
-                  <Form.Check
-                    type="checkbox"
-                    label="Include in Carousel"
-                    checked={carousel}
-                    onChange={(e) => setCarousel(e.target.checked)}
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
-          </Form>
-        )}
-      </FormContainer>
+                <Col className="text-right mt-3">
+                  <Form.Group controlId="carousel">
+                    <Form.Check
+                      type="checkbox"
+                      label="Include in Carousel"
+                      checked={carousel}
+                      onChange={(e) => setCarousel(e.target.checked)}
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+            </Form>
+          )}
+        </FormContainer>
+      </Container>
     </>
   );
 };

@@ -24,7 +24,7 @@ export const imageApiSlice = apiSlice.injectEndpoints({
     }),
     updateImage: builder.mutation({
       query: (data) => ({
-        url: `${IMAGES_URL}/${data._id}`,
+        url: `${IMAGES_URL}/${data.id}`,
         method: "PUT",
         body: data,
       }),
