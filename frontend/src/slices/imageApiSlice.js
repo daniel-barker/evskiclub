@@ -22,6 +22,9 @@ export const imageApiSlice = apiSlice.injectEndpoints({
     getImagesByTag: builder.query({
       query: (tag) => `${IMAGES_URL}/tags/${tag}`,
     }),
+    getCarouselImages: builder.query({
+      query: () => `${IMAGES_URL}/carousel`,
+    }),
     updateImage: builder.mutation({
       query: (data) => ({
         url: `${IMAGES_URL}/${data.id}`,
@@ -46,5 +49,6 @@ export const {
   useUpdateImageMutation,
   useGetImageTagsQuery,
   useGetImagesByTagQuery,
+  useGetCarouselImagesQuery,
   useDeleteImageMutation,
 } = imageApiSlice;

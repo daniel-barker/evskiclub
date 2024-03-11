@@ -11,6 +11,7 @@ import {
   getSingleImage,
   getUniqueTags,
   getImagesByTag,
+  getCarouselImages,
   updateImage,
   deleteImage,
 } from "../controllers/imageController.js";
@@ -55,6 +56,7 @@ const uploadSingleImage = upload.single("image");
 
 router.get("/tags", protect, getUniqueTags);
 router.get("/tags/:tag", protect, getImagesByTag);
+router.get("/carousel", protect, getCarouselImages);
 router.get("/", protect, getImages);
 router
   .route("/:id")

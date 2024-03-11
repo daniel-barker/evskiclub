@@ -73,6 +73,15 @@ const getImagesByTag = asyncHandler(async (req, res) => {
   res.json(images);
 });
 
+// @desc: Get images tagged with carousel: true for carousel
+// @route: GET /api/images/carousel
+// @access: Members only
+
+const getCarouselImages = asyncHandler(async (req, res) => {
+  const images = await Image.find({ carousel: true });
+  res.json(images);
+});
+
 // @desc: Update image
 // @route: PUT /api/images/:id
 // @access: Admin only
@@ -132,6 +141,7 @@ export {
   getSingleImage,
   getUniqueTags,
   getImagesByTag,
+  getCarouselImages,
   updateImage,
   deleteImage,
 };
