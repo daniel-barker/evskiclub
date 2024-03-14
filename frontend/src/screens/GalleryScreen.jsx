@@ -25,7 +25,7 @@ const GalleryScreen = () => {
   return (
     <Container className="form-background mt-4">
       <h2>Gallery</h2>
-      <Gallery>
+      <Gallery withCaption withDownloadButton>
         {images.map((img, index) => (
           <Item
             key={index}
@@ -34,6 +34,7 @@ const GalleryScreen = () => {
             width={img.width}
             height={img.height}
             title={img.title}
+            caption={img.description}
           >
             {({ ref, open }) => (
               <img

@@ -8,6 +8,7 @@
 
 body {
   height: 100vh;
+  background-color: #fff;
   padding-top: 146px;
 }
 
@@ -194,4 +195,17 @@ body {
   border: 1px dashed #000000;
   border-radius: 10px;
   padding: 10px;
+}
+
+.caption {
+  background: rgba(0, 0, 0, 0.75);
+  font-size: 16px;
+  color: #fff;
+  width: calc(100% - 32px);
+  padding: 2px 8px;
+  border-radius: 4px;
+  position: absolute;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
 }

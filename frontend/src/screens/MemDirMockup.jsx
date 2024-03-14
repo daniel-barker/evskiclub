@@ -23,10 +23,11 @@ const MemberDirectory = () => {
         </Message>
       ) : (
         units.map((unit) => (
-          <Card key={unit._id} className="my-3 p-3 rounded">
+          <Card key={unit._id} className="my-3 p-3 rounded shadow-sm">
             <Row>
               <Col sm={12} md={6} lg={4} xl={3}>
                 <Card.Img src={unit.image} />
+                <h3>Member Since: {`${unit.memberSince}`}</h3>
               </Col>
               <Col>
                 <Row>
@@ -42,7 +43,6 @@ const MemberDirectory = () => {
                         ))}
                       </div>
                     ))}
-                    <h3>Member Since: {`${unit.memberSince}`}</h3>
                   </Col>
                   <Col>
                     {unit.addresses.map((address) => (
