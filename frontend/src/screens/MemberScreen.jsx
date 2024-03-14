@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Container, Modal, Row, Col, Card, Button } from "react-bootstrap";
+import React, { useState } from "react";
+import { Modal, Row, Col, Card, Button } from "react-bootstrap";
 import Calendar from "../components/Calendar";
 import LatestNews from "../components/LatestNews";
 import MemberPageCarousel from "../components/MemberPageCarousel";
@@ -20,13 +20,6 @@ const MemberScreen = () => {
   const [showHistory, setShowHistory] = useState(false);
   const [showHouseRules, setShowHouseRules] = useState(false);
 
-  useEffect(() => {
-    document.body.classList.add('no-background-image')
-    return () => {
-      document.body.classList.remove('no-background-image')
-    }
-  }, [])
-
   const handleShowBylaws = () => setShowBylaws(true);
   const handleHideBylaws = () => setShowBylaws(false);
   const handleShowMemberDirectory = () => setShowMemberDirectory(true);
@@ -38,8 +31,8 @@ const MemberScreen = () => {
 
   return (
     <>
-      <Container fluid className="p-0">
-        <MemberPageCarousel />
+      <MemberPageCarousel />
+      <div className="member-page-container">
         <Row className="mt-3">
           <Col md={6} className="p-2">
             <LatestNews />
@@ -55,7 +48,10 @@ const MemberScreen = () => {
             </Card>
           </Col>
           <Col md={3} className="p-2">
-            <Card onClick={handleShowMemberDirectory} style={{ cursor: "pointer" }}>
+            <Card
+              onClick={handleShowMemberDirectory}
+              style={{ cursor: "pointer" }}
+            >
               <Card.Img src={member_directory} />
             </Card>
           </Col>
@@ -70,7 +66,7 @@ const MemberScreen = () => {
             </Card>
           </Col>
         </Row>
-      </Container>
+      </div>
 
       {/* MODALS */}
 

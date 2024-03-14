@@ -61,6 +61,7 @@ const getUniqueTags = asyncHandler(async (req, res) => {
   const images = await Image.find({});
   const allTags = images.map((image) => image.tags).flat();
   const uniqueTags = [...new Set(allTags)]; // Remove duplicates
+  uniqueTags.sort((a, b) => a.localeCompare(b)); // Sort alphabetically
   res.json(uniqueTags);
 });
 

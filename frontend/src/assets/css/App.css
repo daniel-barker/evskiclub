@@ -1,17 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,400;0,500;0,800;1,800&display=swap');
 
-body {
-  /* font-family: 'Montserrat', sans-serif; */
-  background-image: url('../images/background2.jpg');
-  background-size: cover;
-  background-attachment: fixed;
-  height: 100vh;
-  padding-top: 146px;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.no-background-image {
-  background-image: none !important;
-  background-color: white;
+body {
+  height: 100vh;
+  padding-top: 146px;
 }
 
 .btn-primary {
@@ -60,28 +57,32 @@ body {
 }
 
 .custom-navbar .navbar-nav .nav-link {
-  padding-right: 30px; /* Adjust the padding as needed */
+  padding-right: 30px;
+  /* Adjust the padding as needed */
 }
 
 .custom-navbar .dropdown-item:hover,
-.custom-navbar .dropdown-item:focus
- {
+.custom-navbar .dropdown-item:focus {
   background-color: #01467f;
   color: white;
 }
 
 .custom-navbar .dropdown-item.active,
 .custom-navbar .dropdown-item:active {
-  background-color: transparent; /* or the default dropdown background color */
+  background-color: transparent;
+  /* or the default dropdown background color */
   border-color: #01467f;
-  border-width: 2px; /* Optional: Set the border width if needed */
+  border-width: 2px;
+  /* Optional: Set the border width if needed */
   border-style: solid;
   border-radius: 8px;
-  color: inherit; /* Use inherit or set a specific color */
+  color: inherit;
+  /* Use inherit or set a specific color */
 }
 
 .custom-logo {
-  padding-left: 50px; /* Adjust as needed */
+  padding-left: 50px;
+  /* Adjust as needed */
 }
 
 .body-padding {
@@ -107,7 +108,7 @@ body {
 }
 
 .member-page-container {
-  padding-top: 50px;
+  padding: 50px;
 }
 
 .news-card-signature {
@@ -171,13 +172,15 @@ body {
 
 @media (max-width: 767.98px) {
   .custom-navbar .navbar-brand {
-    padding-left: 20px; /* Removes padding on smaller screens */
+    padding-left: 20px;
+    /* Removes padding on smaller screens */
   }
 }
 
 @media (max-width: 767.98px) {
   .custom-navbar .navbar-toggler {
-    margin-right: 20px; /* Adds padding on smaller screens */
+    margin-right: 20px;
+    /* Adds padding on smaller screens */
   }
 }
 
