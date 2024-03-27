@@ -56,9 +56,21 @@ const MemberCreateScreen = () => {
     setMembers(updatedMembers);
   };
 
-  const addPhoneNumber = (index) => {
-    const updatedMembers = [...members];
-    updatedMembers[index].phoneNumber.push({ number: "", type: "home" });
+  const addPhoneNumber = (memberIndex) => {
+    // Create a new copy of the members array
+    const updatedMembers = members.map((member, index) => {
+      if (index === memberIndex) {
+        // For the targeted member, create a new copy of the phoneNumber array and add the new phone number object
+        return {
+          ...member,
+          phoneNumber: [...member.phoneNumber, { number: "", type: "home" }],
+        };
+      }
+      // For all other members, return them as is
+      return member;
+    });
+
+    // Update the state with the new array
     setMembers(updatedMembers);
   };
 
