@@ -41,7 +41,6 @@ import MemberListScreen from "./screens/Admin/MemberListScreen";
 import MemberCreateScreen from "./screens/Admin/MemberCreateScreen";
 import MemberDirectory from "./screens/MemberDirectory";
 import MemberEditScreen from "./screens/Admin/MemberEditScreen";
-import MemDirMockup from "./screens/MemDirMockup";
 
 Modal.setAppElement("#root");
 
@@ -55,7 +54,6 @@ const router = createBrowserRouter(
       <Route path="pending-approval" element={<PendingApprovalScreen />} />
       <Route path="forgot-password" element={<ForgotPasswordScreen />} />
       <Route path="reset-password/:token" element={<ResetPasswordScreen />} />
-      <Route path="memdir" element={<MemDirMockup />} />
 
       {/* Private Routes */}
       <Route path="" element={<PrivateRoute />}>
