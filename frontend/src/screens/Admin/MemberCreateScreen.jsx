@@ -17,6 +17,7 @@ const MemberCreateScreen = () => {
       lastName: "",
       email: "",
       phoneNumber: [{ number: "", type: "home" }],
+      honorary: false,
     },
   ]);
   const [addresses, setAddresses] = useState([
@@ -40,13 +41,19 @@ const MemberCreateScreen = () => {
         lastName: "",
         email: "",
         phoneNumber: [{ number: "", type: "home" }],
+        honorary: false,
       },
     ]);
   };
 
   const handleMemberChange = (index, e) => {
+    const { name, value, type, checked } = e.target;
     const updatedMembers = [...members];
-    updatedMembers[index][e.target.name] = e.target.value;
+    if (type === "checkbox") {
+      updatedMembers[index][name] = checked;
+    } else {
+      updatedMembers[index][name] = value;
+    }
     setMembers(updatedMembers);
   };
 
@@ -184,6 +191,15 @@ const MemberCreateScreen = () => {
             </Form.Label>
             {members.map((member, index) => (
               <div key={index}>
+                <Form.Group controlId="honorary">
+                  <Form.Check
+                    type="checkbox"
+                    label="Honorary Member?"
+                    name="honorary"
+                    checked={member.honorary}
+                    onChange={(e) => handleMemberChange(index, e)}
+                  ></Form.Check>{" "}
+                </Form.Group>
                 <Form.Group controlId="firstName">
                   <Form.Label>First Name</Form.Label>
                   <Form.Control
