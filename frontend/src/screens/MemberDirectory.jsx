@@ -7,11 +7,10 @@ import { useGetAllUnitsQuery } from "../slices/unitApiSlice";
 
 const MemberDirectory = () => {
   const { data: units, isLoading, error } = useGetAllUnitsQuery();
-  console.log(units);
 
   return (
-    <Container className="mt-4 form-background">
-      <Row className="align-items-center pt-2pb-5">
+    <Container className="mt-4">
+      <Row className="align-items-center pt-2 pb-5">
         <Col className="text-center">
           <h1>Membership Directory</h1>
         </Col>
@@ -24,31 +23,45 @@ const MemberDirectory = () => {
         </Message>
       ) : (
         units.map((unit) => (
-          <Row key={unit._id}>
-            <Card className="my-3 p-3 rounded">
+          <Card key={unit._id} className="my-3 p-3 rounded shadow-sm">
+            <Row>
               <Col sm={12} md={6} lg={4} xl={3}>
-                {unit.members.map((member) => (
-                  <div key={member._id}>
-                    <h3>{`${member.firstName} ${member.lastName}`}</h3>
-                    <p>{member.email}</p>
-                    {member.phoneNumber.map((phone) => (
-                      <p key={phone._id}>{`${phone.type}: ${phone.number}`}</p>
-                    ))}
-                  </div>
-                ))}
                 <Card.Img src={unit.image} />
-                <Card.Body>
-                  <Card.Title as="div">
-                    <strong>{unit.members[0]?.firstName}</strong>
-                  </Card.Title>
-                  <Card.Text as="div">
-                    <div className="my-3"></div>
-                    <div className="my-3"></div>
-                  </Card.Text>
-                </Card.Body>
+                <h3>Member Since: {`${unit.memberSince}`}</h3>
               </Col>
-            </Card>
-          </Row>
+              <Col>
+                <Row>
+                  <Col>
+                    {unit.members.map((member) => (
+                      <div key={member._id}>
+                        <h3>{`${member.firstName} ${member.lastName}`}</h3>
+                        <p>E-Mail: {member.email}</p>
+                        {member.phoneNumber.map((phone) => (
+                          <p
+                            key={phone._id}
+                          >{`${phone.type}: ${phone.number}`}</p>
+                        ))}
+                      </div>
+                    ))}
+                  </Col>
+                  <Col>
+                    {unit.addresses.map((address) => (
+                      <div key={address._id}>
+                        <h3>{`${address.addressType} Address`}</h3>
+                        <p>{`${address.street}`}</p>
+                        <p>{`${address.city}, ${address.state} ${address.zip}`}</p>
+                      </div>
+                    ))}
+                  </Col>
+                </Row>
+                <br />
+                <br />
+                <Row>
+                  <h5 className="text-center">{`${unit.bio}`}</h5>
+                </Row>
+              </Col>
+            </Row>
+          </Card>
         ))
       )}
     </Container>
