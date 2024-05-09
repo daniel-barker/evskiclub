@@ -79,7 +79,11 @@ const NewsListScreen = () => {
           <tbody>
             {filteredNews.map((newsItem) => (
               <tr key={newsItem._id}>
-                <td>{newsItem.title}</td>
+                <td>
+                  {newsItem.title.length > 50
+                    ? newsItem.title.substring(0, 50) + "..."
+                    : newsItem.title}
+                </td>
                 <td>{newsItem.updatedAt.substring(0, 10)}</td>
                 <td>{newsItem.user.name}</td>
                 <td>
