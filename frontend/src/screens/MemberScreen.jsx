@@ -33,12 +33,9 @@ const MemberScreen = () => {
     <>
       <MemberPageCarousel />
       <div className="member-page-container">
-        <Row className="mt-3">
-          <Col md={6} className="p-2">
+        <Row className="mt-3 justify-content-center align-items-center">
+          <Col md={8} className="p-2">
             <LatestNews />
-          </Col>
-          <Col md={6} className="p-2">
-            <Calendar />
           </Col>
         </Row>
         <Row className="mt-3 mx-1">

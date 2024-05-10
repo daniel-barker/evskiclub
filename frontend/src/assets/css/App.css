@@ -106,6 +106,8 @@ body {
 .news-post-title {
   font-size: 1.8rem;
   font-weight: 400;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .member-page-container {
