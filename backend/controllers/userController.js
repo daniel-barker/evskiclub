@@ -8,6 +8,7 @@ import crypto from "crypto";
 // @route POST /api/users/login
 // @access Public
 const authUser = asyncHandler(async (req, res) => {
+  console.log("Request: ", req.body);
   const { username, password } = req.body;
 
   const user = await User.findOne({ username });
@@ -25,6 +26,7 @@ const authUser = asyncHandler(async (req, res) => {
   }
 
   if (await user.matchPassword(password)) {
+    console.log("Response: ", res);
     generateToken(res, user._id);
 
     res.status(200).json({

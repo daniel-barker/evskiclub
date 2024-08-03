@@ -191,15 +191,6 @@ const MemberCreateScreen = () => {
             </Form.Label>
             {members.map((member, index) => (
               <div key={index}>
-                <Form.Group controlId="honorary">
-                  <Form.Check
-                    type="checkbox"
-                    label="Honorary Member?"
-                    name="honorary"
-                    checked={member.honorary}
-                    onChange={(e) => handleMemberChange(index, e)}
-                  ></Form.Check>{" "}
-                </Form.Group>
                 <Form.Group controlId="firstName">
                   <Form.Label>First Name</Form.Label>
                   <Form.Control
@@ -219,6 +210,16 @@ const MemberCreateScreen = () => {
                     value={member.lastName}
                     onChange={(e) => handleMemberChange(index, e)}
                   ></Form.Control>
+                </Form.Group>
+
+                <Form.Group controlId="honorary">
+                  <Form.Check
+                    type="checkbox"
+                    label="Honorary"
+                    name="honorary"
+                    checked={member.honorary}
+                    onChange={(e) => handleMemberChange(index, e)}
+                  ></Form.Check>{" "}
                 </Form.Group>
                 <Form.Group controlId="email">
                   <Form.Label className="pt-4">Email Address</Form.Label>

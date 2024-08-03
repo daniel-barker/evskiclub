@@ -104,15 +104,26 @@ const MemberEditScreen = () => {
         lastName: "",
         email: "",
         phoneNumber: [{ number: "", type: "home" }],
+        honorary: false,
       },
     ]);
   };
 
   const handleMemberChange = (index, e) => {
-    const updatedMembers = [...members];
-    updatedMembers[index][e.target.name] = e.target.value;
-    setMembers(updatedMembers);
-  };
+    const { name, value, type, checked } = e.target;
+    setMembers(prevMembers => {
+        return prevMembers.map((member, i) => {
+            if (i === index) {
+                // Create a new copy of the member object and update the property
+                return {
+                    ...member,
+                    [name]: type === "checkbox" ? checked : value
+                };
+            }
+            return member; // Return all other members unchanged
+        });
+    });
+};
 
   const removeMemberFields = (index) => {
     const updatedMembers = [...members];
@@ -212,6 +223,15 @@ const MemberEditScreen = () => {
                       value={member.lastName}
                       onChange={(e) => handleMemberChange(index, e)}
                     ></Form.Control>
+                  </Form.Group>
+                  <Form.Group controlId="honorary">
+                    <Form.Check
+                      type="checkbox"
+                      label="Honorary Member?"
+                      name="honorary"
+                      checked={member.honorary || false}
+                      onChange={(e) => handleMemberChange(index, e)}
+                    />
                   </Form.Group>
                   <Form.Group controlId="email">
                     <Form.Label className="pt-4">Email Address</Form.Label>
