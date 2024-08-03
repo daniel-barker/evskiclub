@@ -12,6 +12,7 @@ const unitSchema = mongoose.Schema({
           type: { type: String, enum: ["home", "work", "cell"] },
         },
       ],
+      honorary: { type: Boolean },
     },
   ],
   addresses: [
