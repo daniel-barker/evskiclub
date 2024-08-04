@@ -8,11 +8,19 @@ const router = express.Router();
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
-    const dir = `frontend/public/uploads/events/fullsize`;
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
+    if (process.env.NODE_ENV === "development") {
+      const dir = `frontend/public/uploads/events/fullsize`;
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+      }
+      cb(null, dir);
+    } else {
+      const dir = `frontend/build/uploads/events/fullsize`;
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+      }
+      cb(null, dir);
     }
-    cb(null, dir);
   },
   filename(req, file, cb) {
     cb(

@@ -8,11 +8,22 @@ const router = express.Router();
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
-    const dir = `frontend/public/uploads/news/fullsize`;
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
+    //check if server is in dev mode
+    if (process.env.NODE_ENV === "development") {
+      //if in dev mode, save images to frontend/public/uploads/news/fullsize
+      const dir = `frontend/public/uploads/news/fullsize`;
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+      }
+      cb(null, dir);
+    } else {
+      //if in production mode, save images to frontend/build/uploads/news/fullsize (note: set static disk to /opt/render/project/src/frontend/build/uploads in Render)
+      const dir = `frontend/build/uploads/news/fullsize`;
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+      }
+      cb(null, dir);
     }
-    cb(null, dir);
   },
   filename(req, file, cb) {
     cb(

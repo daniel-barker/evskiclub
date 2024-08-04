@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import { Form, Button, Container, Row, Col, Image } from "react-bootstrap";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import Loader from "../../components/Loader";
 import CreateContainer from "../../components/CreateContainer";
@@ -18,8 +18,8 @@ const MemberEditScreen = () => {
   const [members, setMembers] = useState([]);
   const [addresses, setAddresses] = useState([]);
   const [memberSince, setMemberSince] = useState("");
-  const [image, setImage] = useState("");
   const [bio, setBio] = useState("");
+  const [image, setImage] = useState("");
   const [removeImage, setRemoveImage] = useState(false);
   const [originalImage, setOriginalImage] = useState("");
 
@@ -41,6 +41,7 @@ const MemberEditScreen = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
+    // Start with the base unit details
     const updatedUnit = {
       id,
       members,
@@ -49,6 +50,7 @@ const MemberEditScreen = () => {
       bio,
     };
 
+    // If the 'removeImage' checkbox is not checked and a new image has been selected, proceed with image upload
     if (!removeImage && image instanceof File) {
       try {
         const formData = new FormData();
@@ -62,8 +64,10 @@ const MemberEditScreen = () => {
         return;
       }
     } else if (removeImage) {
-      // explanation in EventEditScreen.jsx
+      // If 'removeImage' is checked, ensure 'image' and 'thumbnail' are not included in the payload
+      // This is effectively done by not adding them to 'updatedEvent'
     } else {
+      // If no new image is selected, retain the original image
       if (originalImage) {
         updatedUnit.image = originalImage;
       }
@@ -111,19 +115,19 @@ const MemberEditScreen = () => {
 
   const handleMemberChange = (index, e) => {
     const { name, value, type, checked } = e.target;
-    setMembers(prevMembers => {
-        return prevMembers.map((member, i) => {
-            if (i === index) {
-                // Create a new copy of the member object and update the property
-                return {
-                    ...member,
-                    [name]: type === "checkbox" ? checked : value
-                };
-            }
-            return member; // Return all other members unchanged
-        });
+    setMembers((prevMembers) => {
+      return prevMembers.map((member, i) => {
+        if (i === index) {
+          // Create a new copy of the member object and update the property
+          return {
+            ...member,
+            [name]: type === "checkbox" ? checked : value,
+          };
+        }
+        return member; // Return all other members unchanged
+      });
     });
-};
+  };
 
   const removeMemberFields = (index) => {
     const updatedMembers = [...members];
@@ -380,14 +384,28 @@ const MemberEditScreen = () => {
                 Add More Addresses
               </Button>
             </Form.Group>
-
-            <Row>
-              <Col>
-                <Form.Group controlId="image">
-                  <Form.Label>Image</Form.Label>
+            <br />
+            <Row className="justify-content-center">
+              <Col md={6}>
+                <h5>
+                  <strong>Current Image</strong>
+                </h5>
+                <Image src={`/${originalImage}`} fluid />
+              </Col>
+            </Row>
+            <br />
+            <Row className="justify-content-center">
+              <Col md={6}>
+                <Form.Group controlId="new-image">
+                  <Form.Label>
+                    <h5>
+                      <strong>New Image</strong>
+                    </h5>{" "}
+                    <h6>(optional)</h6>
+                  </Form.Label>
                   <Form.Control
                     type="file"
-                    label="Choose New Image (optional)"
+                    label="new image"
                     onChange={imageHandler}
                   ></Form.Control>
                 </Form.Group>
@@ -401,9 +419,16 @@ const MemberEditScreen = () => {
                   />
                 </Form.Group>
               </Col>
-              <Col>
+            </Row>
+            <br />
+            <Row className="justify-content-center">
+              <Col md={6}>
                 <Form.Group controlId="memberSince">
-                  <Form.Label>Member Since</Form.Label>
+                  <Form.Label>
+                    <h5>
+                      <strong>Member Since</strong>
+                    </h5>
+                  </Form.Label>
                   <Form.Control
                     type="number"
                     placeholder="Enter member since"
@@ -414,8 +439,7 @@ const MemberEditScreen = () => {
               </Col>
             </Row>
             <br />
-            <Row>
-              <Col></Col>
+            <Row className="justify-content-center">
               <Col md={8} className="text-center">
                 <Form.Group controlId="bio">
                   <Form.Label>
@@ -430,7 +454,6 @@ const MemberEditScreen = () => {
                   ></Form.Control>
                 </Form.Group>
               </Col>
-              <Col></Col>
             </Row>
             <br />
             {loadingUpload && <Loader />}
