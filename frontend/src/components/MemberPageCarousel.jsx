@@ -19,11 +19,7 @@ const MemberPageCarousel = () => {
     <Carousel>
       {images.map((img) => (
         <Carousel.Item key={img._id} interval={3000}>
-          <img
-            className="d-block w-100"
-            src={`${process.env.PUBLIC_URL}/${img.image}`}
-            alt={img.title}
-          />
+          <img className="d-block w-100" src={`${img.image}`} alt={img.title} />
         </Carousel.Item>
       ))}
     </Carousel>

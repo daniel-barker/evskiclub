@@ -23,8 +23,8 @@ const GalleryByTagScreen = () => {
         {images.map((img, index) => (
           <Item
             key={index}
-            original={`${process.env.PUBLIC_URL}/${img.image}`}
-            thumbnail={`${process.env.PUBLIC_URL}/${img.thumbnail}`}
+            original={`${img.image}`}
+            thumbnail={`${img.thumbnail}`}
             width={img.width}
             height={img.height}
             title={img.title}
@@ -33,7 +33,7 @@ const GalleryByTagScreen = () => {
               <img
                 ref={ref}
                 onClick={open}
-                src={`${process.env.PUBLIC_URL}/${img.thumbnail}`}
+                src={`${img.thumbnail}`}
                 alt={img.title}
                 style={{ margin: "10px", width: "auto", height: "100px" }}
               />
