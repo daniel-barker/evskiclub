@@ -59,7 +59,7 @@ function fileFilter(req, file, cb) {
   }
 }
 
-const upload = multer({ storage, fileFilter, limits: { fileSize: 3000000 } });
+const upload = multer({ storage, fileFilter, limits: { fileSize: 300000000 } });
 const uploadSingleImage = upload.single("image");
 
 router.get("/tags", protect, getUniqueTags);
@@ -78,12 +78,16 @@ router.post(
   uploadSingleImage,
   async (req, res, next) => {
     if (req.file) {
-      const dir = `frontend/public/uploads/gallery/thumbnails`;
+      // Determine paths based on environment
+      const isDevelopment = process.env.NODE_ENV === "development";
+      console.log("isDevelopment", isDevelopment);
+      const basePath = isDevelopment ? "frontend/public" : "frontend/build";
+      const dir = `${basePath}/thumbnails`;
       if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, { recursive: true });
       }
 
-      const fullPath = `frontend/public/uploads/gallery/fullsize/${req.file.filename}`;
+      const fullPath = `${basePath}/uploads/gallery/fullsize/${req.file.filename}`;
       const thumbPath = `${dir}/gallery-image-${Date.now()}${path.extname(
         req.file.originalname
       )}`;
@@ -92,8 +96,8 @@ router.post(
         await sharp(req.file.path).resize(300).toFile(thumbPath);
 
         // Update the paths to be relative to the frontend/public directory for client access
-        req.body.image = fullPath.replace("frontend/public/", "");
-        req.body.thumbnail = thumbPath.replace("frontend/public/", "");
+        req.body.image = fullPath.replace(`${basePath}`, "");
+        req.body.thumbnail = thumbPath.replace(`${basePath}`, "");
 
         next(); // move to uploadImage controller to get metadata and save to database
       } catch (err) {

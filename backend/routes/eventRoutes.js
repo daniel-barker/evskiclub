@@ -69,24 +69,90 @@ router
   .put(protect, admin, checkObjectId, updateEvent)
   .delete(protect, admin, checkObjectId, deleteEvent);
 
+// router.post("/u", protect, admin, (req, res) => {
+//   uploadSingleImage(req, res, function (err) {
+//     if (err) {
+//       return res.status(400).send({ message: err.message });
+//     }
+//     //check for dev mode
+//     if (process.env.NODE_ENV === "development") {
+//       //paths for the backend
+//       const truePath = `frontend/public/uploads/events/fullsize/${req.file.filename}`;
+//       const trueThumbPath = `frontend/public/uploads/events/thumbnail/${req.file.filename}`;
+//       //paths for the frontend
+//       const fullPath = `uploads/events/fullsize/${req.file.filename}`;
+//       const thumbPath = `uploads/events/thumbnail/${req.file.filename}`;
+
+//       if (!fs.existsSync(`frontend/public/uploads/events/thumbnail`)) {
+//         fs.mkdirSync(`frontend/public/uploads/events/thumbnail`, {
+//           recursive: true,
+//         });
+//       }
+//       //create thumbnail
+//       sharp(truePath)
+//         .resize(200)
+//         .toFile(trueThumbPath, (err, info) => {
+//           if (err) {
+//             return res.status(400).send({ message: err.message });
+//           }
+//           res.status(201).send({
+//             message: "Image uploaded successfully",
+//             image: fullPath,
+//             thumbnail: thumbPath,
+//           });
+//         });
+//     } else {
+//       //paths for the backend
+//       const truePath = `frontend/build/uploads/events/fullsize/${req.file.filename}`;
+//       const trueThumbPath = `frontend/build/uploads/events/thumbnail/${req.file.filename}`;
+//       //paths for the frontend
+//       const fullPath = `uploads/events/fullsize/${req.file.filename}`;
+//       const thumbPath = `uploads/events/thumbnail/${req.file.filename}`;
+
+//       if (!fs.existsSync(`frontend/build/uploads/events/thumbnail`)) {
+//         fs.mkdirSync(`frontend/build/uploads/events/thumbnail`, {
+//           recursive: true,
+//         });
+//       }
+//       //create thumbnail
+//       sharp(truePath)
+//         .resize(200)
+//         .toFile(trueThumbPath, (err, info) => {
+//           if (err) {
+//             return res.status(400).send({ message: err.message });
+//           }
+//           res.status(201).send({
+//             message: "Image uploaded successfully",
+//             image: fullPath,
+//             thumbnail: thumbPath,
+//           });
+//         });
+//     }
+//   });
+// });
+
 router.post("/u", protect, admin, (req, res) => {
   uploadSingleImage(req, res, function (err) {
     if (err) {
       return res.status(400).send({ message: err.message });
     }
-    //paths for the backend
-    const truePath = `frontend/public/uploads/events/fullsize/${req.file.filename}`;
-    const trueThumbPath = `frontend/public/uploads/events/thumbnail/${req.file.filename}`;
-    //paths for the frontend
+
+    // Determine paths based on environment
+    const isDevelopment = process.env.NODE_ENV === "development";
+    const basePath = isDevelopment
+      ? "frontend/public/uploads/events"
+      : "frontend/build/uploads/events";
     const fullPath = `uploads/events/fullsize/${req.file.filename}`;
     const thumbPath = `uploads/events/thumbnail/${req.file.filename}`;
+    const truePath = `${basePath}/fullsize/${req.file.filename}`;
+    const trueThumbPath = `${basePath}/thumbnail/${req.file.filename}`;
 
-    if (!fs.existsSync(`frontend/public/uploads/events/thumbnail`)) {
-      fs.mkdirSync(`frontend/public/uploads/events/thumbnail`, {
-        recursive: true,
-      });
+    // Ensure thumbnail directory exists
+    if (!fs.existsSync(`${basePath}/thumbnail`)) {
+      fs.mkdirSync(`${basePath}/thumbnail`, { recursive: true });
     }
 
+    // Create thumbnail and send response
     sharp(truePath)
       .resize(200)
       .toFile(trueThumbPath, (err, info) => {
