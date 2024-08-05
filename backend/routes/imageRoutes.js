@@ -82,7 +82,7 @@ router.post(
       const isDevelopment = process.env.NODE_ENV === "development";
       console.log("isDevelopment", isDevelopment);
       const basePath = isDevelopment ? "frontend/public" : "frontend/build";
-      const dir = `${basePath}/thumbnails`;
+      const dir = `${basePath}/uploads/gallery/thumbnails`;
       if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, { recursive: true });
       }
