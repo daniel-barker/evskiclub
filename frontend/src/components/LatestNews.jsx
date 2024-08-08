@@ -1,16 +1,10 @@
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useGetLatestNewsQuery } from "../slices/newsApiSlice";
+import DOMPurify from "dompurify";
 
 const LatestNews = () => {
   const { data: news, isLoading, isError } = useGetLatestNewsQuery();
-
-  const truncateText = (text, maxLength) => {
-    if (text.length > maxLength) {
-      return text.substring(0, maxLength) + "...";
-    }
-    return text;
-  };
 
   const formatDate = (datetime) => {
     const date = new Date(datetime).toLocaleDateString("en-US", {
@@ -31,7 +25,7 @@ const LatestNews = () => {
     <div>
       <Card style={{ backgroundColor: "#f5f5f5" }}>
         <div className="news-card-header d-flex justify-content-between align-items-center">
-          <div className="news-card-title">Latest news</div>
+          <div className="news-card-title">Latest News</div>
           <Link to="/news" className="btn btn-primary">
             Previous Posts
           </Link>
@@ -41,7 +35,14 @@ const LatestNews = () => {
             <Card.Title className="news-post-title text-center">
               {newsPost.title}
             </Card.Title>
-            <Card.Body>{truncateText(newsPost.post, 500)}</Card.Body>
+            <Card.Body>
+              {/* Safely render HTML content */}
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(newsPost.post),
+                }}
+              />
+            </Card.Body>
             <Card.Footer className="ms-auto">
               <div className="news-card-signature">
                 {newsPost.user && newsPost.user.name}
@@ -59,4 +60,5 @@ const LatestNews = () => {
     </div>
   );
 };
+
 export default LatestNews;

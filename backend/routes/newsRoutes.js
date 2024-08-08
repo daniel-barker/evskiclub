@@ -80,17 +80,22 @@ router.post("/u", protect, admin, (req, res) => {
     if (err) {
       return res.status(400).send({ message: err.message });
     }
+
+    //determine env and paths
+    const isDevelopment = process.env.NODE_ENV === "development";
+    const basePath = isDevelopment
+      ? `frontend/public/uploads/news`
+      : `frontend/build/uploads/news`;
     //backend paths
     const truePath = `frontend/public/uploads/news/fullsize/${req.file.filename}`;
     const trueThumbPath = `frontend/public/uploads/news/thumbnail/${req.file.filename}`;
     //frontend paths
-    const fullPath = `uploads/news/fullsize/${req.file.filename}`;
-    const thumbPath = `uploads/news/thumbnail/${req.file.filename}`;
+    const fullPath = `${basePath}/fullsize/${req.file.filename}`;
+    const thumbPath = `${basePath}/thumbnail/${req.file.filename}`;
 
-    if (!fs.existsSync(`frontend/public/uploads/news/thumbnail`)) {
-      fs.mkdirSync(`frontend/public/uploads/news/thumbnail`, {
-        recursive: true,
-      });
+    // Ensure thumbnail directory exists
+    if (!fs.existsSync(`${basePath}/thumbnail`)) {
+      fs.mkdirSync(`${basePath}/thumbnail`, { recursive: true });
     }
 
     sharp(truePath)
