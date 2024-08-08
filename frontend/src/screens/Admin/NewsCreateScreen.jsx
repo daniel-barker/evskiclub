@@ -33,7 +33,7 @@ const NewsCreateScreen = () => {
       isPublished,
     };
     try {
-      const result = await createNews(newNews);
+      const result = await createNews(newNews).unwrap();
       if (result.error) {
         toast.error(result.error);
       } else {

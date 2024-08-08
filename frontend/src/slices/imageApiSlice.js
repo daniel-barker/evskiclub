@@ -9,15 +9,18 @@ export const imageApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: formData,
       }),
+      invalidatesTags: ["Images", "Tags"],
     }),
     getImages: builder.query({
       query: () => `${IMAGES_URL}`,
+      providesTags: ["Images"],
     }),
     getSingleImage: builder.query({
       query: (id) => `${IMAGES_URL}/${id}`,
     }),
     getImageTags: builder.query({
       query: () => `${IMAGES_URL}/tags`,
+      providesTags: ["Tags"],
     }),
     getImagesByTag: builder.query({
       query: (tag) => `${IMAGES_URL}/tags/${tag}`,
@@ -31,12 +34,14 @@ export const imageApiSlice = apiSlice.injectEndpoints({
         method: "PUT",
         body: data,
       }),
+      invalidatesTags: ["Images", "Tags"],
     }),
     deleteImage: builder.mutation({
       query: (id) => ({
         url: `${IMAGES_URL}/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["Images", "Tags"],
     }),
   }),
   overrideExisting: false,

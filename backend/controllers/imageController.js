@@ -9,6 +9,7 @@ import fs from "fs";
 
 const uploadImage = asyncHandler(async (req, res) => {
   try {
+    console.log(req);
     const file = req.file;
     const metadata = await sharp(file.path).metadata();
     const image = new Image({
