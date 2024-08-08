@@ -1,9 +1,17 @@
 import { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { Form, Button, Container } from "react-bootstrap";
+import { toast } from "react-toastify";
+import {
+  HtmlEditor,
+  Image,
+  Inject,
+  QuickToolbar,
+  RichTextEditorComponent,
+  Toolbar,
+} from "@syncfusion/ej2-react-richtexteditor";
 import Loader from "../../components/Loader";
 import FormContainer from "../../components/FormContainer";
-import { toast } from "react-toastify";
 import Message from "../../components/Message";
 import {
   useGetNewsByIdQuery,
@@ -108,6 +116,12 @@ const NewsEditScreen = () => {
           <Link to="/admin/news/list" className="btn btn-light my-3">
             Go Back
           </Link>
+          <div className="d-flex align-items-center">
+            <RichTextEditorComponent>
+              <p>test</p>
+              <Inject services={[HtmlEditor, Toolbar, Image, QuickToolbar]} />
+            </RichTextEditorComponent>
+          </div>
           <FormContainer>
             <h1 className="text-center">Edit News</h1>
             <Form onSubmit={submitHandler}>
