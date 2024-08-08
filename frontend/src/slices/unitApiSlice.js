@@ -5,6 +5,7 @@ export const unitApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAllUnits: builder.query({
       query: () => `${UNIT_URL}`,
+      providesTags: ["Units"],
     }),
     getUnitById: builder.query({
       query: (id) => ({
@@ -17,6 +18,7 @@ export const unitApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body,
       }),
+      invalidatesTags: ["Units"],
     }),
     uploadUnitImage: builder.mutation({
       query: (data) => ({
@@ -37,6 +39,7 @@ export const unitApiSlice = apiSlice.injectEndpoints({
         url: `${UNIT_URL}/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["Units"],
     }),
   }),
 });

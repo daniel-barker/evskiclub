@@ -18,6 +18,7 @@ export const newsApiSlice = apiSlice.injectEndpoints({
         url: `${NEWS_URL}/${id}`,
       }),
       keepUnusedDataFor: 5,
+      providesTags: ["News"],
     }),
     getLatestNews: builder.query({
       query: () => `${NEWS_URL}/latest`,
