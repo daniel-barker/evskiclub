@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Form, Button, Container } from "react-bootstrap";
 import Loader from "../../components/Loader";
 import FormContainer from "../../components/FormContainer";
+import Editor from "../../components/Editor";
 import { toast } from "react-toastify";
 import {
   useCreateNewsMutation,
@@ -80,15 +81,10 @@ const NewsCreateScreen = () => {
             ></Form.Control>
           </Form.Group>
 
-          <Form.Group controlId="post">
+          <Form.Group controlId="post" className="mt-3">
             <Form.Label>Post</Form.Label>
-            <Form.Control
-              as="textarea"
-              rows={8}
-              placeholder="Enter post"
-              value={post}
-              onChange={(e) => setPost(e.target.value)}
-            ></Form.Control>
+            {/* Use the Editor component here */}
+            <Editor content={post} setContent={setPost} />
           </Form.Group>
           <Form.Group controlId="isPublished">
             <Form.Check

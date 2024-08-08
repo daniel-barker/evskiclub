@@ -2,17 +2,10 @@ import { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { Form, Button, Container } from "react-bootstrap";
 import { toast } from "react-toastify";
-import {
-  HtmlEditor,
-  Image,
-  Inject,
-  QuickToolbar,
-  RichTextEditorComponent,
-  Toolbar,
-} from "@syncfusion/ej2-react-richtexteditor";
 import Loader from "../../components/Loader";
 import FormContainer from "../../components/FormContainer";
 import Message from "../../components/Message";
+import Editor from "../../components/Editor";
 import {
   useGetNewsByIdQuery,
   useUpdateNewsMutation,
@@ -23,7 +16,7 @@ const NewsEditScreen = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
-  const [post, setPost] = useState("");
+  const [post, setPost] = useState(""); // State for the CKEditor content
   const [image, setImage] = useState("");
   const [originalImage, setOriginalImage] = useState(""); // Store original image URL
   const [originalThumbnail, setOriginalThumbnail] = useState(""); // Store original thumbnail URL
@@ -38,7 +31,7 @@ const NewsEditScreen = () => {
   useEffect(() => {
     if (news) {
       setTitle(news.title);
-      setPost(news.post);
+      setPost(news.post); // Initialize editor with existing post content
       setOriginalImage(news.image);
       setOriginalThumbnail(news.thumbnail);
       setIsPublished(news.isPublished);
@@ -69,15 +62,14 @@ const NewsEditScreen = () => {
         return;
       }
     } else if (removeImage) {
-      // Leaving this blank will remove the image from the news post, by essentially not adding them to the updatedNews object
+      // Leave blank to remove the image from the news post
     } else {
-      // retain original images
+      // Retain original images
       if (originalImage) updatedNews.image = originalImage;
       if (originalThumbnail) updatedNews.thumbnail = originalThumbnail;
     }
 
-    //update the post
-
+    // Update the post
     try {
       const result = await updateNews(updatedNews);
       if (!result.error) {
@@ -116,12 +108,7 @@ const NewsEditScreen = () => {
           <Link to="/admin/news/list" className="btn btn-light my-3">
             Go Back
           </Link>
-          <div className="d-flex align-items-center">
-            <RichTextEditorComponent>
-              <p>test</p>
-              <Inject services={[HtmlEditor, Toolbar, Image, QuickToolbar]} />
-            </RichTextEditorComponent>
-          </div>
+
           <FormContainer>
             <h1 className="text-center">Edit News</h1>
             <Form onSubmit={submitHandler}>
@@ -137,13 +124,8 @@ const NewsEditScreen = () => {
 
               <Form.Group controlId="post">
                 <Form.Label>Post</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows={10}
-                  placeholder="Enter post"
-                  value={post}
-                  onChange={(e) => setPost(e.target.value)}
-                ></Form.Control>
+                {/* Use the Editor component here */}
+                <Editor content={post} setContent={setPost} />
               </Form.Group>
 
               <Form.Group controlId="isPublished">
@@ -184,4 +166,5 @@ const NewsEditScreen = () => {
     </>
   );
 };
+
 export default NewsEditScreen;

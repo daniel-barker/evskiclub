@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Modal, Row, Col, Card, Button } from "react-bootstrap";
-import Calendar from "../components/Calendar";
 import LatestNews from "../components/LatestNews";
 import MemberPageCarousel from "../components/MemberPageCarousel";
 

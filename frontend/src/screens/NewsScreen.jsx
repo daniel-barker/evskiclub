@@ -1,6 +1,7 @@
 import { Row, Col, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useGetPublishedNewsQuery } from "../slices/newsApiSlice";
+import DOMPurify from "dompurify";
 
 const NewsScreen = () => {
   const { data: news, isLoading, isError } = useGetPublishedNewsQuery();
@@ -36,8 +37,14 @@ const NewsScreen = () => {
             <Col>
               <h2>{post.title}</h2>
               <p className="news-screen-date">{formatDate(post.createdAt)}</p>
-              <p className="news-screen-content">{post.post}</p>
-              <img src={post.image} alt="" />
+              {/* Safely render HTML content */}
+              <div
+                className="news-screen-content"
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(post.post),
+                }}
+              />
+              {post.image && <img src={post.image} alt={post.title} />}
               <div className="text-end">
                 <div className="news-card-signature">
                   -{post.user && post.user.name}
@@ -53,4 +60,5 @@ const NewsScreen = () => {
     </>
   );
 };
+
 export default NewsScreen;
