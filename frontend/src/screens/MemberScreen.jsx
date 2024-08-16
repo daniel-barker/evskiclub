@@ -37,6 +37,7 @@ const MemberScreen = () => {
             <LatestNews />
           </Col>
         </Row>
+
         <Row className="mt-3 mx-1">
           <Col md={3} className="p-2">
             <Card onClick={handleShowHistory} style={{ cursor: "pointer" }}>
