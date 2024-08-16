@@ -11,6 +11,7 @@ export const imageApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Images", "Tags"],
     }),
+
     getImages: builder.query({
       query: () => `${IMAGES_URL}`,
       providesTags: ["Images"],
