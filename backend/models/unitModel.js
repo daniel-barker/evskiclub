@@ -9,7 +9,7 @@ const unitSchema = mongoose.Schema({
       phoneNumber: [
         {
           number: { type: String },
-          type: { type: String, enum: ["home", "work", "cell"] },
+          type: { type: String, enum: ["Home", "Work", "Cell"] },
         },
       ],
       honorary: { type: Boolean },
@@ -19,7 +19,7 @@ const unitSchema = mongoose.Schema({
     {
       addressType: {
         type: String,
-        enum: ["primary", "secondary"],
+        enum: ["Primary", "Secondary"],
         required: true,
       },
       street: { type: String, required: true },
