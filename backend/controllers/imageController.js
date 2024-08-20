@@ -123,13 +123,31 @@ const deleteImage = asyncHandler(async (req, res) => {
     try {
       const imagePath = `frontend/public/${image.image}`;
       const thumbnailPath = `frontend/public/${image.thumbnail}`;
-      fs.unlinkSync(imagePath);
-      fs.unlinkSync(thumbnailPath);
+
+      // Attempt to delete the image file
+      if (fs.existsSync(imagePath)) {
+        fs.unlinkSync(imagePath);
+      } else {
+        console.warn(`Warning: Image file ${imagePath} not found.`);
+      }
+
+      // Attempt to delete the thumbnail file
+      if (fs.existsSync(thumbnailPath)) {
+        fs.unlinkSync(thumbnailPath);
+      } else {
+        console.warn(`Warning: Thumbnail file ${thumbnailPath} not found.`);
+      }
+
+      // Delete the image entry from the database
       await image.deleteOne({ _id: image._id });
       res.json({ message: "Image removed" });
     } catch (error) {
-      res.status(500);
-      throw new Error(error.message);
+      // Log the error but still remove the database entry
+      console.error(`Error deleting image files: ${error.message}`);
+      await image.deleteOne({ _id: image._id });
+      res.json({
+        message: "Image removed, but files may not have been deleted",
+      });
     }
   } else {
     res.status(404);
