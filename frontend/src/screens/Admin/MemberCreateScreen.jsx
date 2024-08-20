@@ -16,12 +16,12 @@ const MemberCreateScreen = () => {
       firstName: "",
       lastName: "",
       email: "",
-      phoneNumber: [{ number: "", type: "home" }],
+      phoneNumber: [{ number: "", type: "Home" }],
       honorary: false,
     },
   ]);
   const [addresses, setAddresses] = useState([
-    { addressType: "primary", street: "", city: "", state: "", zip: "" },
+    { addressType: "Primary", street: "", city: "", state: "", zip: "" },
   ]);
   const [memberSince, setMemberSince] = useState("");
   const [image, setImage] = useState("");
@@ -40,7 +40,7 @@ const MemberCreateScreen = () => {
         firstName: "",
         lastName: "",
         email: "",
-        phoneNumber: [{ number: "", type: "home" }],
+        phoneNumber: [{ number: "", type: "Home" }],
         honorary: false,
       },
     ]);
@@ -70,7 +70,7 @@ const MemberCreateScreen = () => {
         // For the targeted member, create a new copy of the phoneNumber array and add the new phone number object
         return {
           ...member,
-          phoneNumber: [...member.phoneNumber, { number: "", type: "home" }],
+          phoneNumber: [...member.phoneNumber, { number: "", type: "Home" }],
         };
       }
       // For all other members, return them as is
@@ -97,7 +97,7 @@ const MemberCreateScreen = () => {
   const addAddressFields = () => {
     setAddresses([
       ...addresses,
-      { addressType: "secondary", street: "", city: "", state: "", zip: "" },
+      { addressType: "Secondary", street: "", city: "", state: "", zip: "" },
     ]);
   };
 
@@ -128,7 +128,6 @@ const MemberCreateScreen = () => {
           image: uploadResult.image,
           bio,
         };
-        console.log(newUnit);
 
         const result = await createUnit(newUnit).unwrap();
 
@@ -148,7 +147,6 @@ const MemberCreateScreen = () => {
     } else {
       try {
         const newUnit = { members, addresses, memberSince, bio };
-        console.log(newUnit);
 
         const result = await createUnit(newUnit).unwrap();
         if (result) {
@@ -268,9 +266,9 @@ const MemberCreateScreen = () => {
                                 handlePhoneNumberChange(index, subIndex, e)
                               }
                             >
-                              <option value="home">Home</option>
-                              <option value="cell">Cell</option>
-                              <option value="work">Work</option>
+                              <option value="Home">Home</option>
+                              <option value="Cell">Cell</option>
+                              <option value="Work">Work</option>
                             </Form.Control>
                           </Form.Group>
                         </Col>
@@ -307,8 +305,8 @@ const MemberCreateScreen = () => {
                     value={address.addressType}
                     onChange={(e) => handleAddressChange(index, e)}
                   >
-                    <option value="primary">Primary</option>
-                    <option value="secondary">Secondary</option>
+                    <option value="Primary">Primary</option>
+                    <option value="Secondary">Secondary</option>
                   </Form.Control>
                 </Form.Group>
 
