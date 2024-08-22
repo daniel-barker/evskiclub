@@ -240,3 +240,14 @@ body {
   min-width: 795px;
   max-width: 795px;
 }
+
+.post-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.post-container img {
+  margin-right: 10px;
+  /* Add some space between the image and the title */
+}

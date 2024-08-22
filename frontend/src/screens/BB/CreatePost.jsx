@@ -41,7 +41,7 @@ const CreatePost = () => {
         const createResult = await createPost(newPost);
         if (createResult.data) {
           toast.success("Post created successfully");
-          navigate("/posts");
+          navigate("/bb");
         } else {
           throw new Error("Post creation failed");
         }
@@ -59,7 +59,7 @@ const CreatePost = () => {
         const createResult = await createPost(newPost);
         if (createResult.data) {
           toast.success("Post created successfully");
-          navigate("/admin/posts");
+          navigate("/bb");
         } else {
           throw new Error("Post creation failed");
         }
