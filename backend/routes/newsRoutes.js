@@ -90,8 +90,8 @@ router.post("/u", protect, admin, (req, res) => {
     const truePath = `frontend/public/uploads/news/fullsize/${req.file.filename}`;
     const trueThumbPath = `frontend/public/uploads/news/thumbnail/${req.file.filename}`;
     //frontend paths
-    const fullPath = `${basePath}/fullsize/${req.file.filename}`;
-    const thumbPath = `${basePath}/thumbnail/${req.file.filename}`;
+    const fullPath = `uploads/news/fullsize/${req.file.filename}`;
+    const thumbPath = `uploads/news/thumbnail/${req.file.filename}`;
 
     // Ensure thumbnail directory exists
     if (!fs.existsSync(`${basePath}/thumbnail`)) {

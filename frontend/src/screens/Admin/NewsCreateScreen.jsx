@@ -25,41 +25,100 @@ const NewsCreateScreen = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const newNews = {
-      title,
-      post,
-      image,
-      thumbnail,
-      isPublished,
-    };
-    try {
-      const result = await createNews(newNews).unwrap();
-      if (result.error) {
-        toast.error(result.error);
-      } else {
-        toast.success("News created successfully");
-        navigate("/admin/news/list");
+    if (image) {
+      const formData = new FormData();
+      formData.append("image", image);
+
+      try {
+        const uploadResult = await uploadImage(formData).unwrap();
+
+        const newNews = {
+          title,
+          post,
+          image: uploadResult.image,
+          thumbnail: uploadResult.thumbnail,
+          isPublished,
+        };
+
+        const createResult = await createNews(newNews);
+        if (createResult.data) {
+          toast.success("News created successfully");
+          navigate("/admin/news/list");
+        } else {
+          throw new Error("News creation failed");
+        }
+      } catch (error) {
+        toast.error(
+          error?.data?.message ||
+            error.error ||
+            "An error occurred during upload or news creation."
+        );
       }
-    } catch (error) {
-      toast.error(error?.data?.message || error.error);
+    } else {
+      //handle news without images
+      try {
+        const newNews = { title, post, isPublished };
+        const createResult = await createNews(newNews);
+        if (createResult.data) {
+          toast.success("News created successfully");
+          navigate("/admin/news/list");
+        } else {
+          throw new Error("News creation failed");
+        }
+      } catch (error) {
+        toast.error(
+          error?.data?.message ||
+            error.error ||
+            "An error occurred during news creation."
+        );
+      }
     }
   };
 
-  const uploadFileHandler = async (e) => {
+  const imageHandler = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const formData = new FormData();
-      formData.append("image", e.target.files[0]);
-      try {
-        const res = await uploadImage(formData).unwrap();
-        toast.success(res.message);
-        setImage(res.image);
-        setThumbnail(res.thumbnail);
-      } catch (err) {
-        toast.error(err?.data?.message || err.error);
-      }
+      setImage(file);
     }
   };
+
+  // const submitHandler = async (e) => {
+  //   e.preventDefault();
+  //   const newNews = {
+  //     title,
+  //     post,
+  //     image,
+  //     thumbnail,
+  //     isPublished,
+  //   };
+  //   try {
+  //     const result = await createNews(newNews).unwrap();
+  //     if (result.error) {
+  //       toast.error(result.error);
+  //     } else {
+  //       toast.success("News created successfully");
+  //       navigate("/admin/news/list");
+  //     }
+  //   } catch (error) {
+  //     toast.error(error?.data?.message || error.error);
+  //   }
+  // };
+
+  // const uploadFileHandler = async (e) => {
+  //   const file = e.target.files[0];
+  //   if (file) {
+  //     const formData = new FormData();
+  //     formData.append("image", e.target.files[0]);
+  //     try {
+  //       const res = await uploadImage(formData).unwrap();
+  //       toast.success(res.message);
+  //       setImage(res.image);
+  //       setThumbnail(res.thumbnail);
+  //     } catch (err) {
+  //       toast.error(err?.data?.message || err.error);
+  //     }
+  //   }
+  // };
 
   return (
     <Container>
@@ -83,7 +142,6 @@ const NewsCreateScreen = () => {
 
           <Form.Group controlId="post" className="mt-3">
             <Form.Label>Post</Form.Label>
-            {/* Use the Editor component here */}
             <Editor content={post} setContent={setPost} />
           </Form.Group>
           <Form.Group controlId="isPublished">
@@ -101,7 +159,7 @@ const NewsCreateScreen = () => {
               type="file"
               id="image-file"
               label="Choose Image"
-              onChange={uploadFileHandler}
+              onChange={imageHandler}
             ></Form.Control>
           </Form.Group>
           <Button type="submit" variant="primary">
