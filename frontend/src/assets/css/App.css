@@ -12,7 +12,16 @@ body {
   background-color: #fff;
   padding-top: 146px;
 }
-
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #001f3f;
+  color: #ccc;
+  padding: 10px 0;
+  text-align: center;
+}
 .btn-primary {
   background-color: #01467f !important;
   border-color: #013567 !important;
@@ -239,4 +248,39 @@ body {
 .editor-container_classic-editor .editor-container__editor {
   min-width: 795px;
   max-width: 795px;
+}
+
+footer {
+  background-color: #001f3f; /* Deep blue background */
+  color: #ccc; /* Light gray text color for contrast */
+  padding: 10px 0; /* Reduced padding for a thinner look */
+  text-align: center; /* Centers all the text within the footer */
+}
+
+footer h5, footer p, footer a {
+  color: #fff; /* Ensuring all text is white */
+}
+
+footer a {
+  text-decoration: none; /* Removes underline from links */
+}
+
+footer ul {
+  padding: 0; /* Removes padding */
+  list-style-type: none; /* No bullets on lists */
+  margin: 0 auto; /* Centers the list if necessary */
+}
+
+footer ul.list-inline {
+  display: inline-block; /* Keeps the list horizontal */
+}
+
+footer ul.list-inline li {
+  display: inline; /* Displays list items inline */
+  margin-right: 10px; /* Adds space between inline items */
+}
+
+/* Ensuring the last item doesn't have extra margin on the right */
+footer ul.list-inline li:last-child {
+  margin-right: 0;
 }
