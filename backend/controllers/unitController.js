@@ -34,7 +34,10 @@ const createUnit = asyncHandler(async (req, res) => {
 // @access: Members only
 
 const getUnits = asyncHandler(async (req, res) => {
-  const units = await Unit.find({});
+  const units = await Unit.find({})
+    .sort({ "members.0.lastName": 1 }) // 1 for ascending, -1 for descending
+    .exec();
+
   res.json(units);
 });
 
