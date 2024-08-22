@@ -1,7 +1,20 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import { useLocation } from "react-router-dom";
 
 const Footer = () => {
+  const location = useLocation();
+  const excludedHeaderPaths = [
+    "/login",
+    "/register",
+    "/forgot-password",
+    "/reset-password",
+  ];
+
+  if (excludedHeaderPaths.includes(location.pathname)) {
+    return null;
+  }
+
   return (
     <footer style={{ backgroundColor: "#001f3f", padding: "10px 0" }}>
       <Container>
