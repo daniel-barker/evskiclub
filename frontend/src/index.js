@@ -41,6 +41,9 @@ import MemberListScreen from "./screens/Admin/MemberListScreen";
 import MemberCreateScreen from "./screens/Admin/MemberCreateScreen";
 import MemberDirectory from "./screens/MemberDirectory";
 import MemberEditScreen from "./screens/Admin/MemberEditScreen";
+import BulletinBoard from "./screens/BB/BulletinBoard";
+import CreatePost from "./screens/BB/CreatePost";
+import UpdatePost from "./screens/BB/UpdatePost";
 
 Modal.setAppElement("#root");
 
@@ -64,6 +67,9 @@ const router = createBrowserRouter(
         <Route path="gallery/:tag" element={<GalleryByTagScreen />} />
         <Route path="event/:id" element={<EventDetailScreen />} />
         <Route path="directory" element={<MemberDirectory />} />
+        <Route path="bb" element={<BulletinBoard />} />
+        <Route path="bb/create" element={<CreatePost />} />
+        <Route path="bb/update/:id" element={<UpdatePost />} />
       </Route>
 
       {/* Admin Routes */}

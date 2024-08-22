@@ -78,7 +78,6 @@ const createNews = asyncHandler(async (req, res) => {
 
 const updateNews = asyncHandler(async (req, res) => {
   const { title, post, image, thumbnail, isPublished } = req.body;
-  console.log(req.body);
 
   const news = await News.findById(req.params.id);
 
