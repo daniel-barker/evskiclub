@@ -1,4 +1,3 @@
-import { getPostById } from "../../../backend/controllers/postController";
 import { POST_URL } from "../constants";
 import { apiSlice } from "./apiSlice";
 

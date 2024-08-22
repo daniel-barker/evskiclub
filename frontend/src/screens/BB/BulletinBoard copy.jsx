@@ -32,33 +32,28 @@ const BulletinBoard = () => {
           </Col>
         </Row>
         {posts.map((post) => (
-          <>
-            <hr />
-            <Row key={post._id} className="my-2 text-center">
-              <Col>
-                <h2>{post.title}</h2>
-                <p className="news-screen-date">{formatDate(post.createdAt)}</p>
-                {/* Safely render HTML content */}
-                <div
-                  className="news-screen-content"
-                  dangerouslySetInnerHTML={{
-                    __html: DOMPurify.sanitize(post.body),
-                  }}
-                />
-                {post.image && (
-                  <img src={post.thumbnail} alt={post.title} width={50} />
-                )}
-                <div className="text-end">
-                  <div className="news-card-signature">
-                    -{post.user && post.user.name}
-                  </div>
-                  <div className="news-card-sig-position">
-                    {post.user && post.user.position}
-                  </div>
+          <Row key={post._id} className="mb-4">
+            <Col>
+              <h2>{post.title}</h2>
+              <p className="news-screen-date">{formatDate(post.createdAt)}</p>
+              {/* Safely render HTML content */}
+              <div
+                className="news-screen-content"
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(post.body),
+                }}
+              />
+              {post.image && <img src={post.image} alt={post.title} />}
+              <div className="text-end">
+                <div className="news-card-signature">
+                  -{post.user && post.user.name}
                 </div>
-              </Col>
-            </Row>
-          </>
+                <div className="news-card-sig-position">
+                  {post.user && post.user.position}
+                </div>
+              </div>
+            </Col>
+          </Row>
         ))}
       </Container>
     </>

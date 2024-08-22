@@ -59,7 +59,7 @@ import {
 } from "../controllers/postController.js";
 
 import { protect } from "../middleware/authMiddleware.js";
-import { checkObjectId } from "../middleware/checkObjectId.js";
+import checkObjectId from "../middleware/checkObjectId.js";
 
 router.route("/").get(getAllPosts).post(protect, createPost);
 router
