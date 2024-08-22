@@ -68,72 +68,72 @@ const RegistrationScreen = () => {
   };
 
   return (
-    <div style={bigModalStyle.container}>
-      <div className="text-center">
-        <Image src={club_logo} fluid />
-      </div>
-      <h2 className="text-center">Register</h2>
-      <Form onSubmit={submitHandler}>
-        <Form.Group controlId="username" className="my-3">
-          <Form.Label>Username</Form.Label>
-          <Form.Control
-            className="w-100"
-            type="text"
-            placeholder="Enter username"
-            value={username}
-            onChange={(e) => setUserName(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
-        <Form.Group controlId="name" className="my-3">
-          <Form.Label>Full Name</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter full name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
-        <Form.Group controlId="email" className="my-3">
-          <Form.Label>Email Address</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Enter email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
-        <Form.Group controlId="password" className="my-3">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Enter password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
-        <Form.Group controlId="confirmPassword" className="my-3">
-          <Form.Label>Confirm password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Confirm password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
-        <Button
-          type="submit"
-          variant="primary"
-          className="mt-2"
-          disabled={isLoading}
-        >
-          Register
-        </Button>
-        <br />
-        <br />
-        Already have an account? <Link to="/login">Sign In</Link>
-        {isLoading && <Loader />}
-      </Form>
+  <div style={bigModalStyle.container}>
+    <div className="text-center">
+      <Image src={club_logo} fluid />
     </div>
-  );
+    <h2 className="text-center mb-4">Register</h2> {/* Added mb-4 for consistent spacing after heading */}
+    <Form onSubmit={submitHandler}>
+      <Form.Group controlId="username" className="mb-4">
+        <Form.Label>Username</Form.Label>
+        <Form.Control
+          className="w-100"
+          type="text"
+          placeholder="Enter username"
+          value={username}
+          onChange={(e) => setUserName(e.target.value)}
+        />
+      </Form.Group>
+      <Form.Group controlId="name" className="mb-4">
+        <Form.Label>Full Name</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="Enter full name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+      </Form.Group>
+      <Form.Group controlId="email" className="mb-4">
+        <Form.Label>Email Address</Form.Label>
+        <Form.Control
+          type="email"
+          placeholder="Enter email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+      </Form.Group>
+      <Form.Group controlId="password" className="mb-4">
+        <Form.Label>Password</Form.Label>
+        <Form.Control
+          type="password"
+          placeholder="Enter password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </Form.Group>
+      <Form.Group controlId="confirmPassword" className="mb-4">
+        <Form.Label>Confirm Password</Form.Label>
+        <Form.Control
+          type="password"
+          placeholder="Confirm password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+      </Form.Group>
+      <Button
+        type="submit"
+        variant="primary"
+        className="mb-4 w-100"  // Button width to full and margin-bottom for consistency
+        disabled={isLoading}
+      >
+        Register
+      </Button>
+      <div className="mb-3 text-center"> {/* Text centered with appropriate bottom margin */}
+        Already have an account? <Link to="/login">Sign In</Link>
+      </div>
+      {isLoading && <Loader />}
+    </Form>
+  </div>
+);
 };
 export default RegistrationScreen;

@@ -16,7 +16,7 @@ const Footer = () => {
   }
 
   return (
-    <footer style={{ backgroundColor: "#001f3f", padding: "10px 0" }}>
+    <footer>
       <Container>
         <Row>
           <Col className="text-center">
