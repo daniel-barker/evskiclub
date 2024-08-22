@@ -1,16 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,400;0,500;0,800;1,800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
-* {
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
+} */
 
-body {
+/* body {
   height: 100vh;
   background-color: #fff;
   padding-top: 146px;
+} */
+
+.app-js-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 .btn-primary {
@@ -47,7 +54,7 @@ body {
   z-index: 1030;
   background-color: white;
   box-shadow: 0 4px 6px 0 #00000080;
-  position: fixed;
+  /* position: fixed; */
 }
 
 .custom-navbar h1 {
@@ -58,9 +65,39 @@ body {
   padding: 0;
 }
 
+.member-screen-links {
+  background-color: #01467f;
+  border-color: #013567;
+  color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(145deg, #01467f, #013567);
+}
+
+.member-screen-links:hover,
+.member-screen-links:focus,
+.member-screen-links:active {
+  background-color: #012345;
+  border-color: #012345;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px) scale(1.05);
+  background: linear-gradient(145deg, #012345, #011234);
+}
+
+.member-screen-links .icon {
+  transition: transform 0.3s ease;
+}
+
+.member-screen-links:hover .icon {
+  transform: rotate(5deg);
+}
+
+
+
 .custom-navbar .navbar-nav .nav-link {
   padding-right: 30px;
-  /* Adjust the padding as needed */
 }
 
 .custom-navbar .dropdown-item:hover,
@@ -72,19 +109,15 @@ body {
 .custom-navbar .dropdown-item.active,
 .custom-navbar .dropdown-item:active {
   background-color: transparent;
-  /* or the default dropdown background color */
   border-color: #01467f;
   border-width: 2px;
-  /* Optional: Set the border width if needed */
   border-style: solid;
   border-radius: 8px;
   color: inherit;
-  /* Use inherit or set a specific color */
 }
 
 .custom-logo {
   padding-left: 50px;
-  /* Adjust as needed */
 }
 
 .body-padding {
@@ -213,9 +246,7 @@ body {
   transform: translateX(-50%);
 }
 
-
 /* ckeditor stuff */
-
 
 @media print {
   body {
@@ -241,13 +272,36 @@ body {
   max-width: 795px;
 }
 
-.post-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+footer {
+  background-color: #001f3f;
+  color: #ccc;
+  padding: 10px 0;
+  text-align: center;
 }
 
-.post-container img {
-  margin-right: 10px;
-  /* Add some space between the image and the title */
+footer h5, footer p, footer a {
+  color: #fff;
+}
+
+footer a {
+  text-decoration: none;
+}
+
+footer ul {
+  list-style-type: none;
+  margin: 0 auto;
+}
+
+footer ul.list-inline {
+  display: inline-block; /* Keeps the list horizontal */
+}
+
+footer ul.list-inline li {
+  display: inline; /* Displays list items inline */
+  margin-right: 10px; /* Adds space between inline items */
+}
+
+/* Ensuring the last item doesn't have extra margin on the right */
+footer ul.list-inline li:last-child {
+  margin-right: 0;
 }

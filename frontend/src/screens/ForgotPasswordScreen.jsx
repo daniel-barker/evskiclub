@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Form, Button, Image } from 'react-bootstrap';
 import { useForgotPasswordMutation } from '../slices/usersApiSlice';
 import Loader from '../components/Loader';
@@ -46,25 +46,31 @@ const ForgotPasswordScreen = () => {
       <div className="text-center">
         <Image src={club_logo} fluid />
       </div>
-      <h2 className="text-center">Forgot Password</h2>
+      <h2 className="text-center mb-3">Forgot Password</h2>
       <Form onSubmit={submitHandler}>
-        <Form.Group controlId="email" className="my-3">
+        <Form.Group controlId="email" className="mb-4">
           <Form.Label className="mx-1">Email</Form.Label>
-            <Form.Control
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
+          <Form.Control
+            type="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
         </Form.Group>
-        <Button type="submit" variant="primary" disabled={isLoading}>
+        <Button type="submit" variant="primary" className="mb-3" disabled={isLoading}> {/* Added mb-3 for margin-bottom */}
           Send Reset Link
         </Button>
+        <div className="mb-3">
+          Already have an account? <Link to="/login">Sign In</Link>
+        </div>
         {isLoading && <Loader />}
       </Form>
     </div>
   );
 };
+
+
+
 
 export default ForgotPasswordScreen;

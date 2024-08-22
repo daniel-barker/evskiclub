@@ -70,9 +70,6 @@ const excludedHeaderPaths = ['/login', '/register', '/forgot-password', '/reset-
                 <LinkContainer id="navbar-font" to="/directory">
                   <Nav.Link>Directory</Nav.Link>
                 </LinkContainer>
-                <LinkContainer id="navbar-font" to="/about">
-                  <Nav.Link>About</Nav.Link>
-                </LinkContainer>
                 <Nav.Link onClick={logoutHandler}>
                   Logout
                 </Nav.Link>

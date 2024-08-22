@@ -61,9 +61,9 @@ const LoginScreen = () => {
       <div className="text-center">
         <Image src={club_logo} fluid />
       </div>
-      <h2 className="text-center">Sign In</h2>
+      <h2 className="text-center mb-4">Sign In</h2> {/* Added mb-4 for consistent spacing after heading */}
       <Form onSubmit={submitHandler}>
-        <Form.Group controlId="username" className="my-3">
+        <Form.Group controlId="username" className="mb-4"> {/* Updated class for bottom margin */}
           <Form.Label>Username</Form.Label>
           <Form.Control
             type="text"
@@ -72,7 +72,7 @@ const LoginScreen = () => {
             onChange={(e) => setUsername(e.target.value)}
           />
         </Form.Group>
-        <Form.Group controlId="password" className="my-3">
+        <Form.Group controlId="password" className="mb-4"> {/* Updated class for bottom margin */}
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
@@ -81,19 +81,20 @@ const LoginScreen = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
-        <Button type="submit" variant="primary" className="my-3">
+        <Button type="submit" variant="primary" className="mb-4 w-100"> {/* Full width and margin */}
           Sign In
         </Button>
-        <div>
+        <div className="text-center mb-2"> {/* Added text-center and bottom margin */}
           <Link to="/forgot-password">Forgot Password?</Link>
         </div>
-        <div className="mt-3">
+        <div className="text-center mb-3"> {/* Added text-center and bottom margin */}
           Don't have an account? <Link to="/register">Register</Link>
         </div>
         {isLoading && <Loader />}
       </Form>
     </div>
   );
+
 };
 
 export default LoginScreen;

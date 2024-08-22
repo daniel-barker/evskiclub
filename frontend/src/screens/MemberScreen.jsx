@@ -3,10 +3,7 @@ import { Modal, Row, Col, Card, Button } from "react-bootstrap";
 import LatestNews from "../components/LatestNews";
 import MemberPageCarousel from "../components/MemberPageCarousel";
 
-import club_bylaws from "../assets/images/club_bylaws.jpg";
-import member_directory from "../assets/images/member_directory.jpg";
-import club_history from "../assets/images/club_history.jpg";
-import house_rules from "../assets/images/house_rules.jpg";
+import { FaBook, FaGavel, FaHome } from 'react-icons/fa';
 
 import bylaws from "../assets/pdfs/bylaws.pdf";
 import directory from "../assets/pdfs/directory.pdf";
@@ -32,41 +29,40 @@ const MemberScreen = () => {
     <>
       <MemberPageCarousel />
       <div className="member-page-container">
-        <Row className="mt-3 justify-content-center align-items-center">
-          <Col md={8} className="p-2">
-            <LatestNews />
-          </Col>
-        </Row>
+      <Row className="mt-5 justify-content-center align-items-center">
+        <Col md={8} className="p-2">
+          <LatestNews />
+        </Col>
+      </Row>
 
-        <Row className="mt-3 mx-1">
-          <Col md={3} className="p-2">
-            <Card onClick={handleShowHistory} style={{ cursor: "pointer" }}>
-              <Card.Img src={club_history} />
-            </Card>
-          </Col>
-          <Col md={3} className="p-2">
-            <Card
-              onClick={handleShowMemberDirectory}
-              style={{ cursor: "pointer" }}
-            >
-              <Card.Img src={member_directory} />
-            </Card>
-          </Col>
-          <Col md={3} className="p-2">
-            <Card onClick={handleShowBylaws} style={{ cursor: "pointer" }}>
-              <Card.Img src={club_bylaws} />
-            </Card>
-          </Col>
-          <Col md={3} className="p-2">
-            <Card onClick={handleShowHouseRules} style={{ cursor: "pointer" }}>
-              <Card.Img src={house_rules} />
-            </Card>
-          </Col>
-        </Row>
-      </div>
-
+      <Row className="mt-5 mx-1 justify-content-center">
+        <Col md={4} className="p-2">
+          <Card onClick={handleShowHistory} className="member-screen-links text-center" style={{ cursor: "pointer" }}>
+            <Card.Body>
+              <FaBook size="8em" className="mb-3" />
+              <Card.Title>Club History</Card.Title>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col md={4} className="p-2">
+          <Card onClick={handleShowBylaws} className="member-screen-links text-center" style={{ cursor: "pointer" }}>
+            <Card.Body>
+              <FaGavel size="8em" className="mb-3" />
+              <Card.Title>Club By-Laws</Card.Title>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col md={4} className="p-2">
+          <Card onClick={handleShowHouseRules} className="member-screen-links text-center" style={{ cursor: "pointer" }}>
+            <Card.Body>
+              <FaHome size="8em" className="mb-3" />
+              <Card.Title>House Rules</Card.Title>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </div>
       {/* MODALS */}
-
       {/* HISTORY MODAL */}
       <Modal
         show={showHistory}

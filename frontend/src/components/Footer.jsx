@@ -16,39 +16,10 @@ const Footer = () => {
   }
 
   return (
-    <footer style={{ backgroundColor: "#001f3f", padding: "20px 0" }}>
+    <footer>
       <Container>
         <Row>
-          <Col md={4} className="text-center text-md-start mb-3 mb-md-0">
-            <h5 style={{ color: "#fff" }}>Quick Links</h5>
-            <ul className="list-unstyled" style={{ color: "#ccc" }}>
-              <li>
-                <a
-                  href="/about"
-                  style={{ color: "#fff", textDecoration: "none" }}
-                >
-                  About
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/events"
-                  style={{ color: "#fff", textDecoration: "none" }}
-                >
-                  Events
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/contact"
-                  style={{ color: "#fff", textDecoration: "none" }}
-                >
-                  Contact
-                </a>
-              </li>
-            </ul>
-          </Col>
-          <Col md={8} className="text-center">
+          <Col className="text-center">
             <h5 style={{ color: "#fff" }}>Follow Us</h5>
             <p style={{ color: "#ccc" }}>
               Stay connected through our social media channels.
@@ -82,7 +53,7 @@ const Footer = () => {
           </Col>
         </Row>
         <Row>
-          <Col className="text-center text-md-start mt-3">
+          <Col className="text-center mt-3">
             <p style={{ color: "#ccc", marginBottom: 0 }}>
               &copy; {new Date().getFullYear()} Ellicottville Ski Club. All
               rights reserved.
