@@ -23,7 +23,12 @@ const Header = () => {
       console.log(err);
     }
   };
-const excludedHeaderPaths = ['/login', '/register', '/forgot-password', '/reset-password'];
+  const excludedHeaderPaths = [
+    "/login",
+    "/register",
+    "/forgot-password",
+    "/reset-password",
+  ];
 
   if (excludedHeaderPaths.includes(location.pathname)) {
     return null;
@@ -34,7 +39,11 @@ const excludedHeaderPaths = ['/login', '/register', '/forgot-password', '/reset-
       <Navbar expand="lg" collapseOnSelect className="custom-navbar">
         <LinkContainer to="/">
           <Navbar.Brand className="custom-logo">
-            <Image src={logo} alt="Ellicottville Ski Club Logo" style={{ height: '120px' }} />
+            <Image
+              src={logo}
+              alt="Ellicottville Ski Club Logo"
+              style={{ height: "120px" }}
+            />
           </Navbar.Brand>
         </LinkContainer>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -44,9 +53,6 @@ const excludedHeaderPaths = ['/login', '/register', '/forgot-password', '/reset-
               <NavDropdown title="Admin" id="navbar-font">
                 <LinkContainer to="/admin/user/list">
                   <NavDropdown.Item>Users</NavDropdown.Item>
-                </LinkContainer>
-                <LinkContainer to="/admin/event/list">
-                  <NavDropdown.Item>Events</NavDropdown.Item>
                 </LinkContainer>
                 <LinkContainer to="/admin/news/list">
                   <NavDropdown.Item>News</NavDropdown.Item>
@@ -67,12 +73,13 @@ const excludedHeaderPaths = ['/login', '/register', '/forgot-password', '/reset-
                 <LinkContainer id="navbar-font" to="/gallery">
                   <Nav.Link>Gallery</Nav.Link>
                 </LinkContainer>
+                <LinkContainer id="navbar-font" to="/bb">
+                  <Nav.Link>Bulletin Board</Nav.Link>
+                </LinkContainer>
                 <LinkContainer id="navbar-font" to="/directory">
                   <Nav.Link>Directory</Nav.Link>
                 </LinkContainer>
-                <Nav.Link onClick={logoutHandler}>
-                  Logout
-                </Nav.Link>
+                <Nav.Link onClick={logoutHandler}>Logout</Nav.Link>
               </>
             )}
           </Nav>
