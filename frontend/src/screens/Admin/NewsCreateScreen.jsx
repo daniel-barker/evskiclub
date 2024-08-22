@@ -82,44 +82,6 @@ const NewsCreateScreen = () => {
     }
   };
 
-  // const submitHandler = async (e) => {
-  //   e.preventDefault();
-  //   const newNews = {
-  //     title,
-  //     post,
-  //     image,
-  //     thumbnail,
-  //     isPublished,
-  //   };
-  //   try {
-  //     const result = await createNews(newNews).unwrap();
-  //     if (result.error) {
-  //       toast.error(result.error);
-  //     } else {
-  //       toast.success("News created successfully");
-  //       navigate("/admin/news/list");
-  //     }
-  //   } catch (error) {
-  //     toast.error(error?.data?.message || error.error);
-  //   }
-  // };
-
-  // const uploadFileHandler = async (e) => {
-  //   const file = e.target.files[0];
-  //   if (file) {
-  //     const formData = new FormData();
-  //     formData.append("image", e.target.files[0]);
-  //     try {
-  //       const res = await uploadImage(formData).unwrap();
-  //       toast.success(res.message);
-  //       setImage(res.image);
-  //       setThumbnail(res.thumbnail);
-  //     } catch (err) {
-  //       toast.error(err?.data?.message || err.error);
-  //     }
-  //   }
-  // };
-
   return (
     <Container>
       <Link to="/admin/news/list" className="btn btn-light my-3">
