@@ -78,7 +78,7 @@ const MemberDirectory = () => {
             </Card>
           ))}
 
-          <div className="d-flex justify-content-center">
+          <div className="d-flex justify-content-center mb-3">
             {Array.from({ length: totalPages }, (_, index) => (
               <Button
                 key={index + 1}
