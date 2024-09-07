@@ -173,7 +173,7 @@ const MemberCreateScreen = () => {
   };
 
   return (
-    <div className="blurred-background">
+    <Container>
       <br />
       <br />
 
@@ -414,7 +414,7 @@ const MemberCreateScreen = () => {
           </div>
         </Form>
       </CreateContainer>
-    </div>
+    </Container>
   );
 };
 

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Container } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import Loader from "../../components/Loader";
@@ -46,9 +47,11 @@ const ImageUploadScreen = () => {
 
   return (
     <>
-      <Link to="/" className="btn btn-light my-3" variant="primary">
-        Go Back
-      </Link>
+      <Container>
+        <Link to="/" className="btn btn-primary my-3" variant="primary">
+          Go Back
+        </Link>
+      </Container>
       <FormContainer>
         <h1>Upload Image</h1>
         {isLoading && <Loader />}
@@ -99,7 +102,11 @@ const ImageUploadScreen = () => {
               </Button>
             </Form.Group>
 
-            <Form.Group as={Col} controlId="carousel" className="mt-sm-3 mt-md-3 text-right">
+            <Form.Group
+              as={Col}
+              controlId="carousel"
+              className="mt-sm-3 mt-md-3 text-right"
+            >
               <Form.Check
                 type="checkbox"
                 label="Include in Carousel"

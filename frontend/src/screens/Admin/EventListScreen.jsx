@@ -36,7 +36,7 @@ const EventListScreen = () => {
         <Col className="text-end">
           <LinkContainer
             to="/admin/event/create"
-            className="btn btn-secondary my-3"
+            className="btn btn-primary my-3"
           >
             <FaEdit /> Create Event
           </LinkContainer>

@@ -47,7 +47,7 @@ const ImageEditScreen = () => {
   return (
     <>
       <Container>
-        <Link to="/admin/images/list" className="btn btn-light my-3">
+        <Link to="/admin/images/list" className="btn btn-primary my-3">
           Go Back
         </Link>
         <FormContainer>

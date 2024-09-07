@@ -40,7 +40,7 @@ const NewsListScreen = () => {
     <Container className="mt-4 form-background">
       <Row className="align-items-center">
         <Col>
-          <Link to="/" className="btn btn-secondary my-3">
+          <Link to="/" className="btn btn-primary my-3">
             Go Back
           </Link>
         </Col>
@@ -48,14 +48,10 @@ const NewsListScreen = () => {
           <h1>News</h1>
         </Col>
         <Col className="text-end">
-          <Link to="/admin/news/create" className="btn btn-secondary my-3">
+          <Link to="/admin/news/create" className="btn btn-primary my-3">
             <FaEdit /> Create Post
           </Link>{" "}
-          <Button
-            variant="secondary"
-            onClick={togglePublished}
-            className="my-3"
-          >
+          <Button variant="primary" onClick={togglePublished} className="my-3">
             {showPublished ? "Hide Published Posts" : "Show Published Posts"}
           </Button>
         </Col>

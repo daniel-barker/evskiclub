@@ -30,7 +30,7 @@ const ImageListScreen = () => {
     <Container className="mt-4 form-background">
       <Row className="align-items-center">
         <Col>
-          <Link to="/" className="btn btn-secondary my-3">
+          <Link to="/" className="btn btn-primary my-3">
             Go Back
           </Link>
         </Col>
@@ -38,7 +38,7 @@ const ImageListScreen = () => {
           <h1>Images</h1>
         </Col>
         <Col className="text-end">
-          <Link to="/admin/images/upload" className="btn btn-secondary my-3">
+          <Link to="/admin/images/upload" className="btn btn-primary my-3">
             <FaEdit /> Upload Image
           </Link>
         </Col>
