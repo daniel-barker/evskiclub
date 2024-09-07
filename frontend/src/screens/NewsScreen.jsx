@@ -35,7 +35,7 @@ const NewsScreen = () => {
   if (isError) return <Message variant="danger">Error fetching news</Message>;
 
   return (
-    <Container className="mt-4">
+    <Container>
       <Link to="/" className="btn btn-primary my-3">
         Go Back
       </Link>

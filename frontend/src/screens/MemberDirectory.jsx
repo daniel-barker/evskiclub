@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
@@ -18,7 +19,10 @@ const MemberDirectory = () => {
   const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <Container className="mt-4">
+    <Container>
+      <Link to="/" className="btn btn-primary my-3">
+        Go Back
+      </Link>
       <Row className="align-items-center pt-2 pb-5">
         <Col className="text-center">
           <h1>Membership Directory</h1>

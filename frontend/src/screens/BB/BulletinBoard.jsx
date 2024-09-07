@@ -32,11 +32,11 @@ const BulletinBoard = () => {
   if (isError) return <p>Error fetching posts</p>;
 
   return (
-    <Container className="news-screen-container">
-      <Link to="/" className="btn btn-secondary my-3">
+    <Container>
+      <Link to="/" className="btn btn-primary my-3">
         Go Back
       </Link>
-      <Row>
+      <Row className="align-items-center pt-2 pb-5">
         <Col>
           <h1 className="text-center">Bulletin Board</h1>
         </Col>

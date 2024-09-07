@@ -2,6 +2,7 @@ import {
   useGetImagesQuery,
   useGetImageTagsQuery,
 } from "../slices/imageApiSlice";
+import { Col, Row } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
@@ -23,8 +24,15 @@ const GalleryScreen = () => {
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <Container className="form-background mt-4">
-      <h2>Gallery</h2>
+    <Container>
+      <Link to="/" className="btn btn-primary my-3">
+        Go Back
+      </Link>
+      <Row className="align-items-center pt-2 pb-5">
+        <Col>
+          <h1 className="text-center">Gallery</h1>
+        </Col>
+      </Row>
       <Gallery withCaption withDownloadButton>
         {images.map((img, index) => (
           <Item
