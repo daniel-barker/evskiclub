@@ -33,9 +33,14 @@ const BulletinBoard = () => {
 
   return (
     <Container>
-      <Link to="/" className="btn btn-primary my-3">
-        Go Back
-      </Link>
+      <div className="d-flex justify-content-between w-100">
+        <Link to="/" className="btn btn-primary my-3">
+          Go Back
+        </Link>
+        <Link to="/bb/create" className="btn btn-primary my-3">
+          Create Post
+        </Link>
+      </div>
       <Row className="align-items-center pt-2 pb-5">
         <Col>
           <h1 className="text-center">Bulletin Board</h1>
