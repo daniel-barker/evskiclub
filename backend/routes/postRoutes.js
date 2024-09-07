@@ -92,7 +92,7 @@ router.post("/u", protect, (req, res) => {
 
     //create thumbnail
     sharp(truePath)
-      .resize(200)
+      .resize(75)
       .toFile(trueThumbPath, (err, info) => {
         if (err) {
           return res.status(400).send({ message: err.message });

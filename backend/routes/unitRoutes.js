@@ -83,7 +83,7 @@ router.post("/u", protect, admin, (req, res) => {
     }
 
     sharp(truePath)
-      .resize(200)
+      .resize(150)
       .toFile(trueThumbPath, (err, info) => {
         if (err) {
           return res.status(400).send({ message: err.message });

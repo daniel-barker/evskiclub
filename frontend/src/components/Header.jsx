@@ -51,17 +51,20 @@ const Header = () => {
           <Nav className="ms-auto d-flex align-items-center">
             {userInfo && userInfo.isAdmin && (
               <NavDropdown title="Admin" id="navbar-font">
-                <LinkContainer to="/admin/user/list">
-                  <NavDropdown.Item>Users</NavDropdown.Item>
-                </LinkContainer>
                 <LinkContainer to="/admin/news/list">
                   <NavDropdown.Item>News</NavDropdown.Item>
                 </LinkContainer>
                 <LinkContainer to="/admin/images/list">
                   <NavDropdown.Item>Gallery</NavDropdown.Item>
                 </LinkContainer>
+                <LinkContainer to="/admin/bb">
+                  <NavDropdown.Item>Bulletin Board</NavDropdown.Item>
+                </LinkContainer>
                 <LinkContainer to="/admin/members/list">
                   <NavDropdown.Item>Member Directory</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to="/admin/user/list">
+                  <NavDropdown.Item>Users</NavDropdown.Item>
                 </LinkContainer>
               </NavDropdown>
             )}
@@ -70,15 +73,23 @@ const Header = () => {
                 <LinkContainer id="navbar-font" to="/home">
                   <Nav.Link>Home</Nav.Link>
                 </LinkContainer>
-                <LinkContainer id="navbar-font" to="/gallery">
-                  <Nav.Link>Gallery</Nav.Link>
-                </LinkContainer>
-                <LinkContainer id="navbar-font" to="/bb">
-                  <Nav.Link>Bulletin Board</Nav.Link>
-                </LinkContainer>
-                <LinkContainer id="navbar-font" to="/directory">
-                  <Nav.Link>Directory</Nav.Link>
-                </LinkContainer>
+                <NavDropdown title="Community" id="navbar-font">
+                  <LinkContainer id="navbar-font" to="/news">
+                    <Nav.Link>News</Nav.Link>
+                  </LinkContainer>
+                  <LinkContainer id="navbar-font" to="/gallery">
+                    <Nav.Link>Gallery</Nav.Link>
+                  </LinkContainer>
+                  <LinkContainer id="navbar-font" to="/bb">
+                    <Nav.Link>Bulletin Board</Nav.Link>
+                  </LinkContainer>
+                  <LinkContainer id="navbar-font" to="/directory">
+                    <Nav.Link>Directory</Nav.Link>
+                  </LinkContainer>
+                  <LinkContainer id="navbar-font" to="/calendar">
+                    <Nav.Link>Calendar</Nav.Link>
+                  </LinkContainer>
+                </NavDropdown>
                 <Nav.Link onClick={logoutHandler}>Logout</Nav.Link>
               </>
             )}

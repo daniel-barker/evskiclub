@@ -34,9 +34,12 @@ const EventListScreen = () => {
           <h1>Events</h1>
         </Col>
         <Col className="text-end">
-          <Link to="/admin/event/create" className="btn btn-secondary my-3">
+          <LinkContainer
+            to="/admin/event/create"
+            className="btn btn-secondary my-3"
+          >
             <FaEdit /> Create Event
-          </Link>
+          </LinkContainer>
         </Col>
       </Row>
       {loadingDelete && <Loader />}

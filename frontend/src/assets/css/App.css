@@ -1,17 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,400;0,500;0,800;1,800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
-/* * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-} */
+
 
 /* body {
   height: 100vh;
   background-color: #fff;
   padding-top: 146px;
 } */
+
+* {
+  overscroll-behavior: none;
+}
+
+.card-stylo {
+  background-color: #f5f5f5;
+}
 
 .app-js-div {
   display: flex;
@@ -279,7 +283,9 @@ footer {
   text-align: center;
 }
 
-footer h5, footer p, footer a {
+footer h5,
+footer p,
+footer a {
   color: #fff;
 }
 
@@ -293,12 +299,15 @@ footer ul {
 }
 
 footer ul.list-inline {
-  display: inline-block; /* Keeps the list horizontal */
+  display: inline-block;
+  /* Keeps the list horizontal */
 }
 
 footer ul.list-inline li {
-  display: inline; /* Displays list items inline */
-  margin-right: 10px; /* Adds space between inline items */
+  display: inline;
+  /* Displays list items inline */
+  margin-right: 10px;
+  /* Adds space between inline items */
 }
 
 /* Ensuring the last item doesn't have extra margin on the right */

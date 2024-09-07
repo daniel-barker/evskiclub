@@ -9,21 +9,13 @@ const router = express.Router();
 const storage = multer.diskStorage({
   destination(req, file, cb) {
     //check if server is in dev mode
-    if (process.env.NODE_ENV === "development") {
-      //if in dev mode, save images to frontend/public/uploads/news/fullsize
-      const dir = `frontend/public/uploads/news/fullsize`;
-      if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir, { recursive: true });
-      }
-      cb(null, dir);
-    } else {
-      //if in production mode, save images to frontend/build/uploads/news/fullsize (note: set static disk to /opt/render/project/src/frontend/build/uploads in Render)
-      const dir = `frontend/build/uploads/news/fullsize`;
-      if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir, { recursive: true });
-      }
-      cb(null, dir);
+    const isDev = process.env.NODE_ENV === "development";
+    const basePath = isDev ? `frontend/public` : `frontend/build`;
+    const dir = `${basePath}/uploads/news/fullsize`;
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
     }
+    cb(null, dir);
   },
   filename(req, file, cb) {
     cb(
@@ -83,23 +75,21 @@ router.post("/u", protect, admin, (req, res) => {
 
     //determine env and paths
     const isDevelopment = process.env.NODE_ENV === "development";
-    const basePath = isDevelopment
-      ? `frontend/public/uploads/news`
-      : `frontend/build/uploads/news`;
+    const basePath = isDevelopment ? `frontend/public` : `frontend/build`;
     //backend paths
-    const truePath = `frontend/public/uploads/news/fullsize/${req.file.filename}`;
-    const trueThumbPath = `frontend/public/uploads/news/thumbnail/${req.file.filename}`;
+    const truePath = `${basePath}/uploads/news/fullsize/${req.file.filename}`;
+    const trueThumbPath = `${basePath}/uploads/news/thumbnail/${req.file.filename}`;
     //frontend paths
     const fullPath = `uploads/news/fullsize/${req.file.filename}`;
     const thumbPath = `uploads/news/thumbnail/${req.file.filename}`;
 
     // Ensure thumbnail directory exists
-    if (!fs.existsSync(`${basePath}/thumbnail`)) {
-      fs.mkdirSync(`${basePath}/thumbnail`, { recursive: true });
+    if (!fs.existsSync(`${basePath}/uploads/news/thumbnail`)) {
+      fs.mkdirSync(`${basePath}/uploads/news/thumbnail`, { recursive: true });
     }
 
     sharp(truePath)
-      .resize(200)
+      .resize(75)
       .toFile(trueThumbPath, (err, info) => {
         if (err) {
           return res.status(400).send({ message: err.message });
@@ -109,6 +99,7 @@ router.post("/u", protect, admin, (req, res) => {
             image: fullPath,
             thumbnail: thumbPath,
           });
+          console.log(info);
         }
       });
   });

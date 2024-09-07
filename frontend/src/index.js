@@ -44,6 +44,8 @@ import MemberEditScreen from "./screens/Admin/MemberEditScreen";
 import BulletinBoard from "./screens/BB/BulletinBoard";
 import CreatePost from "./screens/BB/CreatePost";
 import UpdatePost from "./screens/BB/UpdatePost";
+import Calendar from "./screens/Calendar";
+import BBListScreen from "./screens/Admin/BBListScreen";
 
 Modal.setAppElement("#root");
 
@@ -70,6 +72,7 @@ const router = createBrowserRouter(
         <Route path="bb" element={<BulletinBoard />} />
         <Route path="bb/create" element={<CreatePost />} />
         <Route path="bb/update/:id" element={<UpdatePost />} />
+        <Route path="calendar" element={<Calendar />} />
       </Route>
 
       {/* Admin Routes */}
@@ -88,6 +91,7 @@ const router = createBrowserRouter(
         <Route path="members/list" element={<MemberListScreen />} />
         <Route path="members/create" element={<MemberCreateScreen />} />
         <Route path="members/:id/edit" element={<MemberEditScreen />} />
+        <Route path="bb" element={<BBListScreen />} />
       </Route>
     </Route>
   )

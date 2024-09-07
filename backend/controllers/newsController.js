@@ -77,22 +77,27 @@ const createNews = asyncHandler(async (req, res) => {
 // @access  Admins
 
 const updateNews = asyncHandler(async (req, res) => {
-  const { title, post, image, thumbnail, isPublished } = req.body;
+  try {
+    const { title, post, image, thumbnail, isPublished } = req.body;
 
-  const news = await News.findById(req.params.id);
+    const news = await News.findById(req.params.id);
 
-  if (news) {
-    news.title = title;
-    news.post = post;
-    news.image = image;
-    news.thumbnail = thumbnail;
-    news.isPublished = isPublished;
+    if (news) {
+      news.title = title;
+      news.post = post;
+      news.image = image;
+      news.thumbnail = thumbnail;
+      news.isPublished = isPublished;
 
-    const updatedNews = await news.save();
-    res.json(updatedNews);
-  } else {
-    res.status(404);
-    throw new Error("Post not found");
+      const updatedNews = await news.save();
+      res.json(updatedNews);
+    } else {
+      res.status(404);
+      throw new Error("Post not found");
+    }
+  } catch (error) {
+    res.status(400);
+    throw new Error(error);
   }
 });
 
@@ -102,17 +107,19 @@ const updateNews = asyncHandler(async (req, res) => {
 
 const deleteNews = asyncHandler(async (req, res) => {
   const news = await News.findById(req.params.id);
+  const isDevelopment = process.env.NODE_ENV === "development";
+  const basePath = isDevelopment ? `frontend/public` : `frontend/build`;
 
   if (news) {
     // check for images and delete if present
     if (news.image) {
-      const fullPath = `frontend/public/${news.image}`;
+      const fullPath = `${basePath}/${news.image}`;
       if (fs.existsSync(fullPath)) {
         fs.unlinkSync(fullPath);
       }
     }
     if (news.thumbnail) {
-      const thumbPath = `frontend/public/${news.thumbnail}`;
+      const thumbPath = `${basePath}/${news.thumbnail}`;
       if (fs.existsSync(thumbPath)) {
         fs.unlinkSync(thumbPath);
       }

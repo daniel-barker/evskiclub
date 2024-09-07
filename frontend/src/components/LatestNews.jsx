@@ -23,7 +23,7 @@ const LatestNews = () => {
 
   return (
     <div>
-      <Card style={{ backgroundColor: "#f5f5f5" }}>
+      <Card className="card-stylo">
         <div className="news-card-header d-flex justify-content-between align-items-center">
           <div className="news-card-title">Latest News</div>
           <Link to="/news" className="btn btn-primary">
