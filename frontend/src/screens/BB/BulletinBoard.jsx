@@ -11,7 +11,7 @@ const BulletinBoard = () => {
   const formatDate = (datetime) => {
     const date = new Date(datetime).toLocaleDateString("en-US", {
       year: "numeric",
-      month: "long",
+      month: "short",
       day: "numeric",
       hour: "numeric",
       minute: "2-digit",
@@ -51,28 +51,24 @@ const BulletinBoard = () => {
               )}
             </Col>
             <Col md={10}>
-              <p className="news-screen-date">{formatDate(post.createdAt)}</p>
-              <h2>{post.title}</h2>
-              {expandedPostIds.includes(post._id) && (
-                <div>
-                  <div
-                    className="news-screen-content"
-                    dangerouslySetInnerHTML={{
-                      __html: DOMPurify.sanitize(post.body),
-                    }}
-                  />
-                  <div className="text-end">
-                    <div className="news-card-signature">
-                      -{post.user && post.user.name}
-                    </div>
-                    <div className="news-card-sig-position">
-                      {post.user && post.user.position}
-                    </div>
-                  </div>
+              <Row>
+                <h2>{post.title}</h2>
+                <div className="news-screen-date">
+                  {post.user && post.user.name}
+                  <p>{formatDate(post.createdAt)}</p>
                 </div>
+                <div className="text-end"></div>
+              </Row>
+              {expandedPostIds.includes(post._id) && (
+                <div
+                  className="news-screen-content"
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(post.body),
+                  }}
+                />
               )}
               <Button variant="link" onClick={() => togglePostBody(post._id)}>
-                {expandedPostIds.includes(post._id) ? "Read Less" : "Read More"}
+                {expandedPostIds.includes(post._id) ? "Collapse" : "Read"}
               </Button>
             </Col>
           </Row>
