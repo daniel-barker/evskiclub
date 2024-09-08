@@ -49,7 +49,6 @@ const getEventById = asyncHandler(async (req, res) => {
 // @access  Admins
 
 const createEvent = asyncHandler(async (req, res) => {
-  console.log(req.body);
   try {
     const event = new Event({
       user: req.user._id,

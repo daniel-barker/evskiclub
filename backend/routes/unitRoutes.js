@@ -1,14 +1,28 @@
 import express from "express";
+import path from "path";
 import multer from "multer";
 import sharp from "sharp";
 import fs from "fs";
-import path from "path";
+
+import {
+  createUnit,
+  getUnits,
+  getSingleUnit,
+  updateUnit,
+  deleteUnit,
+} from "../controllers/unitController.js";
+
+import { protect, admin } from "../middleware/authMiddleware.js";
+import checkObjectId from "../middleware/checkObjectId.js";
 
 const router = express.Router();
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
-    const dir = `frontend/public/uploads/unit/fullsize`;
+    //check if server is in dev mode
+    const isDev = process.env.NODE_ENV === "development";
+    const basePath = isDev ? `frontend/public` : `frontend/build`;
+    const dir = `${basePath}/uploads/unit/fullsize`;
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir, { recursive: true });
     }
@@ -39,23 +53,12 @@ function fileFilter(req, file, cb) {
 const upload = multer({ storage, fileFilter });
 const uploadSingleImage = upload.single("image");
 
-import {
-  createUnit,
-  getUnits,
-  getSingleUnit,
-  updateUnit,
-  deleteUnit,
-} from "../controllers/unitController.js";
-
-import { protect, admin } from "../middleware/authMiddleware.js";
-import checkObjectId from "../middleware/checkObjectId.js";
-
 router.route("/").get(protect, getUnits).post(protect, admin, createUnit);
 router
   .route("/:id")
   .get(protect, getSingleUnit)
-  .put(protect, admin, updateUnit)
-  .delete(protect, admin, deleteUnit);
+  .put(protect, admin, checkObjectId, updateUnit)
+  .delete(protect, admin, checkObjectId, deleteUnit);
 
 router.post("/u", protect, admin, (req, res) => {
   uploadSingleImage(req, res, function (err) {

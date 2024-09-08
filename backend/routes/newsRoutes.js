@@ -99,7 +99,6 @@ router.post("/u", protect, admin, (req, res) => {
             image: fullPath,
             thumbnail: thumbPath,
           });
-          console.log(info);
         }
       });
   });

@@ -21,19 +21,14 @@ const router = express.Router();
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
-    if (process.env.NODE_ENV === "development") {
-      const dir = `frontend/public/uploads/gallery/fullsize`;
-      if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir, { recursive: true });
-      }
-      cb(null, dir);
-    } else {
-      const dir = `frontend/build/uploads/gallery/fullsize`;
-      if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir, { recursive: true });
-      }
-      cb(null, dir);
+    //check if server is in dev mode
+    const isDev = process.env.NODE_ENV === "development";
+    const basePath = isDev ? `frontend/public` : `frontend/build`;
+    const dir = `${basePath}/uploads/gallery/fullsize`;
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
     }
+    cb(null, dir);
   },
   filename(req, file, cb) {
     cb(
@@ -80,7 +75,6 @@ router.post(
     if (req.file) {
       // Determine paths based on environment
       const isDevelopment = process.env.NODE_ENV === "development";
-      console.log("isDevelopment", isDevelopment);
       const basePath = isDevelopment ? "frontend/public" : "frontend/build";
       const dir = `${basePath}/uploads/gallery/thumbnails`;
       if (!fs.existsSync(dir)) {
@@ -93,7 +87,7 @@ router.post(
       )}`;
 
       try {
-        await sharp(req.file.path).resize(300).toFile(thumbPath);
+        await sharp(req.file.path).resize(150).toFile(thumbPath);
 
         // Update the paths to be relative to the frontend/public directory for client access
         req.body.image = fullPath.replace(`${basePath}`, "");
