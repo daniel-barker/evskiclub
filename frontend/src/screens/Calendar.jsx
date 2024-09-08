@@ -4,11 +4,6 @@ import { Link } from "react-router-dom";
 const Calendar = () => {
   return (
     <>
-      <Container>
-        <Link to="/" className="btn btn-primary my-3">
-          Go Back
-        </Link>
-      </Container>
       <h1 className="text-center page-title">Calendar</h1>
       <div
         style={{
@@ -28,6 +23,8 @@ const Calendar = () => {
           allowFullScreen
         ></iframe>
       </div>
+      <br />
+      <br />
     </>
   );
 };

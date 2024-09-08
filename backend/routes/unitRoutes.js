@@ -70,8 +70,8 @@ router.post("/u", protect, admin, (req, res) => {
       : `frontend/build/uploads/unit`;
 
     //backend paths
-    const truePath = `frontend/public/uploads/unit/fullsize/${req.file.filename}`;
-    const trueThumbPath = `frontend/public/uploads/unit/thumbnail/${req.file.filename}`;
+    const truePath = `${basePath}/fullsize/${req.file.filename}`;
+    const trueThumbPath = `${basePath}/thumbnail/${req.file.filename}`;
     //frontend paths
     const fullPath = `uploads/unit/fullsize/${req.file.filename}`;
     const thumbPath = `uploads/unit/thumbnail/${req.file.filename}`;
