@@ -1,15 +1,17 @@
-import React, { useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import { Tooltip } from "react-tooltip"; // Use the named export Tooltip
+import { Modal, Button } from "react-bootstrap"; // Import Modal and Button from react-bootstrap
 import { useGetAllEventsQuery } from "../slices/eventApiSlice";
 
 const localizer = momentLocalizer(moment);
 
 const EventCalendar = () => {
-  // Fetch events using the API slice
   const { data: events, error, isLoading } = useGetAllEventsQuery();
+
+  const [modalShow, setModalShow] = useState(false); // Track modal visibility
+  const [activeEvent, setActiveEvent] = useState(null); // Track the active event for the modal
 
   // Format events for react-big-calendar
   const formattedEvents = useMemo(() => {
@@ -17,7 +19,7 @@ const EventCalendar = () => {
       return events.map((event) => ({
         id: event._id,
         title: event.title,
-        description: event.description, // Assuming `post` is the description of the event
+        description: event.description,
         start: new Date(event.start),
         end: new Date(event.end),
         allDay: event.allDay,
@@ -26,40 +28,27 @@ const EventCalendar = () => {
     return [];
   }, [events]);
 
-  // Custom Event Component to display time, title, and tooltip
+  // Open modal when the user clicks the event
+  const handleEventClick = (event) => {
+    setActiveEvent(event); // Set the active event data
+    setModalShow(true); // Show the modal
+  };
+
+  // Close modal
+  const handleCloseModal = () => {
+    setModalShow(false); // Hide the modal
+    setActiveEvent(null); // Reset active event
+  };
+
+  // Custom Event Component to display time, title, and handle click
   const EventComponent = ({ event }) => {
     const startTime = moment(event.start).format("hh:mm A");
     const endTime = moment(event.end).format("hh:mm A");
-    const formattedTooltipContent = `
-      <strong>${event.title}</strong><br />
-      <strong>Time:</strong> ${startTime} - ${endTime}<br />
-      <strong>Description:</strong> ${
-        event.description || "No description available"
-      }
-    `;
 
     return (
-      <>
-        <span
-          data-tooltip-id={`tooltip-${event.id}`}
-          data-tooltip-html={formattedTooltipContent}
-        >
-          {startTime} - {event.title}
-        </span>
-        <Tooltip
-          id={`tooltip-${event.id}`}
-          place="top"
-          type="dark"
-          effect="solid"
-          html
-          style={{
-            whiteSpace: "normal", // Enable word wrapping
-            maxWidth: "500px", // Set a max width for the tooltip
-            maxHeight: "auto",
-            wordWrap: "break-word", // Wrap words that are too long
-          }}
-        />
-      </>
+      <span>
+        {event.title} ({startTime} - {endTime})
+      </span>
     );
   };
 
@@ -68,7 +57,7 @@ const EventCalendar = () => {
   }
 
   if (error) {
-    return <p>Error loading events.</p>;
+    return <p>Error loading events...</p>;
   }
 
   // Styles
@@ -76,17 +65,17 @@ const EventCalendar = () => {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    height: "100vh", // Take full viewport height
+    height: "100vh",
   };
 
   const calendarWrapperStyle = {
     width: "80%",
-    height: "80vh", // 80% of the viewport height
+    height: "80vh",
   };
 
   const calendarStyle = {
-    width: "100%", // Fill the parent div
-    height: "100%", // Fill the parent div
+    width: "100%",
+    height: "100%",
   };
 
   return (
@@ -101,8 +90,34 @@ const EventCalendar = () => {
           components={{
             event: EventComponent, // Use the custom event component
           }}
+          onSelectEvent={handleEventClick} // Makes the entire event bar clickable
         />
       </div>
+
+      {/* Modal to display event details */}
+      {activeEvent && (
+        <Modal show={modalShow} onHide={handleCloseModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>{activeEvent.title}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>
+              <strong>Time:</strong>{" "}
+              {moment(activeEvent.start).format("hh:mm A")} -{" "}
+              {moment(activeEvent.end).format("hh:mm A")}
+            </p>
+            <p>
+              <strong>Description:</strong>{" "}
+              {activeEvent.description || "No description available"}
+            </p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleCloseModal}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      )}
     </div>
   );
 };

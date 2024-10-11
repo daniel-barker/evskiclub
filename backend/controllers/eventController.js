@@ -10,6 +10,20 @@ const getEvents = asyncHandler(async (req, res) => {
   res.json(events);
 });
 
+// @desc    Get an event by ID
+// @route   GET /api/events/:id
+// @access  Members/Admins
+
+const getEventById = asyncHandler(async (req, res) => {
+  const event = await Event.findById(req.params.id);
+  if (event) {
+    res.json(event);
+  } else {
+    res.status(404);
+    throw new Error("Event not found");
+  }
+});
+
 // @desc    Create an event
 // @route   POST /api/events
 // @access  Admins
@@ -36,7 +50,7 @@ const createEvent = asyncHandler(async (req, res) => {
 // @access  Admins
 
 const updateEvent = asyncHandler(async (req, res) => {
-  const { title, start, end, allDay } = req.body;
+  const { title, description, start, end, allDay } = req.body;
   const event = await Event.findById(req.params.id);
 
   if (event) {
@@ -69,4 +83,4 @@ const deleteEvent = asyncHandler(async (req, res) => {
   }
 });
 
-export { getEvents, createEvent, updateEvent, deleteEvent };
+export { getEvents, getEventById, createEvent, updateEvent, deleteEvent };

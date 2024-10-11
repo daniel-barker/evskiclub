@@ -26,6 +26,7 @@ import UserEditScreen from "./screens/Admin/UserEditScreen";
 
 import EventListScreen from "./screens/Admin/EventListScreen";
 import EventCreateScreen from "./screens/Admin/EventCreateScreen";
+import EventEditScreen from "./screens/Admin/EventEditScreen";
 
 import NewsScreen from "./screens/NewsScreen";
 import NewsCreateScreen from "./screens/Admin/NewsCreateScreen";
@@ -95,6 +96,7 @@ const router = createBrowserRouter(
         <Route path="bb" element={<BBListScreen />} />
         <Route path="events/list" element={<EventListScreen />} />
         <Route path="events/create" element={<EventCreateScreen />} />
+        <Route path="events/:id/edit" element={<EventEditScreen />} />
       </Route>
     </Route>
   )

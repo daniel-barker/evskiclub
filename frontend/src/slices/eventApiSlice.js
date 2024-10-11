@@ -7,7 +7,7 @@ export const eventApiSlice = apiSlice.injectEndpoints({
       query: () => `${EVENT_URL}`,
       providesTags: ["Events"],
     }),
-    getEventById: builder.query({
+    getSingleEvent: builder.query({
       query: (id) => ({
         url: `${EVENT_URL}/${id}`,
       }),
@@ -40,7 +40,7 @@ export const eventApiSlice = apiSlice.injectEndpoints({
 
 export const {
   useGetAllEventsQuery,
-  useGetEventByIdQuery,
+  useGetSingleEventQuery,
   useCreateEventMutation,
   useUpdateEventMutation,
   useDeleteEventMutation,
