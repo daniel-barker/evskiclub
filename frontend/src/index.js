@@ -12,6 +12,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import App from "./App";
 import Modal from "react-modal";
 import reportWebVitals from "./reportWebVitals";
+import PrivateRoute from "./components/PrivateRoute";
+import AdminRoute from "./components/AdminRoute";
 import LoginScreen from "./screens/LoginScreen";
 import ForgotPasswordScreen from "./screens/ForgotPasswordScreen";
 import ResetPasswordScreen from "./screens/ResetPasswordScreen";
@@ -21,32 +23,35 @@ import AboutScreen from "./screens/AboutScreen";
 import HomeScreen from "./screens/HomeScreen";
 import UserListScreen from "./screens/Admin/UserListScreen";
 import UserEditScreen from "./screens/Admin/UserEditScreen";
-import PrivateRoute from "./components/PrivateRoute";
-import AdminRoute from "./components/AdminRoute";
+
 import EventListScreen from "./screens/Admin/EventListScreen";
 import EventCreateScreen from "./screens/Admin/EventCreateScreen";
-import EventDetailScreen from "./screens/EventDetailScreen";
-import EventEditScreen from "./screens/Admin/EventEditScreen";
+
 import NewsScreen from "./screens/NewsScreen";
 import NewsCreateScreen from "./screens/Admin/NewsCreateScreen";
 import NewsListScreen from "./screens/Admin/NewsListScreen";
 import NewsEditScreen from "./screens/Admin/NewsEditScreen";
+
 import PendingApprovalScreen from "./screens/PendingApprovalScreen";
+
 import ImageUploadScreen from "./screens/Admin/ImageUploadScreen";
 import ImageListScreen from "./screens/Admin/ImageListScreen";
 import ImageEditScreen from "./screens/Admin/ImageEditScreen";
+
 import GalleryScreen from "./screens/GalleryScreen";
 import GalleryByTagScreen from "./screens/GalleryByTagScreen";
+
 import MemberListScreen from "./screens/Admin/MemberListScreen";
 import MemberCreateScreen from "./screens/Admin/MemberCreateScreen";
 import MemberDirectory from "./screens/MemberDirectory";
 import MemberEditScreen from "./screens/Admin/MemberEditScreen";
+
 import BulletinBoard from "./screens/BB/BulletinBoard";
 import CreatePost from "./screens/BB/CreatePost";
 import UpdatePost from "./screens/BB/UpdatePost";
-import Calendar from "./screens/Calendar";
 import BBListScreen from "./screens/Admin/BBListScreen";
 
+import EventCalendar from "./screens/EventCalendar";
 Modal.setAppElement("#root");
 
 const router = createBrowserRouter(
@@ -67,21 +72,17 @@ const router = createBrowserRouter(
         <Route path="about" element={<AboutScreen />} />
         <Route path="gallery" element={<GalleryScreen />} />
         <Route path="gallery/:tag" element={<GalleryByTagScreen />} />
-        <Route path="event/:id" element={<EventDetailScreen />} />
         <Route path="directory" element={<MemberDirectory />} />
         <Route path="bb" element={<BulletinBoard />} />
         <Route path="bb/create" element={<CreatePost />} />
         <Route path="bb/update/:id" element={<UpdatePost />} />
-        <Route path="calendar" element={<Calendar />} />
+        <Route path="calendar" element={<EventCalendar />} />
       </Route>
 
       {/* Admin Routes */}
       <Route path="admin" element={<AdminRoute />}>
         <Route path="user/list" element={<UserListScreen />} />
         <Route path="user/:id/edit" element={<UserEditScreen />} />
-        <Route path="event/list" element={<EventListScreen />} />
-        <Route path="event/create" element={<EventCreateScreen />} />
-        <Route path="event/:id/edit" element={<EventEditScreen />} />
         <Route path="news/list" element={<NewsListScreen />} />
         <Route path="news/create" element={<NewsCreateScreen />} />
         <Route path="news/:id/edit" element={<NewsEditScreen />} />
@@ -92,6 +93,8 @@ const router = createBrowserRouter(
         <Route path="members/create" element={<MemberCreateScreen />} />
         <Route path="members/:id/edit" element={<MemberEditScreen />} />
         <Route path="bb" element={<BBListScreen />} />
+        <Route path="events/list" element={<EventListScreen />} />
+        <Route path="events/create" element={<EventCreateScreen />} />
       </Route>
     </Route>
   )

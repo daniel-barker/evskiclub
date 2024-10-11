@@ -23,7 +23,7 @@ const MemberEditScreen = () => {
   const [removeImage, setRemoveImage] = useState(false);
   const [originalImage, setOriginalImage] = useState("");
 
-  const { data: unit, refetch, isLoading, error } = useGetUnitByIdQuery(id);
+  const { data: unit, isLoading, error } = useGetUnitByIdQuery(id);
   const [updateUnit, { isLoading: loadingUpdate }] = useUpdateUnitMutation();
   const [uploadImage, { isLoading: loadingUpload }] =
     useUploadUnitImageMutation();

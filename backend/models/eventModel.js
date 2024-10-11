@@ -1,17 +1,25 @@
 import mongoose from "mongoose";
 
-const eventSchema = mongoose.Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
+const eventSchema = new mongoose.Schema({
+  title: {
+    type: String,
     required: true,
-    ref: "User",
   },
-  title: { type: String, required: true },
-  date: { type: Date, required: true },
-  location: { type: String, required: false },
-  description: { type: String, required: true },
-  image: { type: String },
-  thumbnail: { type: String },
+  start: {
+    type: Date,
+    required: true,
+  },
+  end: {
+    type: Date,
+    required: true,
+  },
+  allDay: {
+    type: Boolean,
+    default: false,
+  },
+  description: {
+    type: String,
+  },
 });
 
 const Event = mongoose.model("Event", eventSchema);

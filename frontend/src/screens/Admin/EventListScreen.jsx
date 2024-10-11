@@ -1,24 +1,24 @@
+import React from "react";
 import { LinkContainer } from "react-router-bootstrap";
 import { Link } from "react-router-dom";
 import { Table, Button, Container, Row, Col } from "react-bootstrap";
-import { FaTrash, FaTimes, FaEdit, FaCheck, FaNewspaper } from "react-icons/fa";
+import { FaTrash, FaEdit } from "react-icons/fa";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import { toast } from "react-toastify";
 import {
   useGetAllEventsQuery,
   useDeleteEventMutation,
-} from "../../slices/eventsApiSlice";
+} from "../../slices/eventApiSlice";
 
 const EventListScreen = () => {
-  const { data: events, refetch, isLoading, error } = useGetAllEventsQuery();
-
-  const [deleteEvent, { isLoading: loadingDelete }] = useDeleteEventMutation();
+  const { data: events, refetch, isLoading, isError } = useGetAllEventsQuery();
+  const [deleteEvent, { isLoading: isDeleting }] = useDeleteEventMutation();
 
   const deleteHandler = async (id) => {
-    if (window.confirm("Are you sure you want to delete an event?")) {
+    if (window.confirm("Are you sure you want to delete this event?")) {
       try {
-        await deleteEvent(id);
+        await deleteEvent(id).unwrap();
         toast.success("Event deleted successfully");
         refetch();
       } catch (err) {
@@ -34,57 +34,44 @@ const EventListScreen = () => {
           <h1>Events</h1>
         </Col>
         <Col className="text-end">
-          <LinkContainer
-            to="/admin/event/create"
-            className="btn btn-primary my-3"
-          >
-            <FaEdit /> Create Event
-          </LinkContainer>
+          <Link to="/admin/events/create" className="btn btn-primary my-3">
+            <FaEdit /> Add Event
+          </Link>
         </Col>
       </Row>
-      {loadingDelete && <Loader />}
-      {isLoading ? (
+      {isLoading || isDeleting ? (
         <Loader />
-      ) : error ? (
-        <Message variant="danger">{error}</Message>
+      ) : isError ? (
+        <Message variant="danger">Failed to fetch events</Message>
       ) : (
-        <Table striped hover responsive className="table-sm">
+        <Table striped bordered hover responsive className="table-sm">
           <thead>
             <tr>
-              <th>NAME</th>
-              <th>DATE & TIME</th>
-              <th>LOCATION</th>
-              <th>PICTURE</th>
-              <th></th>
+              <th>Event Name</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             {events.map((event) => (
               <tr key={event._id}>
                 <td>{event.title}</td>
-                <td>{event.date}</td>
-                <td>{event.location}</td>
+                <td>{event.start}</td>
+                <td>{event.end}</td>
                 <td>
-                  {event.image ? (
-                    <FaCheck style={{ color: "green" }} />
-                  ) : (
-                    <FaTimes style={{ color: "red" }} />
-                  )}
-                </td>
-                <td>
-                  <LinkContainer to={`/admin/event/${event._id}/edit`}>
+                  <LinkContainer to={`/admin/events/${event._id}/edit`}>
                     <Button variant="light" className="btn-sm">
                       <FaEdit />
                     </Button>
                   </LinkContainer>
-                  <Link onClick={() => deleteHandler(event._id)}>
-                    <FaTrash color="red" />
-                  </Link>
-                  <LinkContainer to={`/event/${event._id}`}>
-                    <Button variant="light" className="btn-sm">
-                      <FaNewspaper />
-                    </Button>
-                  </LinkContainer>
+                  <Button
+                    variant="danger"
+                    className="btn-sm"
+                    onClick={() => deleteHandler(event._id)}
+                  >
+                    <FaTrash />
+                  </Button>
                 </td>
               </tr>
             ))}
@@ -94,5 +81,4 @@ const EventListScreen = () => {
     </Container>
   );
 };
-
 export default EventListScreen;

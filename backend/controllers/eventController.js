@@ -1,6 +1,5 @@
 import asyncHandler from "../middleware/asyncHandler.js";
 import Event from "../models/eventModel.js";
-import fs from "fs";
 
 // @desc    Get all events
 // @route   GET /api/events
@@ -11,39 +10,6 @@ const getEvents = asyncHandler(async (req, res) => {
   res.json(events);
 });
 
-// @desc   Get all future events
-// @route  GET /api/events/future
-// @access Members/Admins
-
-const getFutureEvents = asyncHandler(async (req, res) => {
-  const events = await Event.find({ date: { $gte: new Date() } });
-  res.json(events);
-});
-
-// @desc   Get all past events
-// @route  GET /api/events/past
-// @access Members/Admins
-
-const getPastEvents = asyncHandler(async (req, res) => {
-  const events = await Event.find({ date: { $lt: new Date() } });
-  res.json(events);
-});
-
-// @desc    Get event by ID
-// @route   GET /api/events/:id
-// @access  Members/Admins
-
-const getEventById = asyncHandler(async (req, res) => {
-  const event = await Event.findById(req.params.id);
-
-  if (event) {
-    res.json(event);
-  } else {
-    res.status(404);
-    throw new Error("Event not found");
-  }
-});
-
 // @desc    Create an event
 // @route   POST /api/events
 // @access  Admins
@@ -51,13 +17,11 @@ const getEventById = asyncHandler(async (req, res) => {
 const createEvent = asyncHandler(async (req, res) => {
   try {
     const event = new Event({
-      user: req.user._id,
       title: req.body.title,
-      date: req.body.date,
-      location: req.body.location,
       description: req.body.description,
-      image: req.body.image,
-      thumbnail: req.body.thumbnail,
+      start: req.body.start,
+      end: req.body.end,
+      allDay: req.body.allDay || false,
     });
 
     const createdEvent = await event.save();
@@ -72,16 +36,15 @@ const createEvent = asyncHandler(async (req, res) => {
 // @access  Admins
 
 const updateEvent = asyncHandler(async (req, res) => {
-  const { title, date, location, description, image, thumbnail } = req.body;
+  const { title, start, end, allDay } = req.body;
   const event = await Event.findById(req.params.id);
 
   if (event) {
-    event.title = title;
-    event.date = date;
-    event.location = location;
-    event.description = description;
-    event.image = image;
-    event.thumbnail = thumbnail;
+    event.title = title || event.title;
+    event.description = description || event.description;
+    event.start = start || event.start;
+    event.end = end || event.end;
+    event.allDay = allDay || event.allDay;
 
     const updatedEvent = await event.save();
     res.json(updatedEvent);
@@ -97,22 +60,7 @@ const updateEvent = asyncHandler(async (req, res) => {
 
 const deleteEvent = asyncHandler(async (req, res) => {
   const event = await Event.findById(req.params.id);
-
   if (event) {
-    // Delete the image and thumbnail from the server when an event is deleted
-    if (event.image) {
-      const fullPath = `frontend/public/${event.image}`;
-      if (fs.existsSync(fullPath)) {
-        fs.unlinkSync(fullPath);
-      }
-    }
-    if (event.thumbnail) {
-      const thumbPath = `frontend/public/${event.thumbnail}`;
-      if (fs.existsSync(thumbPath)) {
-        fs.unlinkSync(thumbPath);
-      }
-    }
-
     await event.deleteOne({ _id: event._id });
     res.json({ message: "Event removed" });
   } else {
@@ -121,12 +69,4 @@ const deleteEvent = asyncHandler(async (req, res) => {
   }
 });
 
-export {
-  getEvents,
-  getFutureEvents,
-  getPastEvents,
-  getEventById,
-  createEvent,
-  updateEvent,
-  deleteEvent,
-};
+export { getEvents, createEvent, updateEvent, deleteEvent };
