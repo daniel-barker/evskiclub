@@ -17,7 +17,11 @@ const NewsScreen = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentNews = news?.slice(indexOfFirstItem, indexOfLastItem);
 
-  const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
+  const handlePageChange = (pageNumber) => {
+    if (pageNumber >= 1 && pageNumber <= totalPages) {
+      setCurrentPage(pageNumber);
+    }
+  };
 
   const formatDate = (datetime) => {
     const date = new Date(datetime).toLocaleDateString("en-US", {
@@ -72,7 +76,35 @@ const NewsScreen = () => {
           </Card.Footer>
         </Card>
       ))}
+
+      {/* Pagination */}
+      <Row className="d-flex justify-content-center mt-4">
+        <Col xs="auto">
+          <Button
+            variant="primary"
+            disabled={currentPage === 1}
+            onClick={() => handlePageChange(currentPage - 1)}
+          >
+            Previous
+          </Button>
+        </Col>
+        <Col xs="auto" className="d-flex align-items-center">
+          <span>
+            Page {currentPage} of {totalPages}
+          </span>
+        </Col>
+        <Col xs="auto">
+          <Button
+            variant="primary"
+            disabled={currentPage === totalPages}
+            onClick={() => handlePageChange(currentPage + 1)}
+          >
+            Next
+          </Button>
+        </Col>
+      </Row>
     </Container>
   );
 };
+
 export default NewsScreen;
