@@ -14,7 +14,6 @@ import { toast } from "react-toastify";
 
 const BBEditScreen = () => {
   const { id: postId } = useParams();
-  console.log(postId);
   const navigate = useNavigate();
 
   const {
@@ -23,7 +22,6 @@ const BBEditScreen = () => {
     isError,
     refetch,
   } = useGetPostByIdQuery(postId);
-  console.log(post);
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [status, setStatus] = useState("");
