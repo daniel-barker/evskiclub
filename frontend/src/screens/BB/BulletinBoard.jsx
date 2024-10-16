@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Row, Col, Container, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useGetAllPostsQuery } from "../../slices/postApiSlice";
+import { useGetApprovedPostsQuery } from "../../slices/postApiSlice";
 import DOMPurify from "dompurify";
 
 const BulletinBoard = () => {
-  const { data: posts, isLoading, isError } = useGetAllPostsQuery();
+  const { data: posts, isLoading, isError } = useGetApprovedPostsQuery();
   const [expandedPostIds, setExpandedPostIds] = useState([]); // State to track expanded posts
 
   const formatDate = (datetime) => {
@@ -36,6 +36,9 @@ const BulletinBoard = () => {
       <div className="d-flex justify-content-between w-100">
         <Link to="/" className="btn btn-primary my-3">
           Go Back
+        </Link>
+        <Link to="/bb/mine" className="btn btn-primary my-3">
+          My Posts
         </Link>
         <Link to="/bb/create" className="btn btn-primary my-3">
           Create Post

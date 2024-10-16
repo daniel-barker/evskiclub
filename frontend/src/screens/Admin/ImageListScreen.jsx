@@ -64,7 +64,7 @@ const ImageListScreen = () => {
               <tr key={image._id}>
                 <td>
                   <img
-                    src={`${process.env.PUBLIC_URL}/${image.thumbnail}`}
+                    src={`${image.thumbnail}`}
                     alt={image.title}
                     style={{ width: "100px" }}
                   />

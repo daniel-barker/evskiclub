@@ -8,6 +8,16 @@ export const postApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: 5,
       providesTags: ["Post"],
     }),
+    getApprovedPosts: builder.query({
+      query: () => `${POST_URL}/approved`,
+      keepUnusedDataFor: 5,
+      providesTags: ["Post"],
+    }),
+    getMyPosts: builder.query({
+      query: () => `${POST_URL}/mine`,
+      keepUnusedDataFor: 5,
+      providesTags: ["Post"],
+    }),
     getPostById: builder.query({
       query: (id) => ({
         url: `${POST_URL}/${id}`,
@@ -23,9 +33,17 @@ export const postApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Post"],
     }),
-    updatePost: builder.mutation({
+    userUpdatePost: builder.mutation({
       query: (data) => ({
-        url: `${POST_URL}/${data.id}`,
+        url: `${POST_URL}/${data._id}/user`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["Post"],
+    }),
+    adminUpdatePost: builder.mutation({
+      query: (data) => ({
+        url: `${POST_URL}/${data._id}/admin`,
         method: "PUT",
         body: data,
       }),
@@ -49,9 +67,12 @@ export const postApiSlice = apiSlice.injectEndpoints({
 
 export const {
   useGetAllPostsQuery,
+  useGetApprovedPostsQuery,
+  useGetMyPostsQuery,
   useGetPostByIdQuery,
   useCreatePostMutation,
-  useUpdatePostMutation,
+  useUserUpdatePostMutation,
+  useAdminUpdatePostMutation,
   useDeletePostMutation,
   useUploadPostImageMutation,
 } = postApiSlice;

@@ -49,10 +49,12 @@ import MemberEditScreen from "./screens/Admin/MemberEditScreen";
 
 import BulletinBoard from "./screens/BB/BulletinBoard";
 import CreatePost from "./screens/BB/CreatePost";
-import UpdatePost from "./screens/BB/UpdatePost";
+import MyPosts from "./screens/BB/MyPosts";
 import BBListScreen from "./screens/Admin/BBListScreen";
+import BBEditScreen from "./screens/Admin/BBEditScreen";
 
 import EventCalendar from "./screens/EventCalendar";
+import BBUserEditScreen from "./screens/BB/BBUserEditScreen.jsx";
 Modal.setAppElement("#root");
 
 const router = createBrowserRouter(
@@ -76,7 +78,8 @@ const router = createBrowserRouter(
         <Route path="directory" element={<MemberDirectory />} />
         <Route path="bb" element={<BulletinBoard />} />
         <Route path="bb/create" element={<CreatePost />} />
-        <Route path="bb/update/:id" element={<UpdatePost />} />
+        <Route path="bb/edit/:id" element={<BBUserEditScreen />} />
+        <Route path="bb/mine" element={<MyPosts />} />
         <Route path="calendar" element={<EventCalendar />} />
       </Route>
 
@@ -94,6 +97,7 @@ const router = createBrowserRouter(
         <Route path="members/create" element={<MemberCreateScreen />} />
         <Route path="members/:id/edit" element={<MemberEditScreen />} />
         <Route path="bb" element={<BBListScreen />} />
+        <Route path="bb/:id/edit" element={<BBEditScreen />} />
         <Route path="events/list" element={<EventListScreen />} />
         <Route path="events/create" element={<EventCreateScreen />} />
         <Route path="events/:id/edit" element={<EventEditScreen />} />

@@ -14,7 +14,6 @@ const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [image, setImage] = useState("");
-  const [thumbnail, setThumbnail] = useState("");
 
   const [createPost, { isLoading: loadingCreate }] = useCreatePostMutation();
   const [uploadImage, { isLoading: loadingUpload }] =
@@ -40,7 +39,7 @@ const CreatePost = () => {
 
         const createResult = await createPost(newPost);
         if (createResult.data) {
-          toast.success("Post created successfully");
+          toast.success("Post created successfully, awaiting approval");
           navigate("/bb");
         } else {
           throw new Error("Post creation failed");

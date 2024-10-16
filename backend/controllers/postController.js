@@ -26,6 +26,24 @@ const getPostById = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc   Get all posts by current user
+// @route  GET /api/posts/mine
+// @access Members
+
+const getMyPosts = asyncHandler(async (req, res) => {
+  const posts = await Post.find({ user: req.user._id }).populate("user");
+  res.json(posts);
+});
+
+// @desc    Get all approved posts (for public view)
+// @route   GET /api/posts/approved
+// @access  Members
+
+const getApprovedPosts = asyncHandler(async (req, res) => {
+  const posts = await Post.find({ status: "approved" }).populate("user");
+  res.json(posts);
+});
+
 // @desc    Create a post
 // @route   POST /api/posts
 // @access  Members
@@ -36,6 +54,7 @@ const createPost = asyncHandler(async (req, res) => {
       user: req.user._id,
       title: req.body.title,
       body: req.body.body,
+      status: "pending",
       image: req.body.image,
       thumbnail: req.body.thumbnail,
     });
@@ -48,18 +67,55 @@ const createPost = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Update a post
-// @route   PUT /api/posts/:id
+// @desc    Update a post (for regular users)
+// @route   PUT /api/posts/:id/user
 // @access  Members
-
-const updatePost = asyncHandler(async (req, res) => {
+const updatePostForUser = asyncHandler(async (req, res) => {
   const { title, body, image, thumbnail } = req.body;
 
   const post = await Post.findById(req.params.id);
 
   if (post) {
+    // Check if the logged-in user is the one who created the post
+    if (post.user.toString() !== req.user._id.toString()) {
+      res.status(403);
+      throw new Error("You are not authorized to edit this post");
+    }
+
+    // Update post with the new values and set status to "pending"
     post.title = title;
     post.body = body;
+    post.status = "pending"; // Automatically set to pending upon user edit
+    post.image = image;
+    post.thumbnail = thumbnail;
+
+    const updatedPost = await post.save();
+    res.json(updatedPost);
+  } else {
+    res.status(404);
+    throw new Error("Post not found");
+  }
+});
+
+// @desc    Update a post (for admins)
+// @route   PUT /api/posts/:id/admin
+// @access  Admin
+const updatePostForAdmin = asyncHandler(async (req, res) => {
+  const { title, body, status, image, thumbnail } = req.body;
+
+  const post = await Post.findById(req.params.id);
+
+  if (post) {
+    // Check if the logged-in user is an admin
+    if (!req.user.isAdmin) {
+      res.status(403);
+      throw new Error("You are not authorized to edit this post");
+    }
+
+    // Update post with new values and allow admin to set the status
+    post.title = title;
+    post.body = body;
+    post.status = status; // Admin can choose the status
     post.image = image;
     post.thumbnail = thumbnail;
 
@@ -100,4 +156,13 @@ const deletePost = asyncHandler(async (req, res) => {
   }
 });
 
-export { getAllPosts, getPostById, createPost, updatePost, deletePost };
+export {
+  getAllPosts,
+  getApprovedPosts,
+  getPostById,
+  getMyPosts,
+  createPost,
+  updatePostForUser,
+  updatePostForAdmin,
+  deletePost,
+};

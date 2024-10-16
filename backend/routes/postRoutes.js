@@ -3,6 +3,16 @@ import path from "path";
 import multer from "multer";
 import sharp from "sharp";
 import fs from "fs";
+import {
+  getAllPosts,
+  getApprovedPosts,
+  getPostById,
+  getMyPosts,
+  createPost,
+  updatePostForAdmin,
+  updatePostForUser,
+  deletePost,
+} from "../controllers/postController.js";
 
 const router = express.Router();
 
@@ -50,23 +60,20 @@ function fileFilter(req, file, cb) {
 const upload = multer({ storage, fileFilter });
 const uploadSingleImage = upload.single("image");
 
-import {
-  getAllPosts,
-  getPostById,
-  createPost,
-  updatePost,
-  deletePost,
-} from "../controllers/postController.js";
-
-import { protect } from "../middleware/authMiddleware.js";
+import { protect, admin } from "../middleware/authMiddleware.js";
 import checkObjectId from "../middleware/checkObjectId.js";
 
 router.route("/").get(getAllPosts).post(protect, createPost);
+router.route("/approved").get(protect, getApprovedPosts);
+router.route("/mine").get(protect, getMyPosts);
 router
   .route("/:id")
   .get(checkObjectId, getPostById)
-  .put(protect, updatePost)
   .delete(protect, deletePost);
+// User updates their own post
+router.route("/:id/user").put(protect, updatePostForUser);
+// Admin updates a post
+router.route("/:id/admin").put(protect, admin, updatePostForAdmin);
 router.post("/u", protect, (req, res) => {
   uploadSingleImage(req, res, function (err) {
     if (err) {

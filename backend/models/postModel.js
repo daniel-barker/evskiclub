@@ -11,6 +11,11 @@ const postSchema = mongoose.Schema(
     body: { type: String, required: true },
     image: { type: String },
     thumbnail: { type: String },
+    status: {
+      type: String,
+      required: true,
+      enum: ["pending", "approved", "rejected"],
+    },
   },
   {
     timestamps: true,
