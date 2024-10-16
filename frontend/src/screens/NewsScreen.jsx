@@ -78,7 +78,7 @@ const NewsScreen = () => {
       ))}
 
       {/* Pagination */}
-      <Row className="d-flex justify-content-center mt-4">
+      <Row className="d-flex justify-content-center m-4">
         <Col xs="auto">
           <Button
             variant="primary"

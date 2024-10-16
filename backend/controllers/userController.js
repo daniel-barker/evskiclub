@@ -11,7 +11,7 @@ const authUser = asyncHandler(async (req, res) => {
   const { username, password } = req.body;
 
   const user = await User.findOne({ username });
-  console.log("User logged in:", user);
+  console.log(`"User: "${user.name}"`);
 
   if (!user) {
     res.status(401);
