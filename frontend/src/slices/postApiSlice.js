@@ -33,7 +33,7 @@ export const postApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Post"],
     }),
-    userUpdatePost: builder.mutation({
+    updatePostAsUser: builder.mutation({
       query: (data) => ({
         url: `${POST_URL}/${data._id}/user`,
         method: "PUT",
@@ -41,7 +41,7 @@ export const postApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Post"],
     }),
-    adminUpdatePost: builder.mutation({
+    updatePostAsAdmin: builder.mutation({
       query: (data) => ({
         url: `${POST_URL}/${data._id}/admin`,
         method: "PUT",
@@ -49,10 +49,15 @@ export const postApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Post"],
     }),
-    deletePost: builder.mutation({
+    deletePostAsAdmin: builder.mutation({
       query: (id) => ({
         url: `${POST_URL}/${id}`,
         method: "DELETE",
+      }),
+    }),
+    deletePostAsUser: builder.mutation({
+      query: (id) => ({
+        url: `${POST_URL}/${id}/user`,
       }),
     }),
     uploadPostImage: builder.mutation({
@@ -71,8 +76,8 @@ export const {
   useGetMyPostsQuery,
   useGetPostByIdQuery,
   useCreatePostMutation,
-  useUserUpdatePostMutation,
-  useAdminUpdatePostMutation,
-  useDeletePostMutation,
+  useUpdatePostAsUserMutation,
+  useUpdatePostAsAdminMutation,
+  useDeletePostAsAdminMutation,
   useUploadPostImageMutation,
 } = postApiSlice;

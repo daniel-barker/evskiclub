@@ -7,7 +7,7 @@ import FormContainer from "../../components/FormContainer";
 import Editor from "../../components/Editor";
 import {
   useGetPostByIdQuery,
-  useAdminUpdatePostMutation,
+  useUpdatePostAsAdminMutation,
   useUploadPostImageMutation,
 } from "../../slices/postApiSlice";
 import { toast } from "react-toastify";
@@ -30,7 +30,7 @@ const BBEditScreen = () => {
   const [removeImage, setRemoveImage] = useState(false);
 
   const [updatePost, { isLoading: loadingUpdate }] =
-    useAdminUpdatePostMutation();
+    useUpdatePostAsAdminMutation();
   const [uploadImage, { isLoading: loadingUpload }] =
     useUploadPostImageMutation();
 

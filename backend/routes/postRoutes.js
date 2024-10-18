@@ -9,9 +9,10 @@ import {
   getPostById,
   getMyPosts,
   createPost,
-  updatePostForAdmin,
-  updatePostForUser,
-  deletePost,
+  updatePostAsAdmin,
+  updatePostAsUser,
+  deletePostAsAdmin,
+  deletePostAsUser,
 } from "../controllers/postController.js";
 
 const router = express.Router();
@@ -69,11 +70,10 @@ router.route("/mine").get(protect, getMyPosts);
 router
   .route("/:id")
   .get(checkObjectId, getPostById)
-  .delete(protect, deletePost);
-// User updates their own post
-router.route("/:id/user").put(protect, updatePostForUser);
-// Admin updates a post
-router.route("/:id/admin").put(protect, admin, updatePostForAdmin);
+  .delete(protect, admin, deletePostAsAdmin);
+router.route("/:id/user").delete(protect, deletePostAsUser);
+router.route("/:id/user").put(protect, updatePostAsUser);
+router.route("/:id/admin").put(protect, admin, updatePostAsAdmin);
 router.post("/u", protect, (req, res) => {
   uploadSingleImage(req, res, function (err) {
     if (err) {

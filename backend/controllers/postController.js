@@ -70,7 +70,7 @@ const createPost = asyncHandler(async (req, res) => {
 // @desc    Update a post (for regular users)
 // @route   PUT /api/posts/:id/user
 // @access  Members
-const updatePostForUser = asyncHandler(async (req, res) => {
+const updatePostAsUser = asyncHandler(async (req, res) => {
   const { title, body, image, thumbnail } = req.body;
 
   const post = await Post.findById(req.params.id);
@@ -100,7 +100,7 @@ const updatePostForUser = asyncHandler(async (req, res) => {
 // @desc    Update a post (for admins)
 // @route   PUT /api/posts/:id/admin
 // @access  Admin
-const updatePostForAdmin = asyncHandler(async (req, res) => {
+const updatePostAsAdmin = asyncHandler(async (req, res) => {
   const { title, body, status, image, thumbnail } = req.body;
 
   const post = await Post.findById(req.params.id);
@@ -127,14 +127,48 @@ const updatePostForAdmin = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Delete a post
+// @desc    Delete post as admin
 // @route   DELETE /api/posts/:id
-// @access  Members
+// @access  Admin
 
-const deletePost = asyncHandler(async (req, res) => {
+const deletePostAsAdmin = asyncHandler(async (req, res) => {
   const post = await Post.findById(req.params.id);
 
   if (post) {
+    if (post.image) {
+      const fullPath = `frontend/public/${post.image}`;
+      if (fs.existsSync(fullPath)) {
+        fs.unlinkSync(fullPath);
+      }
+    }
+    if (post.thumbnail) {
+      const thumbPath = `frontend/public/${post.thumbnail}`;
+      if (fs.existsSync(thumbPath)) {
+        fs.unlinkSync(thumbPath);
+      }
+    }
+
+    await post.deleteOne({ _id: post._id });
+    res.json({ message: "Post removed" });
+  } else {
+    res.status(404);
+    throw new Error("Post not found");
+  }
+});
+
+// @desc    Delete post as user
+// @route   DELETE /api/posts/:id/user
+// @access  Members
+
+const deletePostAsUser = asyncHandler(async (req, res) => {
+  const post = await Post.findById(req.params.id);
+
+  if (post) {
+    if (post.user.toString() !== req.user._id.toString()) {
+      res.status(403);
+      throw new Error("You are not authorized to delete this post");
+    }
+
     if (post.image) {
       const fullPath = `frontend/public/${post.image}`;
       if (fs.existsSync(fullPath)) {
@@ -162,7 +196,8 @@ export {
   getPostById,
   getMyPosts,
   createPost,
-  updatePostForUser,
-  updatePostForAdmin,
-  deletePost,
+  updatePostAsUser,
+  updatePostAsAdmin,
+  deletePostAsAdmin,
+  deletePostAsUser,
 };
