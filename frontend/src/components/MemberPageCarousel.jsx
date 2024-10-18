@@ -16,9 +16,9 @@ const MemberPageCarousel = () => {
   if (isError) return <Message variant="danger">{error.toString()}</Message>;
 
   return (
-    <Carousel>
+    <Carousel fade touch className="shadow">
       {images.map((img) => (
-        <Carousel.Item key={img._id} interval={3000}>
+        <Carousel.Item key={img._id} interval={7000}>
           <img className="d-block w-100" src={`${img.image}`} alt={img.title} />
         </Carousel.Item>
       ))}

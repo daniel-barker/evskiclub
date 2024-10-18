@@ -23,6 +23,7 @@ const Header = () => {
       console.log(err);
     }
   };
+
   const excludedHeaderPaths = [
     "/login",
     "/register",
@@ -36,13 +37,17 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar expand="lg" collapseOnSelect className="custom-navbar">
+      <Navbar
+        expand="lg"
+        collapseOnSelect
+        className="shadow bg-white ps-5 custom-navbar"
+      >
         <LinkContainer to="/">
-          <Navbar.Brand className="custom-logo">
+          <Navbar.Brand>
             <Image
               src={logo}
               alt="Ellicottville Ski Club Logo"
-              style={{ height: "120px" }}
+              className="navbar-logo"
             />
           </Navbar.Brand>
         </LinkContainer>
@@ -50,7 +55,12 @@ const Header = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto d-flex align-items-center">
             {userInfo && userInfo.isAdmin && (
-              <NavDropdown title="Admin" id="navbar-font">
+              <NavDropdown
+                title="Admin"
+                className={
+                  location.pathname.startsWith("/admin") ? "active-link" : ""
+                }
+              >
                 <LinkContainer to="/admin/news/list">
                   <NavDropdown.Item>News</NavDropdown.Item>
                 </LinkContainer>
@@ -73,24 +83,37 @@ const Header = () => {
             )}
             {userInfo && (
               <>
-                <LinkContainer id="navbar-font" to="/home">
-                  <Nav.Link>Home</Nav.Link>
+                <LinkContainer to="/home">
+                  <Nav.Link
+                    className={
+                      location.pathname === "/home" ? "active-link" : ""
+                    }
+                  >
+                    Home
+                  </Nav.Link>
                 </LinkContainer>
-                <NavDropdown title="Community" id="navbar-font">
-                  <LinkContainer id="navbar-font" to="/news">
-                    <Nav.Link>News</Nav.Link>
+                <NavDropdown
+                  title="Community"
+                  className={
+                    location.pathname.startsWith("/community")
+                      ? "active-link"
+                      : ""
+                  }
+                >
+                  <LinkContainer to="/news">
+                    <NavDropdown.Item>News</NavDropdown.Item>
                   </LinkContainer>
-                  <LinkContainer id="navbar-font" to="/gallery">
-                    <Nav.Link>Gallery</Nav.Link>
+                  <LinkContainer to="/gallery">
+                    <NavDropdown.Item>Gallery</NavDropdown.Item>
                   </LinkContainer>
-                  <LinkContainer id="navbar-font" to="/bb">
-                    <Nav.Link>Bulletin Board</Nav.Link>
+                  <LinkContainer to="/bb">
+                    <NavDropdown.Item>Bulletin Board</NavDropdown.Item>
                   </LinkContainer>
-                  <LinkContainer id="navbar-font" to="/directory">
-                    <Nav.Link>Directory</Nav.Link>
+                  <LinkContainer to="/directory">
+                    <NavDropdown.Item>Directory</NavDropdown.Item>
                   </LinkContainer>
-                  <LinkContainer id="navbar-font" to="/calendar">
-                    <Nav.Link>Calendar</Nav.Link>
+                  <LinkContainer to="/calendar">
+                    <NavDropdown.Item>Calendar</NavDropdown.Item>
                   </LinkContainer>
                 </NavDropdown>
                 <Nav.Link onClick={logoutHandler}>Logout</Nav.Link>

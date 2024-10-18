@@ -29,15 +29,14 @@
 }
 
 .btn-primary {
-  background-color: #01467f !important;
-  border-color: #013567 !important;
+  background-color: #01467f;
+  border-color: #013567;
 }
 
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:active {
-  background-color: #012345 !important;
-  border-color: #012345 !important;
+  background-color: #0169b1;
 }
 
 .blurred-background {
@@ -46,52 +45,26 @@
   height: 100%;
 }
 
-.nav-link {
-  color: #01467f;
-  font-weight: 600;
-  font-size: larger;
-  transition: color 0.3s;
-}
-
-.custom-navbar {
-  font-family: 'Montserrat', sans-serif;
-  color: #01467f;
-  width: 100%;
-  height: auto;
-  top: 0;
-  z-index: 1030;
-  background-color: white;
-  box-shadow: 0 4px 6px 0 #00000080;
-  /* position: fixed; */
-}
-
-.custom-navbar h1 {
-  font-size: 3.7rem;
-  font-weight: 500;
-  color: #01467f;
-  margin: 0;
-  padding: 0;
-}
 
 .member-screen-links {
   background-color: #01467f;
   border-color: #013567;
   color: #ffffff;
-  padding: 20px;
+  padding: 30px;
   border-radius: 8px;
   transition: all 0.3s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  background: linear-gradient(145deg, #01467f, #013567);
+  background: linear-gradient(145deg, #0169b1,#01467f);
 }
 
 .member-screen-links:hover,
 .member-screen-links:focus,
 .member-screen-links:active {
-  background-color: #012345;
-  border-color: #012345;
+  background-color: #0169b1;
+  border-color: #0169b1;
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
   transform: translateY(-5px) scale(1.05);
-  background: linear-gradient(145deg, #012345, #011234);
+  background: linear-gradient(145deg, #0169b1, #01467f);
 }
 
 .member-screen-links .icon {
@@ -102,41 +75,70 @@
   transform: rotate(5deg);
 }
 
-
-
-.custom-navbar .navbar-nav .nav-link {
-  padding-right: 30px;
-}
-
-.custom-navbar .dropdown-item:hover,
-.custom-navbar .dropdown-item:focus {
-  background-color: #01467f;
-  color: white;
-}
-
-.custom-navbar .dropdown-item.active,
-.custom-navbar .dropdown-item:active {
-  background-color: transparent;
-  border-color: #01467f;
-  border-width: 2px;
-  border-style: solid;
-  border-radius: 8px;
-  color: inherit;
-}
-
-.custom-logo {
-  padding-left: 50px;
-}
-
 .body-padding {
   padding-top: 64px;
 }
 
 .carousel-item img {
-  height: 700px;
+  height: 500px;
+  /* Two options for carousel.
+    - `contain`: The replaced content is scaled to maintain its aspect
+       ratio while fitting within the element's content box. The entire
+       object will be visible, but there may be empty space within the box.
+
+    - `cover`: The replaced content is scaled to maintain its aspect
+       ratio while filling the element's content box. The object will
+       cover the entire box, but parts of it may be clipped to achieve this.
+  */
   object-fit: cover;
   width: 100%;
 }
+
+
+.news-card {
+  display: flex;
+  flex-direction: row;         /* Image and text side by side */
+  max-height: 390px;           /* Set a fixed maximum height for the card */
+  overflow-y: auto;            /* Prevent overflow beyond card */
+}
+
+.news-card-body {
+  flex-grow: 1;                /* Allow the body to grow and take available space */
+  overflow-y: auto;            /* Enable vertical scrolling when content exceeds */
+  padding-right: 10px;         /* Avoid clipping behind scrollbar */
+  padding-left: 5px;           /* Some padding for readability */
+  word-wrap: break-word;       /* Ensure long words break properly */
+}
+
+.news-card-image-container {
+  display: flex;
+  justify-content: center;     /* Centers the image horizontally */
+  align-items: center;         /* Centers the image vertically */
+  max-height: 100%;            /* Ensure the container adjusts to the card height */
+  overflow: hidden;            /* Ensure the image doesn't overflow the container */
+  position: sticky !important;
+  top: 0 !important; /* Start sticking when the user scrolls */
+}
+
+.news-card-image {
+  max-height: 100%;            /* Ensure the image doesn't exceed the card's height */
+  max-width: 100%;             /* Ensure the image fits within its container */
+  object-fit: contain;         /* Maintain the aspect ratio */
+}
+
+.news-card-body::-webkit-scrollbar {
+  width: 6px;                  /* Customize scrollbar width */
+}
+
+.news-card-body::-webkit-scrollbar-thumb {
+  background-color: #ccc;      /* Customize scrollbar color */
+  border-radius: 3px;
+}
+
+.news-card-body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
 
 .news-card-title {
   font-size: 1.2rem;
@@ -150,10 +152,6 @@
   font-weight: 400;
   padding-left: 5px;
   padding-right: 5px;
-}
-
-.member-page-container {
-  padding: 50px;
 }
 
 .news-card-signature {
@@ -186,6 +184,19 @@
 
 .news-screen-content {
   padding: 15px;
+}
+
+.news-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+  font-size: 2rem;
+  color: #fff;
+  background: rgba(128, 128, 128, 0.61);
+  border: none;
+  line-height: 1;
+  padding-top: 0;
 }
 
 .event-title-shade {
@@ -278,43 +289,4 @@
 .editor-container_classic-editor .editor-container__editor {
   min-width: 795px;
   max-width: 795px;
-}
-
-footer {
-  background-color: #001f3f;
-  color: #ccc;
-  padding: 10px 0;
-  text-align: center;
-}
-
-footer h5,
-footer p,
-footer a {
-  color: #fff;
-}
-
-footer a {
-  text-decoration: none;
-}
-
-footer ul {
-  list-style-type: none;
-  margin: 0 auto;
-}
-
-footer ul.list-inline {
-  display: inline-block;
-  /* Keeps the list horizontal */
-}
-
-footer ul.list-inline li {
-  display: inline;
-  /* Displays list items inline */
-  margin-right: 10px;
-  /* Adds space between inline items */
-}
-
-/* Ensuring the last item doesn't have extra margin on the right */
-footer ul.list-inline li:last-child {
-  margin-right: 0;
 }

@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./assets/css/App.css";
+import "./assets/css/HeaderAndFooter.css";
 
 const App = () => {
   return (

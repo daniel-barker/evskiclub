@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { Container, Row, Col, Card, Button, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
@@ -9,6 +9,8 @@ import DOMPurify from "dompurify";
 const NewsScreen = () => {
   const { data: news, isLoading, isError } = useGetPublishedNewsQuery();
   const [currentPage, setCurrentPage] = useState(1);
+  const [showModal, setShowModal] = useState(false);
+  const [modalImage, setModalImage] = useState("");
   const itemsPerPage = 5;
 
   const totalPages = news ? Math.ceil(news.length / itemsPerPage) : 1;
@@ -35,48 +37,88 @@ const NewsScreen = () => {
     return date;
   };
 
+  // Handle opening the modal with the clicked image
+  const handleImageClick = (image) => {
+    setModalImage(image); // Set the clicked image to be shown in modal
+    setShowModal(true); // Show the modal
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false); // Close the modal
+  };
+
   if (isLoading) return <Loader />;
   if (isError) return <Message variant="danger">Error fetching news</Message>;
 
   return (
     <Container>
-      <Link to="/" className="btn btn-primary my-3">
-        Go Back
-      </Link>
-      <Row className="align-items-center pt-2 pb-5">
+      <Row className="align-items-center pt-4 pb-3">
         <Col className="text-center">
           <h1>Club News</h1>
         </Col>
       </Row>
       {currentNews.map((post) => (
-        <Card key={post._id} className="my-3 p-3 rounded shadow-sm card-s">
-          <Card.Title className="news-post-title text-center">
-            {post.title}
-          </Card.Title>
-          <hr />
-          <Card.Body>
-            {/* Safely render HTML content */}
-            <div
-              dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(post.post),
-              }}
-            />
-          </Card.Body>
-          <Card.Footer className="ms-auto">
-            {post.image && <img src={post.thumbnail} alt={post.title} />}
-            <div className="news-card-signature">
-              {post.user && post.user.name}
-            </div>
-            <div className="news-card-sig-position">
-              {post.user && post.user.position}
-            </div>
-            <div className="news-card-sig-position">
-              {formatDate(post.createdAt)}
-            </div>
-          </Card.Footer>
+        <Card key={post._id} className="news-card my-3 p-3 rounded shadow-sm">
+          <Row className="g-0">
+            {/* Text content */}
+            <Col md={post.image ? 7 : 12}>
+              <div className="news-card-body">
+                <Card.Title className="news-post-title">
+                  {post.title}
+                </Card.Title>
+                <hr />
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(post.post),
+                  }}
+                />
+                <div className="news-card-signature mt-3">
+                  {post.user && post.user.name}
+                </div>
+                <div className="news-card-sig-position">
+                  {post.user && post.user.position}
+                </div>
+                <div className="news-card-sig-position">
+                  {formatDate(post.createdAt)}
+                </div>
+              </div>
+            </Col>
+
+            {/* Image content */}
+            {post.image && (
+              <Col md={5} className="news-card-image-container">
+                <img
+                  src={post.image}
+                  alt={post.title}
+                  className="img-fluid rounded news-card-image"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => handleImageClick(post.image)}
+                />
+              </Col>
+            )}
+          </Row>
         </Card>
       ))}
-
+      {/* Modal to display full-size image */}
+      <Modal
+        show={showModal}
+        onHide={handleCloseModal}
+        centered
+        size="lg"
+        dialogClassName="custom-modal"
+      >
+        <Modal.Body className="p-0">
+          {/* Close button */}
+          <Button className="news-modal-close" onClick={handleCloseModal}>
+            &times;
+          </Button>
+          <img
+            src={modalImage}
+            alt="Full-size Image"
+            className="img-fluid rounded"
+          />
+        </Modal.Body>
+      </Modal>
       {/* Pagination */}
       <Row className="d-flex justify-content-center m-4">
         <Col xs="auto">
@@ -95,7 +137,6 @@ const NewsScreen = () => {
         </Col>
         <Col xs="auto">
           <Button
-            variant="primary"
             disabled={currentPage === totalPages}
             onClick={() => handlePageChange(currentPage + 1)}
           >

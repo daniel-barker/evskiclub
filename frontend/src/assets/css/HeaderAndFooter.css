@@ -1,0 +1,85 @@
+/* ---------- HEADER ---------- */
+.nav-link {
+    color: #01467f;  /* Default link color */
+    font-weight: 600;
+    font-size: larger;
+    transition: color 0.3s;
+  }
+
+  /* Hover effect for all nav links */
+  .nav-link:hover {
+    color: #0079cf;
+    transform: translateY(-2px); /* Text "pop" effect */
+    text-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Active nav link (including dropdown toggle when dropdown is active) */
+  .nav-link.active-link,
+  .navbar .dropdown-toggle.show,
+  .navbar .dropdown-toggle:focus,
+  .navbar .dropdown-toggle:active {
+    color: #0079cf !important;
+  }
+
+  /* Dropdown items on hover or focus */
+  .custom-navbar .dropdown-item:hover,
+  .custom-navbar .dropdown-item:focus {
+    background-color: #0079cf !important;
+    color: white;
+    border-radius: 8px;
+  }
+
+  /* Dropdown items when active */
+  .custom-navbar .dropdown-item.active,
+  .custom-navbar .dropdown-item:active {
+    background-color: #0079cf;
+    color: white;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 8px;
+  }
+
+  /* Navbar-specific font and spacing */
+  .custom-navbar {
+    font-family: 'Montserrat', sans-serif;
+    color: #01467f;
+  }
+
+  .custom-navbar .navbar-nav .nav-link {
+    padding-right: 30px;
+  }
+
+  /* Logo sizing */
+  .navbar-logo {
+    height: 100px;
+  }
+
+  /* ---------- FOOTER ---------- */
+
+  footer {
+    background-color: #01467f;
+    color: #ccc;
+    text-align: center;
+  }
+
+  .footer-links {
+    color: #fff;
+    font-size: 1.2rem;
+  }
+
+  .footer-links .list-inline-item:not(:last-child)::after {
+    content: "—";
+    padding-left: 8px;
+    padding-right: 8px;
+    color: #fff;
+  }
+
+  .footer-links a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease; /* smooth transition */
+  }
+
+  .footer-links a:hover {
+    color: #0079cf !important;
+  }

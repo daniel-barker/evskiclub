@@ -81,7 +81,7 @@ const NewsListScreen = () => {
                     : newsItem.title}
                 </td>
                 <td>{newsItem.updatedAt.substring(0, 10)}</td>
-                <td>{newsItem.user.name}</td>
+                <td>{newsItem.user ? newsItem.user.name : "Unknown Author"}</td>
                 <td>
                   {newsItem.isPublished ? (
                     <FaCheck style={{ color: "green" }} />

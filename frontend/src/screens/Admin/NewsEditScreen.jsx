@@ -105,10 +105,6 @@ const NewsEditScreen = () => {
         <Message variant="danger">{error}</Message>
       ) : (
         <Container className="mt-3">
-          <Link to="/admin/news/list" className="btn btn-light my-3">
-            Go Back
-          </Link>
-
           <FormContainer>
             <h1 className="text-center">Edit News</h1>
             <Form onSubmit={submitHandler}>
