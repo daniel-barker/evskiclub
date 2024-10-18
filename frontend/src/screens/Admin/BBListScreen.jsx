@@ -7,12 +7,13 @@ import Loader from "../../components/Loader";
 import { toast } from "react-toastify";
 import {
   useGetAllPostsQuery,
-  useDeletePostMutation,
+  useDeletePostAsAdminMutation,
 } from "../../slices/postApiSlice";
 
 const BBListScreen = () => {
   const { data: posts, refetch, isLoading, error } = useGetAllPostsQuery();
-  const [deletePost, { isLoading: loadingDelete }] = useDeletePostMutation();
+  const [deletePost, { isLoading: loadingDelete }] =
+    useDeletePostAsAdminMutation();
 
   const deleteHandler = async (id) => {
     if (window.confirm("Are you sure you want to delete a post?")) {
@@ -43,8 +44,8 @@ const BBListScreen = () => {
           <thead>
             <tr>
               <th>POST</th>
-              <th>CREATED BY</th>
               <th>CREATED ON</th>
+              <th>CREATED BY</th>
               <th></th>
             </tr>
           </thead>
@@ -52,8 +53,8 @@ const BBListScreen = () => {
             {posts.map((post) => (
               <tr key={post._id}>
                 <td>{post.title}</td>
-                <td>{post.user.name}</td>
                 <td>{post.createdAt.substring(0, 10)}</td>
+                <td>{post.user.name}</td>
                 <td>
                   <LinkContainer to={`/admin/bb/${post._id}/edit`}>
                     <Button variant="light" className="btn-sm">

@@ -7,7 +7,7 @@ import FormContainer from "../../components/FormContainer";
 import Editor from "../../components/Editor";
 import {
   useGetPostByIdQuery,
-  useUserUpdatePostMutation,
+  useUpdatePostAsUserMutation,
   useUploadPostImageMutation,
 } from "../../slices/postApiSlice";
 import { toast } from "react-toastify";
@@ -24,7 +24,7 @@ const BBUserEditScreen = () => {
   const [removeImage, setRemoveImage] = useState(false);
 
   const [updatePost, { isLoading: loadingUpdate }] =
-    useUserUpdatePostMutation();
+    useUpdatePostAsUserMutation();
   const [uploadImage, { isLoading: loadingUpload }] =
     useUploadPostImageMutation();
 
