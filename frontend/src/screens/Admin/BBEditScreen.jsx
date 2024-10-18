@@ -1,6 +1,15 @@
 import { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import {
+  Form,
+  Button,
+  ToggleButtonGroup,
+  ToggleButton,
+  Container,
+  Row,
+  Col,
+  Modal,
+} from "react-bootstrap";
 import Loader from "../../components/Loader";
 import Message from "../../components/Message";
 import FormContainer from "../../components/FormContainer";
@@ -22,11 +31,14 @@ const BBEditScreen = () => {
     isError,
     refetch,
   } = useGetPostByIdQuery(postId);
+
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [status, setStatus] = useState("");
   const [image, setImage] = useState("");
   const [thumbnail, setThumbnail] = useState("");
+  const [imagePreview, setImagePreview] = useState(""); // Local image preview
+  const [showModal, setShowModal] = useState(false); // Modal state
   const [removeImage, setRemoveImage] = useState(false);
 
   const [updatePost, { isLoading: loadingUpdate }] =
@@ -92,26 +104,53 @@ const BBEditScreen = () => {
     setStatus(newStatus);
   };
 
+  // Handle file selection and show local preview
   const imageHandler = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setImage(file);
+      setImage(file); // Save the file object
+
+      // Use FileReader to generate a preview URL
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result); // Set local preview URL
+      };
+      reader.readAsDataURL(file);
     }
   };
 
-  const handleRemoveImageChange = (e) => {
-    setRemoveImage(e.target.checked);
+  // Toggle Modal
+  const handleShowModal = () => setShowModal(true);
+  const handleCloseModal = () => setShowModal(false);
+
+  // Handle image removal and immediately update the post in the database
+  const handleRemoveImage = async () => {
+    try {
+      const updatedPost = {
+        _id: postId,
+        title,
+        body,
+        status,
+        image: "", // Clear the image
+        thumbnail: "", // Clear the thumbnail
+      };
+
+      await updatePost(updatedPost).unwrap();
+      toast.success("Image removed successfully");
+
+      // Update the local state
+      setImage("");
+      setThumbnail("");
+      setImagePreview(""); // Remove local preview
+    } catch (error) {
+      toast.error("Error removing the image");
+    }
   };
 
-  if (loadingUpdate || loadingUpload) {
-    return <Loader />;
-  }
+  if (loadingUpdate || loadingUpload) return <Loader />;
 
   return (
     <Container>
-      <Link to="/admin/bb" className="btn btn-light my-3">
-        Go Back
-      </Link>
       <FormContainer>
         <h1>Edit Post</h1>
         {isLoading ? (
@@ -120,6 +159,51 @@ const BBEditScreen = () => {
           <Message variant="danger">{isError}</Message>
         ) : (
           <Form onSubmit={submitHandler}>
+            <Row className="align-items-center">
+              <Col md={11}>
+                <Form.Group controlId="status">
+                  <ToggleButtonGroup
+                    type="radio"
+                    name="status"
+                    value={status}
+                    onChange={handleStatusChange}
+                  >
+                    <ToggleButton
+                      id="toggle-pending"
+                      variant={
+                        status === "pending" ? "warning" : "outline-warning"
+                      }
+                      value="pending"
+                    >
+                      Pending
+                    </ToggleButton>
+                    <ToggleButton
+                      id="toggle-approved"
+                      variant={
+                        status === "approved" ? "success" : "outline-success"
+                      }
+                      value="approved"
+                    >
+                      Approved
+                    </ToggleButton>
+                    <ToggleButton
+                      id="toggle-rejected"
+                      variant={
+                        status === "rejected" ? "danger" : "outline-danger"
+                      }
+                      value="rejected"
+                    >
+                      Rejected
+                    </ToggleButton>
+                  </ToggleButtonGroup>
+                </Form.Group>
+              </Col>
+              <Col md={1}>
+                <Button type="submit" variant="primary">
+                  Update
+                </Button>
+              </Col>
+            </Row>
             <Form.Group controlId="title">
               <Form.Label>Title</Form.Label>
               <Form.Control
@@ -135,77 +219,79 @@ const BBEditScreen = () => {
               <Editor content={body} setContent={setBody} />
             </Form.Group>
 
-            {/* Use Bootstrap Grid to align image and new image next to each other */}
-            <Row>
-              <Col md={6}>
-                {image && (
+            {/* Image and thumbnail handling */}
+            <Row className="justify-content-center mt-3">
+              {imagePreview ? (
+                <Col md={6} className="d-flex flex-column align-items-center">
                   <Form.Group controlId="image">
-                    <Form.Label>Current Image</Form.Label>
+                    <Form.Label>Image Preview</Form.Label>
                     <div>
-                      <img src={`/${post.thumbnail}`} alt={title} width={100} />
+                      <img src={imagePreview} alt="Preview" width={300} />
                     </div>
                   </Form.Group>
-                )}
-              </Col>
+                </Col>
+              ) : (
+                image && (
+                  <Col md={6} className="d-flex flex-column align-items-center">
+                    <Form.Group controlId="image">
+                      <Form.Label>Current Image</Form.Label>
+                      <div>
+                        <img
+                          src={`/${post.thumbnail}`}
+                          alt={title}
+                          width={300}
+                        />
+                      </div>
+                    </Form.Group>
+                  </Col>
+                )
+              )}
 
-              <Col md={6}>
-                <Form.Group controlId="new-image">
-                  <Form.Label>
-                    <h5>
-                      <strong>New Image</strong>
-                    </h5>{" "}
-                    <h6>(optional)</h6>
-                  </Form.Label>
-                  <Form.Control
-                    type="file"
-                    label="new image"
-                    onChange={imageHandler}
-                  ></Form.Control>
-                </Form.Group>
+              {/* Always show the buttons */}
+              <Col
+                md={6}
+                className="d-flex flex-column justify-content-center align-items-center"
+              >
+                <Button
+                  variant="danger"
+                  onClick={handleRemoveImage}
+                  className="mt-3"
+                  disabled={!image && !imagePreview} // Disable if no image exists
+                >
+                  Remove Image
+                </Button>
+                <Button
+                  variant="primary"
+                  onClick={handleShowModal}
+                  className="mt-3"
+                >
+                  {image || imagePreview ? "Update Image" : "Add Image"}
+                </Button>
               </Col>
             </Row>
-
-            <Form.Group controlId="removeImage">
-              <Form.Check
-                type="checkbox"
-                label="Remove Image"
-                checked={removeImage}
-                onChange={handleRemoveImageChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="status">
-              <Form.Label>Status</Form.Label>
-              <div>
-                <Button
-                  type="button"
-                  variant={status === "pending" ? "secondary" : "light"}
-                  onClick={() => handleStatusChange("pending")}
-                >
-                  Pending
-                </Button>{" "}
-                <Button
-                  type="button"
-                  variant={status === "approved" ? "success" : "light"}
-                  onClick={() => handleStatusChange("approved")}
-                >
-                  Approve
-                </Button>{" "}
-                <Button
-                  type="button"
-                  variant={status === "rejected" ? "danger" : "light"}
-                  onClick={() => handleStatusChange("rejected")}
-                >
-                  Reject
-                </Button>
-              </div>
-            </Form.Group>
-
-            <Button type="submit" variant="primary">
-              Update
-            </Button>
           </Form>
         )}
       </FormContainer>
+
+      {/* Modal for image upload */}
+      <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            {image || imagePreview ? "Update Image" : "Add Image"}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form.Group controlId="new-image">
+            <Form.Label>Choose an image</Form.Label>
+            <Form.Control type="file" onChange={imageHandler} />
+          </Form.Group>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 };
