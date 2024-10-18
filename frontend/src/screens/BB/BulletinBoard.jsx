@@ -55,7 +55,7 @@ const BulletinBoard = () => {
           <Row className="my-2 text-center">
             <Col md={1}>
               {post.image && (
-                <img src={post.thumbnail} alt={post.title} width={50} />
+                <img src={post.thumbnail} alt={post.title} width={100} />
               )}
             </Col>
             <Col md={10}>
