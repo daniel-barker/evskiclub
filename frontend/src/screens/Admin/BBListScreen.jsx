@@ -46,6 +46,7 @@ const BBListScreen = () => {
               <th>POST</th>
               <th>CREATED ON</th>
               <th>CREATED BY</th>
+              <th>STATUS</th>
               <th></th>
             </tr>
           </thead>
@@ -55,6 +56,7 @@ const BBListScreen = () => {
                 <td>{post.title}</td>
                 <td>{post.createdAt.substring(0, 10)}</td>
                 <td>{post.user.name}</td>
+                <td>{post.status}</td>
                 <td>
                   <LinkContainer to={`/admin/bb/${post._id}/edit`}>
                     <Button variant="light" className="btn-sm">

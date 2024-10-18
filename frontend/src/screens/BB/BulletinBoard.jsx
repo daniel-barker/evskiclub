@@ -33,22 +33,17 @@ const BulletinBoard = () => {
 
   return (
     <Container>
-      <div className="d-flex justify-content-between w-100">
-        <Link to="/" className="btn btn-primary my-3">
-          Go Back
-        </Link>
-        <Link to="/bb/mine" className="btn btn-primary my-3">
-          My Posts
-        </Link>
-        <Link to="/bb/create" className="btn btn-primary my-3">
-          Create Post
-        </Link>
-      </div>
-      <Row className="align-items-center pt-2 pb-5">
+      <Row className="align-items-center mt-5 mb-5">
         <Col>
           <h1 className="text-center">Bulletin Board</h1>
         </Col>
       </Row>
+      <Link to="/bb/mine" className="btn btn-primary mt-1 mb-4">
+        My Posts
+      </Link>
+      <Link to="/bb/create" className="btn btn-primary mx-2 mt-1 mb-4">
+        Create Post
+      </Link>
       {posts.map((post) => (
         <div key={post._id}>
           <hr />
