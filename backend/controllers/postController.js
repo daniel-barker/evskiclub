@@ -95,10 +95,9 @@ const updatePostAsUser = asyncHandler(async (req, res) => {
       throw new Error("You are not authorized to edit this post");
     }
 
-    // Update post with the new values and set status to "pending"
+    //If a user updates a post, do not change the status. Can be updated later at admin discretion.
     post.title = title;
     post.body = body;
-    post.status = "pending"; // Automatically set to pending upon user edit
     post.image = image;
     post.thumbnail = thumbnail;
 

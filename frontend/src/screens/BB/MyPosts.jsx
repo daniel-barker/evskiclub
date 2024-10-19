@@ -37,24 +37,23 @@ const MyPosts = () => {
 
   return (
     <Container>
-      <div className="d-flex justify-content-between w-100">
-        <Link to="/" className="btn btn-primary my-3">
-          Go Back
-        </Link>
-        <Link to="/bb" className="btn btn-primary my-3">
-          All Posts
-        </Link>
-        <Link to="/bb/create" className="btn btn-primary my-3">
-          Create Post
-        </Link>
-      </div>
-      <Row className="align-items-center pt-2 pb-5">
+      <Row className="align-items-center mt-5 pb-5">
         <Col>
           <h1 className="text-center">My Posts</h1>
         </Col>
       </Row>
+      <Link to="/bb" className="btn btn-primary mt-1 mb-4">
+        All Posts
+      </Link>
+      <Link to="/bb/create" className="btn btn-primary mx-2 mt-1 mb-4">
+        Create Post
+      </Link>
       {visiblePosts.length === 0 ? (
-        <p>No posts available</p>
+        <p className="text-center">
+          <h3>
+            You haven't made a post yet. Click Create Post to get started!
+          </h3>
+        </p>
       ) : (
         visiblePosts.map((post) => (
           <div key={post._id}>
