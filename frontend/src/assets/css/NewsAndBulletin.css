@@ -1,0 +1,179 @@
+/* ---------- Original News Card Styles ---------- */
+
+.news-card {
+  display: flex;
+  flex-direction: row;         /* Image and text side by side */
+  max-height: 390px;           /* Set a fixed maximum height for the card */
+  overflow-y: auto;            /* Prevent overflow beyond card */
+}
+
+.news-card-body {
+  flex-grow: 1;                /* Allow the body to grow and take available space */
+  overflow-y: auto;            /* Enable vertical scrolling when content exceeds */
+  padding-right: 10px;         /* Avoid clipping behind scrollbar */
+  padding-left: 5px;           /* Some padding for readability */
+  word-wrap: break-word;       /* Ensure long words break properly */
+}
+
+.news-card-image-container {
+  display: flex;
+  justify-content: center;     /* Centers the image horizontally */
+  align-items: center;         /* Centers the image vertically */
+  max-height: 100%;            /* Ensure the container adjusts to the card height */
+  overflow: hidden;            /* Ensure the image doesn't overflow the container */
+}
+
+.news-card-image {
+  max-height: 100%;            /* Ensure the image doesn't exceed the card's height */
+  max-width: 100%;             /* Ensure the image fits within its container */
+  object-fit: contain;         /* Maintain the aspect ratio */
+}
+
+.news-card-body::-webkit-scrollbar {
+  width: 6px;                  /* Customize scrollbar width */
+}
+
+.news-card-body::-webkit-scrollbar-thumb {
+  background-color: #ccc;      /* Customize scrollbar color */
+  border-radius: 3px;
+}
+
+.news-card-body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.news-card-title {
+  font-size: 1.8rem;
+  font-weight: 400;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.news-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+}
+
+.news-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+  font-size: 2rem;
+  color: #fff;
+  background: rgba(128, 128, 128, 0.61);
+  border: none;
+  line-height: 1;
+  padding-top: 0;
+}
+
+.news-card-date {
+  font-size: 0.9rem;      /* Adjust font size */
+  font-weight: 400;       /* Adjust font weight */
+  color: #6c757d;         /* A lighter color for the date */
+  padding-left: 8px;      /* Ensure it aligns nicely with the title */
+  padding-right: 5px;
+  margin-bottom: 0.5rem;  /* Add some space below the date */
+}
+
+
+/* ---------- Home News Section Styles ---------- */
+
+.home-news-card {
+  background-color: #f9f9f9;        /* Same as bulletin board background */
+  border-radius: 10px;
+  border: 1px solid #ddd;                /* Set the same height for consistency */                /* Enable scrolling if content exceeds */
+  overflow: visible; /* Do not allow overflow */
+}
+
+.home-news-post {
+  border-bottom: 1px dashed #ccc;    /* Similar dashed line between posts */
+  padding-bottom: 10px;
+}
+
+.home-news-post-title {
+  color: #01467f;                    /* Similar color for news post titles */
+  font-weight: bold;
+}
+
+.home-news-post-user {
+  font-size: 0.85rem;                /* Same font size for user information */
+}
+
+.home-news-post-content {
+  font-size: 0.9rem;                 /* Same font size for content */
+  color: #333;                       /* Darker text for content */
+}
+
+.home-news-post-date {
+  font-size: 0.75rem;                /* Same font size for the date */
+  color: #666;                       /* Grayish color for the date */
+}
+
+.home-news-post-image-container {
+  display: flex;
+  float: left;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.home-news-post-image {
+  max-width: 300px;
+  height: auto;
+  object-fit: contain;
+}
+
+.bulletin-board-card .btn-outline-primary,
+.home-news-card .btn-outline-primary {
+  width: 100%;
+  border-radius: 20px;
+  color:#01467f;
+  border-color:#01467f;
+}
+
+.bulletin-board-card .btn-outline-primary:hover,
+.home-news-card .btn-outline-primary:hover {
+  background-color: #0169b1;  /* Change the background color on hover */
+  color: white;               /* Optionally, change the text color to white */
+  border-color: #0169b1;      /* Change the border color to match */
+}
+
+/* Bulletin Board Styles */
+.bulletin-board-card {
+  background-color: #f9f9f9; /* Light background for bulletin posts */
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  max-height: 900px; /* Set max height */
+  overflow-y: auto;
+}
+
+.bulletin-post {
+  border-bottom: 1px dashed #ccc; /* Dashed line between posts */
+  padding-bottom: 10px;
+}
+
+.bulletin-post-title {
+  color: #01467f; /* A distinct color for post titles */
+  font-weight: bold;
+}
+
+.bulletin-post-user {
+  font-size: 0.85rem; /* Smaller text for user information */
+}
+
+.bulletin-post-content {
+  font-size: 0.9rem; /* Smaller content size */
+  color: #333; /* Darker text for content */
+}
+
+.bulletin-post-date {
+  font-size: 0.75rem; /* Small date font */
+  color: #666; /* Grayish color for dates */
+}
+
+.bulletin-board-card .btn-outline-primary {
+  width: 100%;
+  border-radius: 20px;
+}

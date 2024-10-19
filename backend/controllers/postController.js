@@ -26,6 +26,19 @@ const getPostById = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Get three latest approved bb posts
+// @route   GET /api/posts/latest
+// @access  Members
+
+const getLatestPosts = asyncHandler(async (req, res) => {
+  const posts = await Post.find({ status: "approved" })
+    .sort({ createdAt: -1 })
+    .limit(3)
+    .populate("user");
+
+  res.json(posts);
+});
+
 // @desc   Get all posts by current user
 // @route  GET /api/posts/mine
 // @access Members
@@ -194,6 +207,7 @@ export {
   getAllPosts,
   getApprovedPosts,
   getPostById,
+  getLatestPosts,
   getMyPosts,
   createPost,
   updatePostAsUser,

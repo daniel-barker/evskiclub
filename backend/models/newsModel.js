@@ -11,6 +11,7 @@ const newsSchema = mongoose.Schema(
     post: { type: String, required: true },
     image: { type: String },
     thumbnail: { type: String },
+    pdf: { type: String },
     isPublished: { type: Boolean, required: true, default: false },
   },
   {

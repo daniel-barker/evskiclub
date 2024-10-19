@@ -25,6 +25,11 @@ export const postApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: 5,
       providesTags: ["Post"],
     }),
+    getLatestPosts: builder.query({
+      query: () => `${POST_URL}/latest`,
+      keepUnusedDataFor: 5,
+      providesTags: ["Post"],
+    }),
     createPost: builder.mutation({
       query: (body) => ({
         url: `${POST_URL}`,
@@ -75,6 +80,7 @@ export const {
   useGetApprovedPostsQuery,
   useGetMyPostsQuery,
   useGetPostByIdQuery,
+  useGetLatestPostsQuery,
   useCreatePostMutation,
   useUpdatePostAsUserMutation,
   useUpdatePostAsAdminMutation,

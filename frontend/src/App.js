@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./assets/css/App.css";
 import "./assets/css/HeaderAndFooter.css";
+import "./assets/css/NewsAndBulletin.css";
 
 const App = () => {
   return (
@@ -14,7 +15,7 @@ const App = () => {
       <main style={{ flex: 1 }}>
         <Outlet />
       </main>
-      <ToastContainer />
+      <ToastContainer autoClose={1500} />
       <Footer />
     </div>
   );

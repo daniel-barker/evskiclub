@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import { Modal, Row, Col, Card, Button } from "react-bootstrap";
 import LatestNews from "../components/LatestNews";
+import LatestPosts from "../components/LatestPosts";
 import MemberPageCarousel from "../components/MemberPageCarousel";
-
-import { FaBook, FaGavel, FaHome } from 'react-icons/fa';
 
 import bylaws from "../assets/pdfs/bylaws.pdf";
 import directory from "../assets/pdfs/directory.pdf";
 import ClubHistory from "../components/ClubHistory";
 import HouseRules from "../components/HouseRules";
+
+// Import images
+import clubHistoryImg from "../assets/images/club_history.jpg";
+import bylawsImg from "../assets/images/club_constitution.jpg";
+import houseRulesImg from "../assets/images/house_rules.jpg";
 
 const MemberScreen = () => {
   const [showBylaws, setShowBylaws] = useState(false);
@@ -28,40 +32,71 @@ const MemberScreen = () => {
   return (
     <>
       <MemberPageCarousel />
-      <div className="member-page-container">
-      <Row className="mt-5 justify-content-center align-items-center">
-        <Col md={8} className="p-2">
-          <LatestNews />
-        </Col>
-      </Row>
+      <div className="member-page-container mx-4">
+        <Row className="mt-5">
+          <Col md={7} className="p-2">
+            <LatestNews />
+          </Col>
+          <Col md={5} className="p-2">
+            <LatestPosts />
+          </Col>
+        </Row>
 
-      <Row className="mt-5 mx-1 justify-content-center">
-        <Col md={4} className="p-2">
-          <Card onClick={handleShowHistory} className="member-screen-links text-center" style={{ cursor: "pointer" }}>
-            <Card.Body>
-              <FaBook size="8em" className="mb-3" />
-              <Card.Title>Club History</Card.Title>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col md={4} className="p-2">
-          <Card onClick={handleShowBylaws} className="member-screen-links text-center" style={{ cursor: "pointer" }}>
-            <Card.Body>
-              <FaGavel size="8em" className="mb-3" />
-              <Card.Title>Club By-Laws</Card.Title>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col md={4} className="p-2">
-          <Card onClick={handleShowHouseRules} className="member-screen-links text-center" style={{ cursor: "pointer" }}>
-            <Card.Body>
-              <FaHome size="8em" className="mb-3" />
-              <Card.Title>House Rules</Card.Title>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-    </div>
+        <Row className="mt-5 mx-1 justify-content-center">
+          <Col md={4} className="p-2">
+            <Card
+              onClick={handleShowHistory}
+              className="member-screen-links text-center"
+              style={{ cursor: "pointer" }}
+            >
+              <Card.Body>
+                <img
+                  src={clubHistoryImg}
+                  alt="Club History"
+                  style={{ width: "100%", height: "auto", objectFit: "cover" }}
+                  className="mb-3"
+                />
+                <Card.Title>Club History</Card.Title>
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col md={4} className="p-2">
+            <Card
+              onClick={handleShowBylaws}
+              className="member-screen-links text-center"
+              style={{ cursor: "pointer" }}
+            >
+              <Card.Body>
+                <img
+                  src={bylawsImg}
+                  alt="Club By-Laws"
+                  style={{ width: "100%", height: "auto", objectFit: "cover" }}
+                  className="mb-3"
+                />
+                <Card.Title>Club By-Laws</Card.Title>
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col md={4} className="p-2">
+            <Card
+              onClick={handleShowHouseRules}
+              className="member-screen-links text-center"
+              style={{ cursor: "pointer" }}
+            >
+              <Card.Body>
+                <img
+                  src={houseRulesImg}
+                  alt="House Rules"
+                  style={{ width: "100%", height: "auto", objectFit: "cover" }}
+                  className="mb-3"
+                />
+                <Card.Title>House Rules</Card.Title>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </div>
+
       {/* MODALS */}
       {/* HISTORY MODAL */}
       <Modal

@@ -59,6 +59,7 @@ const NewsCreateScreen = () => {
       try {
         const newNews = { title, post, isPublished };
         const createResult = await createNews(newNews);
+        console.log("Create result: ", createResult);
         if (createResult.data) {
           toast.success("News created successfully");
           navigate("/admin/news/list");
@@ -103,8 +104,8 @@ const NewsCreateScreen = () => {
           </Form.Group>
 
           <Form.Group controlId="post" className="mt-3">
-            <Form.Label>Post</Form.Label>
-            <Editor content={post} setContent={setPost} />
+            <Form.Label htmlFor="post">Post</Form.Label>{" "}
+            <Editor id="post" content={post} setContent={setPost} />
           </Form.Group>
           <Form.Group controlId="isPublished">
             <Form.Check

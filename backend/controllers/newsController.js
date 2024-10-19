@@ -54,50 +54,45 @@ const getNewsById = asyncHandler(async (req, res) => {
 // @access  Admins
 
 const createNews = asyncHandler(async (req, res) => {
-  try {
-    const news = new News({
-      user: req.user._id,
-      title: req.body.title,
-      post: req.body.post,
-      image: req.body.image,
-      thumbnail: req.body.thumbnail,
-      isPublished: req.body.isPublished,
-    });
+  console.log("Creating news with data: ", req.body); // Log request body
+  const news = new News({
+    user: req.user._id,
+    title: req.body.title,
+    post: req.body.post,
+    image: req.body.image,  // Check if image exists
+    pdf: req.body.pdf,      // Check if PDF exists
+    isPublished: req.body.isPublished,
+  });
 
-    const createdNews = await news.save();
-    res.status(201).json(createdNews);
-  } catch (error) {
-    res.status(400);
-    throw new Error(error);
-  }
+  const createdNews = await news.save();
+  console.log("News created: ", createdNews); // Log saved news data
+  res.status(201).json(createdNews);
 });
+
+
 
 // @desc    Update a post
 // @route   PUT /api/news/:id
 // @access  Admins
 
 const updateNews = asyncHandler(async (req, res) => {
-  try {
-    const { title, post, image, thumbnail, isPublished } = req.body;
+  const { title, post, image, thumbnail, pdf, isPublished } = req.body; // Include pdf
 
-    const news = await News.findById(req.params.id);
+  const news = await News.findById(req.params.id);
 
-    if (news) {
-      news.title = title;
-      news.post = post;
-      news.image = image;
-      news.thumbnail = thumbnail;
-      news.isPublished = isPublished;
+  if (news) {
+    news.title = title;
+    news.post = post;
+    news.image = image;
+    news.thumbnail = thumbnail;
+    news.pdf = pdf; // Update pdf field
+    news.isPublished = isPublished;
 
-      const updatedNews = await news.save();
-      res.json(updatedNews);
-    } else {
-      res.status(404);
-      throw new Error("Post not found");
-    }
-  } catch (error) {
-    res.status(400);
-    throw new Error(error);
+    const updatedNews = await news.save();
+    res.json(updatedNews);
+  } else {
+    res.status(404);
+    throw new Error("Post not found");
   }
 });
 
@@ -124,7 +119,12 @@ const deleteNews = asyncHandler(async (req, res) => {
         fs.unlinkSync(thumbPath);
       }
     }
-
+    if (news.pdf) {
+      const pdfPath = `${basePath}/${news.pdf}`;
+      if (fs.existsSync(pdfPath)) {
+        fs.unlinkSync(pdfPath);
+      }
+    }
     await news.deleteOne({ _id: news._id });
     res.json({ message: "Post removed" });
   } else {

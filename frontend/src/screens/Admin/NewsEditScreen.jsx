@@ -54,6 +54,7 @@ const NewsEditScreen = () => {
         formData.append("image", image);
         const uploadResult = await uploadImage(formData).unwrap();
         updatedNews.image = uploadResult.image;
+        console.log("Upload result: ", uploadResult);
         updatedNews.thumbnail = uploadResult.thumbnail;
       } catch (error) {
         toast.error(

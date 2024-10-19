@@ -67,6 +67,7 @@ const Editor = ({ content, setContent }) => {
         "|",
         "heading",
         "|",
+        "fontSize",
         "fontFamily",
         "fontColor",
         "fontBackgroundColor",
@@ -135,9 +136,8 @@ const Editor = ({ content, setContent }) => {
       supportAllValues: true,
     },
     fontSize: {
-      options: [16], // Only include 14 to ensure no other options are available
-      supportAllValues: true, // Allows custom values but since toolbar option is removed, users won't change it
-      default: 16, // Set default size
+      options: [10, 12, 14, "default", 18, 20, 26, 34],
+      supportAllValues: true,
     },
     heading: {
       options: [

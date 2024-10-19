@@ -22,42 +22,46 @@ const LatestNews = () => {
   if (isError) return <p>Error fetching news</p>;
 
   return (
-    <div>
-      <Card className="card-stylo">
-        <div className="news-card-header d-flex justify-content-between align-items-center">
-          <div className="news-card-title">Latest News</div>
-          <Link to="/news" className="btn btn-primary">
-            Previous Posts
-          </Link>
-        </div>
+    <Card className="home-news-card">
+      <Card.Header className="home-news-card-header">Latest News</Card.Header>
+      <Card.Body>
         {news.map((newsPost) => (
-          <div key={newsPost._id}>
-            <Card.Title className="news-post-title text-center">
-              {newsPost.title}
-            </Card.Title>
-            <Card.Body>
-              {/* Safely render HTML content */}
+          <div key={newsPost._id} className="home-news-post d-flex">
+            <div className="home-news-post-content">
+              <Card.Title className="home-news-post-title">
+                {newsPost.title}
+              </Card.Title>
+              <div className="home-news-post-user">
+                By: {newsPost.user?.name}
+              </div>
               <div
+                className="home-news-post-text fs-5"
                 dangerouslySetInnerHTML={{
                   __html: DOMPurify.sanitize(newsPost.post),
                 }}
               />
-            </Card.Body>
-            <Card.Footer className="ms-auto">
-              <div className="news-card-signature">
-                {newsPost.user && newsPost.user.name}
-              </div>
-              <div className="news-card-sig-position">
-                {newsPost.user && newsPost.user.position}
-              </div>
-              <div className="news-card-sig-position">
+              <div className="home-news-post-date">
                 {formatDate(newsPost.createdAt)}
               </div>
-            </Card.Footer>
+            </div>
+            {newsPost.image && (
+              <div className="home-news-post-image-container">
+                <img
+                  src={newsPost.image}
+                  alt="News post"
+                  className="home-news-post-image"
+                />
+              </div>
+            )}
           </div>
         ))}
-      </Card>
-    </div>
+      </Card.Body>
+      <Card.Footer className="text-center">
+        <Link to="/news" className="btn btn-outline-primary">
+          See More News
+        </Link>
+      </Card.Footer>
+    </Card>
   );
 };
 

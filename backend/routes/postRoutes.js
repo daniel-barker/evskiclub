@@ -7,6 +7,7 @@ import {
   getAllPosts,
   getApprovedPosts,
   getPostById,
+  getLatestPosts,
   getMyPosts,
   createPost,
   updatePostAsAdmin,
@@ -67,6 +68,7 @@ import checkObjectId from "../middleware/checkObjectId.js";
 router.route("/").get(getAllPosts).post(protect, createPost);
 router.route("/approved").get(protect, getApprovedPosts);
 router.route("/mine").get(protect, getMyPosts);
+router.route("/latest").get(protect, getLatestPosts);
 router
   .route("/:id")
   .get(checkObjectId, getPostById)

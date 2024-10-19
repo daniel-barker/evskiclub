@@ -63,24 +63,19 @@ const NewsScreen = () => {
             {/* Text content */}
             <Col md={post.image ? 7 : 12}>
               <div className="news-card-body">
-                <Card.Title className="news-post-title">
+                <Card.Title className="news-card-title">
                   {post.title}
                 </Card.Title>
+                {/* Move the date right under the title */}
+                <div className="news-card-date">
+                  {formatDate(post.createdAt)}
+                </div>
                 <hr />
                 <div
                   dangerouslySetInnerHTML={{
                     __html: DOMPurify.sanitize(post.post),
                   }}
                 />
-                <div className="news-card-signature mt-3">
-                  {post.user && post.user.name}
-                </div>
-                <div className="news-card-sig-position">
-                  {post.user && post.user.position}
-                </div>
-                <div className="news-card-sig-position">
-                  {formatDate(post.createdAt)}
-                </div>
               </div>
             </Col>
 
