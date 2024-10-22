@@ -63,6 +63,7 @@ export const postApiSlice = apiSlice.injectEndpoints({
     deletePostAsUser: builder.mutation({
       query: (id) => ({
         url: `${POST_URL}/${id}/user`,
+        method: "DELETE",
       }),
     }),
     uploadPostImage: builder.mutation({
@@ -85,5 +86,6 @@ export const {
   useUpdatePostAsUserMutation,
   useUpdatePostAsAdminMutation,
   useDeletePostAsAdminMutation,
+  useDeletePostAsUserMutation,
   useUploadPostImageMutation,
 } = postApiSlice;

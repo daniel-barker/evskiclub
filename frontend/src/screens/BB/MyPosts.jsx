@@ -1,12 +1,18 @@
 import { useState } from "react";
 import { Row, Col, Container, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { FaEdit } from "react-icons/fa"; // Font Awesome icon for editing
-import { useGetMyPostsQuery } from "../../slices/postApiSlice";
+import { FaEdit } from "react-icons/fa";
+import { toast } from "react-toastify";
+import {
+  useGetMyPostsQuery,
+  useDeletePostAsUserMutation,
+} from "../../slices/postApiSlice";
 import DOMPurify from "dompurify";
 
 const MyPosts = () => {
-  const { data: posts, isLoading, isError } = useGetMyPostsQuery();
+  const { data: posts, refetch, isLoading, isError } = useGetMyPostsQuery();
+  const [deletePost, { isLoading: loadingDelete }] =
+    useDeletePostAsUserMutation();
   const [expandedPostIds, setExpandedPostIds] = useState([]); // State to track expanded posts
 
   const formatDate = (datetime) => {
@@ -19,6 +25,18 @@ const MyPosts = () => {
       hour12: true,
     });
     return date;
+  };
+
+  const deleteHandler = async (id) => {
+    if (window.confirm("Are you sure you want to delete this post?")) {
+      try {
+        await deletePost(id);
+        toast.success("Post deleted successfully");
+        refetch();
+      } catch (err) {
+        toast.error(err?.data?.message || err.error);
+      }
+    }
   };
 
   const togglePostBody = (id) => {
@@ -91,10 +109,19 @@ const MyPosts = () => {
               <Col md={1}>
                 {/* Edit Button */}
                 <Link to={`/bb/edit/${post._id}`}>
-                  <Button variant="warning" className="btn-sm">
+                  <Button variant="warning" className="btn-sm mb-2">
                     <FaEdit /> Edit
                   </Button>
                 </Link>
+                {/* Delete Button */}
+                <Button
+                  variant="danger"
+                  className="btn-sm"
+                  onClick={() => deleteHandler(post._id)}
+                  disabled={loadingDelete}
+                >
+                  Delete
+                </Button>
               </Col>
             </Row>
           </div>

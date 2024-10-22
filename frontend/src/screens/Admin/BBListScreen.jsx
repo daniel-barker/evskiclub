@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 import { Table, Button, Container, Row, Col } from "react-bootstrap";
 import { FaTrash } from "react-icons/fa";
@@ -16,7 +15,7 @@ const BBListScreen = () => {
     useDeletePostAsAdminMutation();
 
   const deleteHandler = async (id) => {
-    if (window.confirm("Are you sure you want to delete a post?")) {
+    if (window.confirm("Are you sure you want to delete this post?")) {
       try {
         await deletePost(id);
         toast.success("Post deleted successfully");

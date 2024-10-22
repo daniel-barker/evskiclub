@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Form, Button, Container } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { Form, Button } from "react-bootstrap";
 import Loader from "../../components/Loader";
 import FormContainer from "../../components/FormContainer";
 import Editor from "../../components/Editor";
@@ -14,6 +14,7 @@ const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [image, setImage] = useState("");
+  const [errors, setErrors] = useState({}); // State to track form errors
 
   const [createPost, { isLoading: loadingCreate }] = useCreatePostMutation();
   const [uploadImage, { isLoading: loadingUpload }] =
@@ -21,8 +22,22 @@ const CreatePost = () => {
 
   const navigate = useNavigate();
 
+  const validateForm = () => {
+    const newErrors = {};
+    if (!title.trim()) newErrors.title = "Title is required";
+    if (!body.trim()) newErrors.body = "Body is required";
+    return newErrors;
+  };
+
   const submitHandler = async (e) => {
     e.preventDefault();
+
+    const formErrors = validateForm();
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
+      return; // Stop the form submission
+    }
+
     if (image) {
       const formData = new FormData();
       formData.append("image", image);
@@ -91,12 +106,19 @@ const CreatePost = () => {
             placeholder="Enter title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            isInvalid={!!errors.title} // Highlight input if error
           />
+          <Form.Control.Feedback type="invalid">
+            {errors.title}
+          </Form.Control.Feedback>
         </Form.Group>
+
         <Form.Group controlId="body">
           <Form.Label className="mt-2">Body</Form.Label>
           <Editor content={body} setContent={setBody} />
+          {errors.body && <p className="text-danger">{errors.body}</p>}
         </Form.Group>
+
         <Form.Group controlId="image">
           <Form.Label className="mt-2">Choose Image (optional)</Form.Label>
           <Form.Control
@@ -106,6 +128,7 @@ const CreatePost = () => {
             onChange={imageHandler}
           ></Form.Control>
         </Form.Group>
+
         <Button className="mt-3" type="submit" variant="primary">
           Create
         </Button>

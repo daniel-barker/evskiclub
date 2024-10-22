@@ -21,7 +21,6 @@ const router = express.Router();
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
-    //check if server is in dev mode
     const isDev = process.env.NODE_ENV === "development";
     const basePath = isDev ? `frontend/public` : `frontend/build`;
     const dir = `${basePath}/uploads/gallery/fullsize`;
@@ -41,8 +40,8 @@ const storage = multer.diskStorage({
 });
 
 function fileFilter(req, file, cb) {
-  const filetypes = /jpe?g|png|webp/;
-  const mimetypes = /image\/jpe?g|image\/png|image\/webp/;
+  const filetypes = /jpe?g|webp/;
+  const mimetypes = /image\/jpe?g|image\/webp/;
 
   const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
   const mimetype = mimetypes.test(file.mimetype);
@@ -50,7 +49,7 @@ function fileFilter(req, file, cb) {
   if (extname && mimetype) {
     cb(null, true);
   } else {
-    cb(new Error("Images only!"), false);
+    cb(new Error(".jp(e)g or .webp images only!"), false);
   }
 }
 
@@ -73,7 +72,6 @@ router.post(
   uploadSingleImage,
   async (req, res, next) => {
     if (req.file) {
-      // Determine paths based on environment
       const isDevelopment = process.env.NODE_ENV === "development";
       const basePath = isDevelopment ? "frontend/public" : "frontend/build";
       const dir = `${basePath}/uploads/gallery/thumbnails`;
@@ -81,23 +79,28 @@ router.post(
         fs.mkdirSync(dir, { recursive: true });
       }
 
-      const fullPath = `${basePath}/uploads/gallery/fullsize/${req.file.filename}`;
-      const thumbPath = `${dir}/gallery-image-${Date.now()}${path.extname(
-        req.file.originalname
-      )}`;
+      const originalPath = req.file.path; // Save the original file path
+      const fullsizePath = `${basePath}/uploads/gallery/fullsize/gallery-image-${Date.now()}.webp`;
+      const thumbnailPath = `${dir}/gallery-image-${Date.now()}.webp`;
 
       try {
-        await sharp(req.file.path).resize(150).toFile(thumbPath);
+        // Convert original image to webp for full-size image
+        await sharp(originalPath).webp().toFile(fullsizePath);
 
-        // Update the paths to be relative to the frontend/public directory for client access
-        req.body.image = fullPath.replace(`${basePath}`, "");
-        req.body.thumbnail = thumbPath.replace(`${basePath}`, "");
+        // Convert original image to webp and resize for thumbnail
+        await sharp(originalPath).resize(150).webp().toFile(thumbnailPath);
 
-        next(); // move to uploadImage controller to get metadata and save to database
+        //Original image needs to be deleted but after conversion and processing. Currently there's an issue with the uploadImage controller handling the files after conversion.
+
+        // Update the paths to be relative for client access
+        req.body.image = fullsizePath.replace(`${basePath}`, "");
+        req.body.thumbnail = thumbnailPath.replace(`${basePath}`, "");
+
+        next(); // Proceed to the uploadImage controller to save the data to the database
       } catch (err) {
         return res
           .status(400)
-          .json({ message: `Error creating thumbnail: ${err.message}` });
+          .json({ message: `Error creating webp images: ${err.message}` });
       }
     } else {
       return res.status(400).json({ message: "No image file uploaded." });

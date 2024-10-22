@@ -11,6 +11,10 @@ const uploadImage = asyncHandler(async (req, res) => {
   try {
     const file = req.file;
     const metadata = await sharp(file.path).metadata();
+
+    // Debugging: Log req.body before saving to DB
+    console.log("Saving image with data:", req.body);
+
     const image = new Image({
       image: req.body.image,
       thumbnail: req.body.thumbnail,
@@ -25,6 +29,7 @@ const uploadImage = asyncHandler(async (req, res) => {
     const createdImage = await image.save();
     res.status(201).json(createdImage);
   } catch (error) {
+    console.error("Error saving image:", error); // Log the error
     res.status(400);
     throw new Error(error);
   }
