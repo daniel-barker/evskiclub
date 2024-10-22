@@ -32,7 +32,7 @@ const MemberScreen = () => {
   return (
     <>
       <MemberPageCarousel />
-      <div className="member-page-container mx-4">
+      <div className="member-page-container mx-5">
         <Row className="mt-5">
           <Col md={7} className="p-2">
             <LatestNews />

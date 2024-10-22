@@ -68,7 +68,7 @@ const MyPosts = () => {
                   />
                 )}
               </Col>
-              <Col md={9}>
+              <Col md={10}>
                 <Row>
                   <h2>{post.title}</h2>
                   <div className="news-screen-date">
@@ -88,7 +88,7 @@ const MyPosts = () => {
                   {expandedPostIds.includes(post._id) ? "Collapse" : "Read"}
                 </Button>
               </Col>
-              <Col md={2}>
+              <Col md={1}>
                 {/* Edit Button */}
                 <Link to={`/bb/edit/${post._id}`}>
                   <Button variant="warning" className="btn-sm">

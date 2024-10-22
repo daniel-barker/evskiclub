@@ -52,7 +52,7 @@
   border-radius: 8px;
   transition: all 0.3s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  background: linear-gradient(145deg, #0169b1,#01467f);
+  background: linear-gradient(145deg, #0169b1, #01467f);
 }
 
 .member-screen-links:hover,
@@ -180,6 +180,6 @@
 }
 
 .editor-container_classic-editor .editor-container__editor {
-  min-width: 795px;
-  max-width: 795px;
+  min-width: 615px;
+  max-width: 615px;
 }

@@ -2,7 +2,7 @@ import React, { useState, useMemo } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import { Modal, Button } from "react-bootstrap"; // Import Modal and Button from react-bootstrap
+import { Modal, Button } from "react-bootstrap";
 import { useGetAllEventsQuery } from "../slices/eventApiSlice";
 
 const localizer = momentLocalizer(moment);
@@ -10,10 +10,9 @@ const localizer = momentLocalizer(moment);
 const EventCalendar = () => {
   const { data: events, error, isLoading } = useGetAllEventsQuery();
 
-  const [modalShow, setModalShow] = useState(false); // Track modal visibility
-  const [activeEvent, setActiveEvent] = useState(null); // Track the active event for the modal
+  const [modalShow, setModalShow] = useState(false);
+  const [activeEvent, setActiveEvent] = useState(null);
 
-  // Format events for react-big-calendar
   const formattedEvents = useMemo(() => {
     if (events) {
       return events.map((event) => ({
@@ -28,19 +27,73 @@ const EventCalendar = () => {
     return [];
   }, [events]);
 
-  // Open modal when the user clicks the event
   const handleEventClick = (event) => {
-    setActiveEvent(event); // Set the active event data
-    setModalShow(true); // Show the modal
+    setActiveEvent(event);
+    setModalShow(true);
   };
 
-  // Close modal
   const handleCloseModal = () => {
-    setModalShow(false); // Hide the modal
-    setActiveEvent(null); // Reset active event
+    setModalShow(false);
+    setActiveEvent(null);
   };
 
-  // Custom Event Component to display time, title, and handle click
+  //   //ics file for apple calendar
+  //   const generateICSFile = (event) => {
+  //     const formatDate = (date) => {
+  //       return moment(date).utc().format("YYYYMMDDTHHmmss[Z]");
+  //     };
+
+  //     const startDate = formatDate(event.start);
+  //     const endDate = formatDate(event.end);
+  //     const summary = event.title;
+  //     const description = event.description || "No description provided";
+  //     const location = event.location || "No location provided";
+
+  //     return `
+  // BEGIN:VCALENDAR
+  // VERSION:2.0
+  // PRODID:-//Your Organization//NONSGML Your Product//EN
+  // BEGIN:VEVENT
+  // UID:${event.id}@yourdomain.com
+  // DTSTAMP:${formatDate(new Date())}
+  // DTSTART:${startDate}
+  // DTEND:${endDate}
+  // SUMMARY:${summary}
+  // DESCRIPTION:${description}
+  // LOCATION:${location}
+  // END:VEVENT
+  // END:VCALENDAR
+  //     `;
+  //   };
+  //   //download dynamically generated ics file
+  //   const downloadICSFile = (event) => {
+  //     const icsContent = generateICSFile(event);
+
+  //     const blob = new Blob([icsContent], { type: "text/calendar" });
+  //     const url = URL.createObjectURL(blob);
+
+  //     const link = document.createElement("a");
+  //     link.href = url;
+  //     link.download = `${event.title}.ics`;
+  //     document.body.appendChild(link);
+  //     link.click();
+  //     document.body.removeChild(link);
+  //   };
+
+  const createGoogleCalendarUrl = (event) => {
+    const formatDate = (date) => {
+      return moment(date).utc().format("YYYYMMDDTHHmmss[Z]");
+    };
+
+    const startDate = formatDate(event.start);
+    const endDate = formatDate(event.end);
+    const title = encodeURIComponent(event.title);
+    const description = encodeURIComponent(event.description || "");
+    const location = encodeURIComponent(event.location || "");
+
+    return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startDate}/${endDate}&details=${description}&location=${location}`;
+  };
+
   const EventComponent = ({ event }) => {
     const startTime = moment(event.start).format("hh:mm A");
     const endTime = moment(event.end).format("hh:mm A");
@@ -60,7 +113,6 @@ const EventCalendar = () => {
     return <p>Error loading events...</p>;
   }
 
-  // Styles
   const containerStyle = {
     display: "flex",
     justifyContent: "center",
@@ -88,13 +140,12 @@ const EventCalendar = () => {
           endAccessor="end"
           style={calendarStyle}
           components={{
-            event: EventComponent, // Use the custom event component
+            event: EventComponent,
           }}
-          onSelectEvent={handleEventClick} // Makes the entire event bar clickable
+          onSelectEvent={handleEventClick}
         />
       </div>
 
-      {/* Modal to display event details */}
       {activeEvent && (
         <Modal show={modalShow} onHide={handleCloseModal}>
           <Modal.Header closeButton>
@@ -110,6 +161,16 @@ const EventCalendar = () => {
               <strong>Description:</strong>{" "}
               {activeEvent.description || "No description available"}
             </p>
+
+            {/* Add to Google Calendar Button */}
+            <a
+              href={createGoogleCalendarUrl(activeEvent)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary"
+            >
+              Add to Google Calendar
+            </a>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleCloseModal}>

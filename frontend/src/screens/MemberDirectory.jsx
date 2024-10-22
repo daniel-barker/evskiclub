@@ -20,10 +20,7 @@ const MemberDirectory = () => {
 
   return (
     <Container>
-      <Link to="/" className="btn btn-primary my-3">
-        Go Back
-      </Link>
-      <Row className="align-items-center pt-2 pb-5">
+      <Row className="align-items-center mx-5">
         <Col className="text-center">
           <h1>Membership Directory</h1>
         </Col>

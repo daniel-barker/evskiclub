@@ -49,7 +49,7 @@ const LatestNews = () => {
                 <img
                   src={newsPost.image}
                   alt="News post"
-                  className="home-news-post-image"
+                  className="home-news-post-image ms-2"
                 />
               </div>
             )}

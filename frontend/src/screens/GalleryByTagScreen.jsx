@@ -15,9 +15,6 @@ const GalleryByTagScreen = () => {
 
   return (
     <Container className="form-background mt-4">
-      <Link to="/gallery" className="btn btn-secondary my-3">
-        Go Back
-      </Link>
       <h2>Gallery</h2>
       <Gallery>
         {images.map((img, index) => (

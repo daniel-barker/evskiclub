@@ -25,10 +25,7 @@ const GalleryScreen = () => {
 
   return (
     <Container>
-      <Link to="/" className="btn btn-primary my-3">
-        Go Back
-      </Link>
-      <Row className="align-items-center pt-2 pb-5">
+      <Row className="align-items-center mt-5 mb-5">
         <Col>
           <h1 className="text-center">Gallery</h1>
         </Col>

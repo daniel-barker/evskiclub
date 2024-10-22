@@ -11,11 +11,10 @@ const authUser = asyncHandler(async (req, res) => {
   const { username, password } = req.body;
 
   const user = await User.findOne({ username });
-  console.log(`"User: "${user.name}"`);
 
   if (!user) {
     res.status(401);
-    throw new Error("Username doesn't exist");
+    throw new Error("Username doesn't exist, please try again");
   }
 
   if (user.isApproved === false) {
@@ -26,6 +25,7 @@ const authUser = asyncHandler(async (req, res) => {
   }
 
   if (await user.matchPassword(password)) {
+    console.log(`"User: "${user.name}"`);
     generateToken(res, user._id);
 
     res.status(200).json({
@@ -39,7 +39,7 @@ const authUser = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(401);
-    throw new Error("Invalid username or password");
+    throw new Error("Invalid password");
   }
 });
 

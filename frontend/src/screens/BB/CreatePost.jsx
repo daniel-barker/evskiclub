@@ -80,42 +80,37 @@ const CreatePost = () => {
   };
 
   return (
-    <Container>
-      <Link to="/posts" className="btn btn-light my-3">
-        Go Back
-      </Link>
-      <FormContainer>
-        <h1>Create Post</h1>
-        {loadingCreate || (loadingUpload && <Loader />)}
-        <Form onSubmit={submitHandler}>
-          <Form.Group controlId="title">
-            <Form.Label>Title</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Enter title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-          </Form.Group>
-          <Form.Group controlId="body">
-            <Form.Label>Body</Form.Label>
-            <Editor content={body} setContent={setBody} />
-          </Form.Group>
-          <Form.Group controlId="image">
-            <Form.Label>Choose Image (optional)</Form.Label>
-            <Form.Control
-              type="file"
-              id="image-file"
-              label="Choose Image"
-              onChange={imageHandler}
-            ></Form.Control>
-          </Form.Group>
-          <Button type="submit" variant="primary">
-            Create
-          </Button>
-        </Form>
-      </FormContainer>
-    </Container>
+    <FormContainer>
+      <h1>Create Post</h1>
+      {loadingCreate || (loadingUpload && <Loader />)}
+      <Form onSubmit={submitHandler}>
+        <Form.Group controlId="title">
+          <Form.Label>Title</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+        </Form.Group>
+        <Form.Group controlId="body">
+          <Form.Label className="mt-2">Body</Form.Label>
+          <Editor content={body} setContent={setBody} />
+        </Form.Group>
+        <Form.Group controlId="image">
+          <Form.Label className="mt-2">Choose Image (optional)</Form.Label>
+          <Form.Control
+            type="file"
+            id="image-file"
+            label="Choose Image"
+            onChange={imageHandler}
+          ></Form.Control>
+        </Form.Group>
+        <Button className="mt-3" type="submit" variant="primary">
+          Create
+        </Button>
+      </Form>
+    </FormContainer>
   );
 };
 export default CreatePost;
