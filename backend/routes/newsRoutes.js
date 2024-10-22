@@ -67,46 +67,51 @@ router
   .put(protect, admin, checkObjectId, updateNews)
   .delete(protect, admin, checkObjectId, deleteNews);
 
-  router.post("/u", protect, admin, (req, res) => {
-    uploadSingleImage(req, res, function (err) {
-      if (err) {
-        console.log("Upload error: ", err.message);
-        return res.status(400).send({ message: err.message });
-      }
+router.post("/u", protect, admin, (req, res) => {
+  uploadSingleImage(req, res, function (err) {
+    if (err) {
+      console.log("Upload error: ", err.message);
+      return res.status(400).send({ message: err.message });
+    }
 
-      console.log("Uploaded file: ", req.file); // Check what file is uploaded
+    console.log("Uploaded file: ", req.file); // Check what file is uploaded
 
-      // Determine if PDF or Image
-      const isDevelopment = process.env.NODE_ENV === "development";
-      const basePath = isDevelopment ? `frontend/public` : `frontend/build`;
-      const truePath = `${basePath}/uploads/news/fullsize/${req.file.filename}`;
+    // Determine if PDF or Image
+    const isDevelopment = process.env.NODE_ENV === "development";
+    const basePath = isDevelopment ? `frontend/public` : `frontend/build`;
+    const truePath = `${basePath}/uploads/news/fullsize/${req.file.filename}`;
 
-      if (req.file.mimetype === "application/pdf") {
-        console.log("PDF uploaded: ", truePath); // Log PDF path
-        return res.status(201).send({
-          message: "PDF uploaded successfully",
-          file: `uploads/news/fullsize/${req.file.filename}`,
+    if (req.file.mimetype === "application/pdf") {
+      console.log("PDF uploaded: ", truePath); // Log PDF path
+      return res.status(201).send({
+        message: "PDF uploaded successfully",
+        file: `uploads/news/fullsize/${req.file.filename}`,
+      });
+    }
+
+    const trueThumbPath = `${basePath}/uploads/news/thumbnail/${req.file.filename}`;
+    console.log(
+      "Image uploaded: ",
+      truePath,
+      " and thumbnail: ",
+      trueThumbPath
+    ); // Log image paths
+
+    // Process Image
+    sharp(truePath)
+      .resize(150)
+      .toFile(trueThumbPath, (err, info) => {
+        if (err) {
+          console.log("Sharp error: ", err.message);
+          return res.status(400).send({ message: err.message });
+        }
+        res.status(201).send({
+          message: "Image uploaded successfully",
+          image: fullPath,
+          thumbnail: thumbPath,
         });
-      }
-
-      const trueThumbPath = `${basePath}/uploads/news/thumbnail/${req.file.filename}`;
-      console.log("Image uploaded: ", truePath, " and thumbnail: ", trueThumbPath); // Log image paths
-
-      // Process Image
-      sharp(truePath)
-        .resize(75)
-        .toFile(trueThumbPath, (err, info) => {
-          if (err) {
-            console.log("Sharp error: ", err.message);
-            return res.status(400).send({ message: err.message });
-          }
-          res.status(201).send({
-            message: "Image uploaded successfully",
-            image: fullPath,
-            thumbnail: thumbPath,
-          });
-        });
-    });
+      });
   });
+});
 
 export default router;
