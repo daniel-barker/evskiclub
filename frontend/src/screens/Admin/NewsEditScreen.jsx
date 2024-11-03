@@ -10,6 +10,7 @@ import {
   useGetNewsByIdQuery,
   useUpdateNewsMutation,
   useUploadNewsImageMutation,
+  useUploadNewsPDFMutation, // New import for PDF upload
 } from "../../slices/newsApiSlice";
 
 const NewsEditScreen = () => {
@@ -19,17 +20,21 @@ const NewsEditScreen = () => {
   const [post, setPost] = useState(""); // State for the CKEditor content
   const [image, setImage] = useState("");
   const [thumbnail, setThumbnail] = useState("");
-  const [imagePreview, setImagePreview] = useState(""); // Local image preview
+  const [pdf, setPdf] = useState(""); // State for the PDF
   const [originalImage, setOriginalImage] = useState(""); // Store original image URL
   const [originalThumbnail, setOriginalThumbnail] = useState(""); // Store original thumbnail URL
+  const [originalPdf, setOriginalPdf] = useState(""); // Store original PDF URL
   const [removeImage, setRemoveImage] = useState(false);
+  const [removePdf, setRemovePdf] = useState(false); // State for removing PDF
   const [isPublished, setIsPublished] = useState(false);
+  const [imagePreview, setImagePreview] = useState(""); // Local image preview
   const [showModal, setShowModal] = useState(false); // Modal state
 
   const { data: news, isLoading, error } = useGetNewsByIdQuery(id);
   const [updateNews, { isLoading: loadingUpdate }] = useUpdateNewsMutation();
   const [uploadImage, { isLoading: loadingUpload }] =
     useUploadNewsImageMutation();
+  const [uploadPDF, { isLoading: loadingPDF }] = useUploadNewsPDFMutation(); // Mutation for PDF upload
 
   useEffect(() => {
     if (news) {
@@ -37,6 +42,7 @@ const NewsEditScreen = () => {
       setPost(news.post); // Initialize editor with existing post content
       setOriginalImage(news.image);
       setOriginalThumbnail(news.thumbnail);
+      setOriginalPdf(news.pdf);
       setIsPublished(news.isPublished);
     }
   }, [news]);
@@ -51,6 +57,7 @@ const NewsEditScreen = () => {
       isPublished,
     };
 
+    // Image upload logic
     if (!removeImage && image instanceof File) {
       try {
         const formData = new FormData();
@@ -65,11 +72,31 @@ const NewsEditScreen = () => {
         return;
       }
     } else if (removeImage) {
-      // Leave blank to remove the image from the news post
+      updatedNews.image = "";
+      updatedNews.thumbnail = "";
     } else {
       // Retain original images
       if (originalImage) updatedNews.image = originalImage;
       if (originalThumbnail) updatedNews.thumbnail = originalThumbnail;
+    }
+
+    // PDF upload logic
+    if (!removePdf && pdf instanceof File) {
+      try {
+        const formData = new FormData();
+        formData.append("pdf", pdf);
+        const uploadResult = await uploadPDF(formData).unwrap();
+        updatedNews.pdf = uploadResult.pdf;
+      } catch (error) {
+        toast.error(
+          "PDF upload failed: " + (error?.data?.message || error.message)
+        );
+        return;
+      }
+    } else if (removePdf) {
+      updatedNews.pdf = ""; // Clear the PDF if marked for removal
+    } else {
+      if (originalPdf) updatedNews.pdf = originalPdf; // Retain original PDF
     }
 
     // Update the post
@@ -103,12 +130,24 @@ const NewsEditScreen = () => {
     }
   };
 
+  // Handle PDF selection
+  const pdfHandler = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setPdf(file); // Save the PDF file object
+    }
+  };
+
   // Toggle Modal
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
 
   const handleRemoveImageChange = (e) => {
     setRemoveImage(e.target.checked);
+  };
+
+  const handleRemovePdfChange = (e) => {
+    setRemovePdf(e.target.checked); // Handle PDF removal
   };
 
   return (
@@ -135,7 +174,6 @@ const NewsEditScreen = () => {
 
               <Form.Group controlId="post">
                 <Form.Label>Post</Form.Label>
-                {/* Use the Editor component here */}
                 <Editor content={post} setContent={setPost} />
               </Form.Group>
 
@@ -202,12 +240,56 @@ const NewsEditScreen = () => {
                 </Col>
               </Row>
 
+              {/* PDF handling */}
+              <Row className="justify-content-center mt-3">
+                {originalPdf && !removePdf && (
+                  <Col md={6} className="d-flex flex-column align-items-center">
+                    <Form.Group controlId="pdf">
+                      <Form.Label>Current PDF</Form.Label>
+                      <div>
+                        <a
+                          href={`/${originalPdf}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          View Current PDF
+                        </a>
+                      </div>
+                    </Form.Group>
+                  </Col>
+                )}
+
+                <Col
+                  md={6}
+                  className="d-flex flex-column justify-content-center align-items-center"
+                >
+                  <Button
+                    variant="danger"
+                    onClick={() => setRemovePdf(true)}
+                    className="mt-3"
+                    disabled={!originalPdf} // Disable if no PDF exists
+                  >
+                    Remove PDF
+                  </Button>
+                </Col>
+              </Row>
+
               <Form.Group className="pb-3" controlId="image">
                 <Form.Label>Choose New Image (optional)</Form.Label>
                 <Form.Control
                   type="file"
                   label="Choose New Image (optional)"
                   onChange={imageHandler}
+                ></Form.Control>
+              </Form.Group>
+
+              <Form.Group className="pb-3" controlId="pdf">
+                <Form.Label>Choose New PDF (optional)</Form.Label>
+                <Form.Control
+                  type="file"
+                  label="Choose New PDF (optional)"
+                  accept="application/pdf"
+                  onChange={pdfHandler}
                 ></Form.Control>
               </Form.Group>
 
@@ -220,7 +302,16 @@ const NewsEditScreen = () => {
                 />
               </Form.Group>
 
-              {loadingUpload && <Loader />}
+              <Form.Group controlId="removePdf">
+                <Form.Check
+                  type="checkbox"
+                  label="Remove PDF"
+                  checked={removePdf}
+                  onChange={handleRemovePdfChange}
+                />
+              </Form.Group>
+
+              {loadingUpload || loadingPDF ? <Loader /> : null}
               <Button type="submit" variant="primary">
                 Update
               </Button>

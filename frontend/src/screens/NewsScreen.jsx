@@ -1,16 +1,23 @@
 import { useState } from "react";
+import { Document, Page } from "react-pdf";
 import { Container, Row, Col, Card, Button, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { useGetPublishedNewsQuery } from "../slices/newsApiSlice";
 import DOMPurify from "dompurify";
+import { pdfjs } from "react-pdf";
+
+pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+  "pdfjs-dist/build/pdf.worker.min.mjs",
+  import.meta.url
+).toString();
 
 const NewsScreen = () => {
   const { data: news, isLoading, isError } = useGetPublishedNewsQuery();
   const [currentPage, setCurrentPage] = useState(1);
   const [showModal, setShowModal] = useState(false);
-  const [modalImage, setModalImage] = useState("");
+  const [modalContent, setModalContent] = useState(null);
   const itemsPerPage = 5;
 
   const totalPages = news ? Math.ceil(news.length / itemsPerPage) : 1;
@@ -37,14 +44,18 @@ const NewsScreen = () => {
     return date;
   };
 
-  // Handle opening the modal with the clicked image
-  const handleImageClick = (image) => {
-    setModalImage(image); // Set the clicked image to be shown in modal
-    setShowModal(true); // Show the modal
+  const handlePDFClick = (pdf) => {
+    setModalContent(
+      <Document file={pdf}>
+        <Page pageNumber={1} width={600} />
+      </Document>
+    );
+    setShowModal(true);
   };
 
   const handleCloseModal = () => {
-    setShowModal(false); // Close the modal
+    setShowModal(false);
+    setModalContent(null);
   };
 
   if (isLoading) return <Loader />;
@@ -54,22 +65,18 @@ const NewsScreen = () => {
     <Container>
       <Row className="align-items-center my-4">
         <Col className="text-center">
-          <h2 className="display-6 fw-bold">Club News</h2>{" "}
-          {/* Slightly smaller than the Gallery title */}
-          <p className="text-center text-muted">Newest news first</p>{" "}
-          {/* Subtle subtitle */}
+          <h2 className="display-6 fw-bold">Club News</h2>
+          <p className="text-center text-muted">Newest news first</p>
         </Col>
       </Row>
       {currentNews.map((post) => (
         <Card key={post._id} className="news-card my-3 p-3 rounded shadow-sm">
           <Row className="g-0">
-            {/* Text content */}
-            <Col md={post.image ? 7 : 12}>
+            <Col md={post.image || post.pdf ? 7 : 12}>
               <div className="news-card-body">
                 <Card.Title className="news-card-title">
                   {post.title}
                 </Card.Title>
-                {/* Move the date right under the title */}
                 <div className="news-card-date">
                   {formatDate(post.createdAt)}
                 </div>
@@ -82,7 +89,6 @@ const NewsScreen = () => {
               </div>
             </Col>
 
-            {/* Image content */}
             {post.image && (
               <Col md={5} className="news-card-image-container">
                 <img
@@ -90,34 +96,38 @@ const NewsScreen = () => {
                   alt={post.title}
                   className="img-fluid rounded news-card-image"
                   style={{ cursor: "pointer" }}
-                  onClick={() => handleImageClick(post.image)}
+                  onClick={() => handlePDFClick(post.image)}
                 />
+              </Col>
+            )}
+
+            {post.pdf && (
+              <Col md={5} className="news-card-pdf-container">
+                {/* Render the first page of the PDF as a thumbnail */}
+                <Document file={post.pdf}>
+                  <Page pageNumber={1} width={300} />
+                </Document>
+                <Button
+                  className="mt-3"
+                  onClick={() => handlePDFClick(post.pdf)}
+                >
+                  View Full PDF
+                </Button>
               </Col>
             )}
           </Row>
         </Card>
       ))}
-      {/* Modal to display full-size image */}
-      <Modal
-        show={showModal}
-        onHide={handleCloseModal}
-        centered
-        size="lg"
-        dialogClassName="custom-modal"
-      >
+
+      <Modal show={showModal} onHide={handleCloseModal} centered size="lg">
         <Modal.Body className="p-0">
-          {/* Close button */}
           <Button className="news-modal-close" onClick={handleCloseModal}>
             &times;
           </Button>
-          <img
-            src={modalImage}
-            alt="Full-size Image"
-            className="img-fluid rounded"
-          />
+          {modalContent}
         </Modal.Body>
       </Modal>
-      {/* Pagination */}
+
       <Row className="d-flex justify-content-center m-4">
         <Col xs="auto">
           <Button

@@ -54,19 +54,19 @@ const getNewsById = asyncHandler(async (req, res) => {
 // @access  Admins
 
 const createNews = asyncHandler(async (req, res) => {
-  console.log("Creating news with data: ", req.body); // Log request body
+  const { title, post, image, thumbnail, pdf, isPublished } = req.body;
+
   const news = new News({
     user: req.user._id,
-    title: req.body.title,
-    post: req.body.post,
-    image: req.body.image, // Check if image exists
-    thumbnail: req.body.thumbnail, // Check if thumbnail exists,
-    pdf: req.body.pdf, // Check if PDF exists
-    isPublished: req.body.isPublished,
+    title,
+    post,
+    image, // Optional image
+    thumbnail, // Optional thumbnail
+    pdf, // Optional PDF
+    isPublished,
   });
 
   const createdNews = await news.save();
-  console.log("News created: ", createdNews); // Log saved news data
   res.status(201).json(createdNews);
 });
 
@@ -75,16 +75,16 @@ const createNews = asyncHandler(async (req, res) => {
 // @access  Admins
 
 const updateNews = asyncHandler(async (req, res) => {
-  const { title, post, image, thumbnail, pdf, isPublished } = req.body; // Include pdf
+  const { title, post, image, thumbnail, pdf, isPublished } = req.body;
 
   const news = await News.findById(req.params.id);
 
   if (news) {
     news.title = title;
     news.post = post;
-    news.image = image;
-    news.thumbnail = thumbnail;
-    news.pdf = pdf; // Update pdf field
+    news.image = image || news.image;
+    news.thumbnail = thumbnail || news.thumbnail;
+    news.pdf = pdf || news.pdf;
     news.isPublished = isPublished;
 
     const updatedNews = await news.save();

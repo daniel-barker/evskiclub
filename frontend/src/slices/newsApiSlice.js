@@ -46,10 +46,18 @@ export const newsApiSlice = apiSlice.injectEndpoints({
         url: `${NEWS_URL}/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["News"],
+    }),
+    uploadNewsPDF: builder.mutation({
+      query: (data) => ({
+        url: `${NEWS_URL}/upload-pdf`,
+        method: "POST",
+        body: data,
+      }),
     }),
     uploadNewsImage: builder.mutation({
       query: (data) => ({
-        url: `${NEWS_URL}/u`,
+        url: `${NEWS_URL}/upload-image`,
         method: "POST",
         body: data,
       }),
@@ -66,4 +74,5 @@ export const {
   useUpdateNewsMutation,
   useDeleteNewsMutation,
   useUploadNewsImageMutation,
+  useUploadNewsPDFMutation,
 } = newsApiSlice;
