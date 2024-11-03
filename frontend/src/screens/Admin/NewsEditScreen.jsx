@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { Form, Button, Container } from "react-bootstrap";
+import { Form, Button, Container, Row, Col, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import Loader from "../../components/Loader";
 import FormContainer from "../../components/FormContainer";
@@ -18,10 +18,13 @@ const NewsEditScreen = () => {
   const [title, setTitle] = useState("");
   const [post, setPost] = useState(""); // State for the CKEditor content
   const [image, setImage] = useState("");
+  const [thumbnail, setThumbnail] = useState("");
+  const [imagePreview, setImagePreview] = useState(""); // Local image preview
   const [originalImage, setOriginalImage] = useState(""); // Store original image URL
   const [originalThumbnail, setOriginalThumbnail] = useState(""); // Store original thumbnail URL
   const [removeImage, setRemoveImage] = useState(false);
   const [isPublished, setIsPublished] = useState(false);
+  const [showModal, setShowModal] = useState(false); // Modal state
 
   const { data: news, isLoading, error } = useGetNewsByIdQuery(id);
   const [updateNews, { isLoading: loadingUpdate }] = useUpdateNewsMutation();
@@ -54,7 +57,6 @@ const NewsEditScreen = () => {
         formData.append("image", image);
         const uploadResult = await uploadImage(formData).unwrap();
         updatedNews.image = uploadResult.image;
-        console.log("Upload result: ", uploadResult);
         updatedNews.thumbnail = uploadResult.thumbnail;
       } catch (error) {
         toast.error(
@@ -86,12 +88,24 @@ const NewsEditScreen = () => {
     }
   };
 
+  // Handle file selection and show local preview
   const imageHandler = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setImage(file);
+      setImage(file); // Save the file object
+
+      // Use FileReader to generate a preview URL
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result); // Set local preview URL
+      };
+      reader.readAsDataURL(file);
     }
   };
+
+  // Toggle Modal
+  const handleShowModal = () => setShowModal(true);
+  const handleCloseModal = () => setShowModal(false);
 
   const handleRemoveImageChange = (e) => {
     setRemoveImage(e.target.checked);
@@ -134,8 +148,62 @@ const NewsEditScreen = () => {
                 ></Form.Check>
               </Form.Group>
 
+              {/* Image and thumbnail handling */}
+              <Row className="justify-content-center mt-3">
+                {imagePreview ? (
+                  <Col md={6} className="d-flex flex-column align-items-center">
+                    <Form.Group controlId="image">
+                      <Form.Label>Image Preview</Form.Label>
+                      <div>
+                        <img src={imagePreview} alt="Preview" width={300} />
+                      </div>
+                    </Form.Group>
+                  </Col>
+                ) : (
+                  originalImage && (
+                    <Col
+                      md={6}
+                      className="d-flex flex-column align-items-center"
+                    >
+                      <Form.Group controlId="image">
+                        <Form.Label>Current Image</Form.Label>
+                        <div>
+                          <img
+                            src={`/${originalThumbnail}`}
+                            alt="Current Thumbnail"
+                            width={300}
+                          />
+                        </div>
+                      </Form.Group>
+                    </Col>
+                  )
+                )}
+
+                {/* Always show the buttons */}
+                <Col
+                  md={6}
+                  className="d-flex flex-column justify-content-center align-items-center"
+                >
+                  <Button
+                    variant="danger"
+                    onClick={() => setRemoveImage(true)}
+                    className="mt-3"
+                    disabled={!originalImage && !imagePreview} // Disable if no image exists
+                  >
+                    Remove Image
+                  </Button>
+                  <Button
+                    variant="primary"
+                    onClick={handleShowModal}
+                    className="mt-3"
+                  >
+                    {image || imagePreview ? "Update Image" : "Add Image"}
+                  </Button>
+                </Col>
+              </Row>
+
               <Form.Group className="pb-3" controlId="image">
-                <Form.Label>Image</Form.Label>
+                <Form.Label>Choose New Image (optional)</Form.Label>
                 <Form.Control
                   type="file"
                   label="Choose New Image (optional)"
@@ -158,6 +226,26 @@ const NewsEditScreen = () => {
               </Button>
             </Form>
           </FormContainer>
+
+          {/* Modal for image upload */}
+          <Modal show={showModal} onHide={handleCloseModal}>
+            <Modal.Header closeButton>
+              <Modal.Title>
+                {image || imagePreview ? "Update Image" : "Add Image"}
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form.Group controlId="new-image">
+                <Form.Label>Choose an image</Form.Label>
+                <Form.Control type="file" onChange={imageHandler} />
+              </Form.Group>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleCloseModal}>
+                Close
+              </Button>
+            </Modal.Footer>
+          </Modal>
         </Container>
       )}
     </>

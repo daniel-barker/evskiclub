@@ -81,6 +81,10 @@ router.post("/u", protect, admin, (req, res) => {
     const basePath = isDevelopment ? `frontend/public` : `frontend/build`;
     const truePath = `${basePath}/uploads/news/fullsize/${req.file.filename}`;
 
+    //frontend paths
+    const fullPath = `uploads/news/fullsize/${req.file.filename}`;
+    const thumbPath = `uploads/news/thumbnail/${req.file.filename}`;
+
     if (req.file.mimetype === "application/pdf") {
       console.log("PDF uploaded: ", truePath); // Log PDF path
       return res.status(201).send({
@@ -107,8 +111,8 @@ router.post("/u", protect, admin, (req, res) => {
         }
         res.status(201).send({
           message: "Image uploaded successfully",
-          image: truePath,
-          thumbnail:trueThumbPath,
+          image: fullPath,
+          thumbnail: thumbPath,
         });
       });
   });

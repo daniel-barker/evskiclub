@@ -59,8 +59,9 @@ const createNews = asyncHandler(async (req, res) => {
     user: req.user._id,
     title: req.body.title,
     post: req.body.post,
-    image: req.body.image,  // Check if image exists
-    pdf: req.body.pdf,      // Check if PDF exists
+    image: req.body.image, // Check if image exists
+    thumbnail: req.body.thumbnail, // Check if thumbnail exists,
+    pdf: req.body.pdf, // Check if PDF exists
     isPublished: req.body.isPublished,
   });
 
@@ -68,8 +69,6 @@ const createNews = asyncHandler(async (req, res) => {
   console.log("News created: ", createdNews); // Log saved news data
   res.status(201).json(createdNews);
 });
-
-
 
 // @desc    Update a post
 // @route   PUT /api/news/:id
