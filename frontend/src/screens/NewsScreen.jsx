@@ -105,14 +105,12 @@ const NewsScreen = () => {
               <Col md={5} className="news-card-pdf-container">
                 {/* Render the first page of the PDF as a thumbnail */}
                 <Document file={post.pdf}>
-                  <Page pageNumber={1} width={300} />
+                  <Page
+                    pageNumber={1}
+                    width={300}
+                    onClick={() => handlePDFClick(post.pdf)}
+                  />
                 </Document>
-                <Button
-                  className="mt-3"
-                  onClick={() => handlePDFClick(post.pdf)}
-                >
-                  View Full PDF
-                </Button>
               </Col>
             )}
           </Row>
