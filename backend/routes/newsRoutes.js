@@ -107,8 +107,8 @@ router.post("/u", protect, admin, (req, res) => {
         }
         res.status(201).send({
           message: "Image uploaded successfully",
-          image: fullPath,
-          thumbnail: thumbPath,
+          image: truePath,
+          thumbnail:trueThumbPath,
         });
       });
   });

@@ -36,6 +36,21 @@
 .btn-primary:focus,
 .btn-primary:active {
   background-color: #0169b1;
+  border-color: #01467f;
+}
+
+/* Outline Button with Primary Colors */
+.btn-outline-primary-custom {
+  color: #01467f;
+  border-color: #01467f;
+}
+
+.btn-outline-primary-custom:hover,
+.btn-outline-primary-custom:focus,
+.btn-outline-primary-custom:active {
+  color: #fff;
+  background-color: #01467f;
+  border-color: #013567;
 }
 
 .blurred-background {

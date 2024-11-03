@@ -52,9 +52,12 @@ const NewsScreen = () => {
 
   return (
     <Container>
-      <Row className="align-items-center pt-4 pb-3">
+      <Row className="align-items-center my-4">
         <Col className="text-center">
-          <h1>Club News</h1>
+          <h2 className="display-6 fw-bold">Club News</h2>{" "}
+          {/* Slightly smaller than the Gallery title */}
+          <p className="text-center text-muted">Newest news first</p>{" "}
+          {/* Subtle subtitle */}
         </Col>
       </Row>
       {currentNews.map((post) => (

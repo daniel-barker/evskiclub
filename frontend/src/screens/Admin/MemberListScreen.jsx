@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { LinkContainer } from "react-router-bootstrap";
 import { Link } from "react-router-dom";
-import { Table, Button, Container, Row, Col } from "react-bootstrap";
+import { Table, Button, Container, Row, Col, Form } from "react-bootstrap";
 import { FaTrash, FaEdit } from "react-icons/fa";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
@@ -21,6 +21,9 @@ const MemberListScreen = () => {
   } = useGetAllUnitsQuery();
   const [deleteUnit, { isLoading: isDeleting }] = useDeleteUnitMutation();
 
+  const [memberFilter, setMemberFilter] = useState("");
+  const [emailFilter, setEmailFilter] = useState("");
+
   const deleteHandler = async (id) => {
     if (window.confirm("Are you sure you want to delete this member unit?")) {
       try {
@@ -32,6 +35,19 @@ const MemberListScreen = () => {
       }
     }
   };
+
+  // Filter units based on member name and email inputs
+  const filteredUnits = units?.filter(
+    (unit) =>
+      unit.members.some(
+        (member) =>
+          member.firstName.toLowerCase().includes(memberFilter.toLowerCase()) ||
+          member.lastName.toLowerCase().includes(memberFilter.toLowerCase())
+      ) &&
+      unit.members.some((member) =>
+        member.email?.toLowerCase().includes(emailFilter.toLowerCase())
+      )
+  );
 
   return (
     <Container className="mt-4 form-background">
@@ -45,6 +61,27 @@ const MemberListScreen = () => {
           </Link>
         </Col>
       </Row>
+
+      {/* Filter Controls */}
+      <Row className="mb-3">
+        <Col md={5}>
+          <Form.Control
+            type="text"
+            placeholder="Filter by Member Name"
+            value={memberFilter}
+            onChange={(e) => setMemberFilter(e.target.value)}
+          />
+        </Col>
+        <Col md={5}>
+          <Form.Control
+            type="text"
+            placeholder="Filter by Email"
+            value={emailFilter}
+            onChange={(e) => setEmailFilter(e.target.value)}
+          />
+        </Col>
+      </Row>
+
       {isLoading || isDeleting ? (
         <Loader />
       ) : isError ? (
@@ -52,7 +89,7 @@ const MemberListScreen = () => {
           {error?.data?.message || "Failed to fetch units"}
         </Message>
       ) : (
-        <Table striped bordered hover responsive className="table-sm">
+        <Table striped bordered hover responsive className="table-sm mt-2">
           <thead>
             <tr>
               <th>Members</th>
@@ -60,13 +97,13 @@ const MemberListScreen = () => {
               <th>Phone Numbers</th>
               <th>Addresses</th>
               <th>Member Since</th>
-              <th></th>
+              <th className="text-center">Actions</th>
             </tr>
           </thead>
           <tbody>
-            {units?.map((unit) => (
+            {filteredUnits.map((unit) => (
               <tr key={unit._id}>
-                <td className="nowrap-on-desktop">
+                <td className="nowrap-on-desktop align-middle">
                   {unit.members.map((member, index) => (
                     <div key={index}>
                       {`${member.firstName} ${member.lastName}`}
@@ -74,7 +111,7 @@ const MemberListScreen = () => {
                     </div>
                   ))}
                 </td>
-                <td>
+                <td className="align-middle">
                   {unit.members.map((member, index) => (
                     <div key={index}>
                       {member.email || "No Email Entered"}
@@ -82,12 +119,11 @@ const MemberListScreen = () => {
                     </div>
                   ))}
                 </td>
-                <td className="nowrap-on-desktop">
+                <td className="nowrap-on-desktop align-middle">
                   {unit.members.map((member, index) => (
                     <React.Fragment key={index}>
-                      {/* Sorting and mapping phone numbers */}
                       {member.phoneNumber
-                        .slice() // Make a shallow copy to avoid mutating the original array
+                        .slice()
                         .sort((a, b) => {
                           if (a.type === "cell") return -1;
                           if (b.type === "cell") return 1;
@@ -104,7 +140,7 @@ const MemberListScreen = () => {
                     </React.Fragment>
                   ))}
                 </td>
-                <td>
+                <td className="align-middle">
                   {unit.addresses.map((address, index) => (
                     <div key={index}>
                       {address.addressType === "primary" ? "P: " : "S: "}
@@ -113,19 +149,16 @@ const MemberListScreen = () => {
                     </div>
                   ))}
                 </td>
-                <td>{unit.memberSince}</td>
-                <td>
+                <td className="align-middle">{unit.memberSince}</td>
+                <td className="align-middle text-center">
                   <LinkContainer to={`/admin/members/${unit._id}/edit`}>
-                    <Button variant="light" className="btn-sm">
-                      <FaEdit />
-                    </Button>
-                  </LinkContainer>{" "}
+                    <Button className="me-2">Edit</Button>
+                  </LinkContainer>
                   <Button
-                    variant="light"
-                    className="btn-sm"
+                    variant="danger"
                     onClick={() => deleteHandler(unit._id)}
                   >
-                    <FaTrash />
+                    Delete
                   </Button>
                 </td>
               </tr>

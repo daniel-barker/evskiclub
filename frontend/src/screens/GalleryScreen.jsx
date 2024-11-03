@@ -2,8 +2,7 @@ import {
   useGetImagesQuery,
   useGetImageTagsQuery,
 } from "../slices/imageApiSlice";
-import { Col, Row } from "react-bootstrap";
-import { Container } from "react-bootstrap";
+import { Col, Row, Container, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import { Gallery, Item } from "react-photoswipe-gallery";
@@ -25,45 +24,70 @@ const GalleryScreen = () => {
 
   return (
     <Container>
-      <Row className="align-items-center mt-5 mb-5">
+      <Row className="align-items-center my-4">
         <Col>
-          <h1 className="text-center">Gallery</h1>
+          <h1 className="text-center display-6 fw-bold">Member Gallery</h1>
+          <p className="text-center text-muted">
+            Email Pictures to Have Them Added!
+          </p>
         </Col>
       </Row>
-      <Gallery withCaption withDownloadButton>
-        {images.map((img, index) => (
-          <Item
-            key={index}
-            original={img.image}
-            thumbnail={img.thumbnail}
-            width={img.width}
-            height={img.height}
-            title={img.title}
-            caption={img.description}
-          >
-            {({ ref, open }) => (
-              <img
-                ref={ref}
-                onClick={open}
-                src={img.thumbnail}
-                alt={img.title}
-                style={{ margin: "10px", width: "auto", height: "100px" }}
-              />
-            )}
-          </Item>
-        ))}
+      <Gallery>
+        <Row className="g-4">
+          {images.map((img, index) => (
+            <Col key={index} xs={6} sm={4} md={3} lg={3} xl={2}>
+              <Item
+                original={img.image}
+                thumbnail={img.thumbnail}
+                width={img.width}
+                height={img.height}
+                title={img.title}
+                caption={img.description}
+              >
+                {({ ref, open }) => (
+                  <Card
+                    className="border-0 shadow-sm"
+                    style={{ cursor: "pointer" }}
+                  >
+                    <Card.Img
+                      ref={ref}
+                      onClick={open}
+                      src={img.thumbnail}
+                      alt={img.title}
+                      className="rounded"
+                      style={{
+                        transition: "transform 0.2s",
+                        objectFit: "cover",
+                        width: "100%",
+                        height: "100%",
+                      }}
+                    />
+                    <Card.Body className="p-2 text-center">
+                      <Card.Title className="text-truncate mb-0 small">
+                        {img.title}
+                      </Card.Title>
+                    </Card.Body>
+                  </Card>
+                )}
+              </Item>
+            </Col>
+          ))}
+        </Row>
       </Gallery>
-      <div className="mt-4 form-background">
+      <div className="mt-5 text-center">
         <h2>Tags</h2>
-        <div id="tag-links">
+        <Row className="justify-content-center mt-2">
           {tags.map((tag, index) => (
-            <div key={index}>
-              <Link to={`/gallery/${tag}`} className="tag-link">
+            <Col xs="auto" key={index} className="mb-2">
+              <Link
+                to={`/gallery/${tag}`}
+                className="btn btn-outline-primary-custom"
+              >
                 {tag}
               </Link>
-            </div>
+            </Col>
           ))}
-        </div>
+        </Row>
       </div>
     </Container>
   );
