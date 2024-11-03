@@ -4,6 +4,19 @@ import multer from "multer";
 import sharp from "sharp";
 import fs from "fs";
 
+import {
+  getAllNews,
+  getLatestNews,
+  getPublishedNews,
+  getNewsById,
+  createNews,
+  updateNews,
+  deleteNews,
+} from "../controllers/newsController.js";
+
+import { protect, admin } from "../middleware/authMiddleware.js";
+import checkObjectId from "../middleware/checkObjectId.js";
+
 const router = express.Router();
 
 // Multer storage for images
@@ -115,21 +128,39 @@ router.post("/upload-image", protect, admin, (req, res) => {
 
     const isDevelopment = process.env.NODE_ENV === "development";
     const basePath = isDevelopment ? `frontend/public` : `frontend/build`;
+    const truePath = `${basePath}/uploads/news/fullsize/${req.file.filename}`;
+
+    //frontend paths
     const fullPath = `uploads/news/fullsize/${req.file.filename}`;
     const thumbPath = `uploads/news/thumbnail/${req.file.filename}`;
 
-    const trueThumbPath = `${basePath}/uploads/news/thumbnail/${req.file.filename}`;
+    if (req.file.mimetype === "application/pdf") {
+      console.log("PDF uploaded: ", truePath); // Log PDF path
+      return res.status(201).send({
+        message: "PDF uploaded successfully",
+        file: `uploads/news/fullsize/${req.file.filename}`,
+      });
+    }
 
-    sharp(req.file.path)
+    const trueThumbPath = `${basePath}/uploads/news/thumbnail/${req.file.filename}`;
+    console.log(
+      "Image uploaded: ",
+      truePath,
+      " and thumbnail: ",
+      trueThumbPath
+    ); // Log image paths
+
+    // Process Image
+    sharp(truePath)
       .resize(150)
-      .toFile(trueThumbPath, (err) => {
+      .toFile(thumbnailPath, (err) => {
         if (err) {
           return res.status(400).send({ message: err.message });
         }
         res.status(201).send({
           message: "Image uploaded successfully",
           image: fullPath,
-          thumbnail: thumbPath,
+          thumbnail: thumbnailPath,
         });
       });
   });
