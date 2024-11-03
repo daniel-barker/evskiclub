@@ -73,7 +73,6 @@ const createNews = asyncHandler(async (req, res) => {
 // @desc    Update a post
 // @route   PUT /api/news/:id
 // @access  Admins
-
 const updateNews = asyncHandler(async (req, res) => {
   const { title, post, image, thumbnail, pdf, isPublished } = req.body;
 
