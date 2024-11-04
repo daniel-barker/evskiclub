@@ -16,7 +16,7 @@ import { useGetAllUnitsQuery } from "../slices/unitApiSlice";
 const MemberDirectory = () => {
   const { data: units, isLoading, error } = useGetAllUnitsQuery();
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+  const itemsPerPage = 25;
   const [nameFilter, setNameFilter] = useState("");
   const [emailFilter, setEmailFilter] = useState("");
   const pageRange = 5;
@@ -28,10 +28,10 @@ const MemberDirectory = () => {
   const filteredUnits = units?.filter((unit) =>
     unit.members.some(
       (member) =>
-        `${member.firstName} ${member.lastName}`
+        `${member.firstName ?? ""} ${member.lastName ?? ""}`
           .toLowerCase()
           .includes(nameFilter.toLowerCase()) &&
-        member.email.toLowerCase().includes(emailFilter.toLowerCase())
+        (member.email ?? "").toLowerCase().includes(emailFilter.toLowerCase())
     )
   );
 

@@ -1,0 +1,571 @@
+[
+  {
+    "members": [
+      {
+        "firstName": "Thomas Riley",
+        "lastName": "Andersen",
+        "email": "tomandersen24@gmail.com",
+        "phoneNumber": [{ "number": "(646) 287-6240", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "81 College Street",
+        "city": "Buffalo",
+        "state": "NY",
+        "zip": "14201"
+      }
+    ],
+    "memberSince": 2021
+  },
+  {
+    "members": [
+      {
+        "firstName": "Inger",
+        "lastName": "Anderson",
+        "email": "brooksanderson1@gmail.com",
+        "phoneNumber": [{ "number": "(716) 837-5024", "type": "Home" }]
+      },
+      {
+        "firstName": "Brooks",
+        "lastName": "Anderson",
+        "email": "brooksanderson1@gmail.com",
+        "phoneNumber": [{ "number": "(716) 480-4249", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "20 High Park Blvd.",
+        "city": "Amherst",
+        "state": "NY",
+        "zip": "14226"
+      },
+      {
+        "addressType": "Secondary",
+        "street": "6453 Watson Hill Lane",
+        "city": "Ellicottville",
+        "state": "NY",
+        "zip": "14731"
+      }
+    ],
+    "memberSince": 1995
+  },
+  {
+    "members": [
+      {
+        "firstName": "Paul",
+        "lastName": "Aswad",
+        "email": "paul@aswadagency.com",
+        "phoneNumber": [{ "number": "(716) 946-8652", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "7703 Niagara Falls Blvd.",
+        "city": "Niagara Falls",
+        "state": "NY",
+        "zip": "14304"
+      },
+      {
+        "addressType": "Secondary",
+        "street": "42 Jefferson Avenue",
+        "city": "Ellicottville",
+        "state": "NY",
+        "zip": "14731"
+      }
+    ],
+    "memberSince": 2012
+  },
+  {
+    "members": [
+      {
+        "firstName": "Kelley",
+        "lastName": "Auer",
+        "email": "happyauer4@hotmail.com",
+        "phoneNumber": [{ "number": "(716) 397-1804", "type": "Cell" }]
+      },
+      {
+        "firstName": "Bernie",
+        "lastName": "Auer",
+        "email": "bernie.auer@gmail.com",
+        "phoneNumber": [{ "number": "(716) 397-7261", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "74 Center Street",
+        "city": "Bemus Point",
+        "state": "NY",
+        "zip": "14712"
+      }
+    ],
+    "memberSince": 2006
+  },
+  {
+    "members": [
+      {
+        "firstName": "Kim Reading",
+        "lastName": "Azcarate",
+        "email": "kimberlyreading0817@gmail.com",
+        "phoneNumber": [{ "number": "(716) 378-3704", "type": "Cell" }]
+      },
+      {
+        "firstName": "Miguel",
+        "lastName": "Azcarate",
+        "phoneNumber": [{ "number": "(716) 378-7509", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "P.O. Box 1109",
+        "city": "Ellicottville",
+        "state": "NY",
+        "zip": "14731"
+      }
+    ],
+    "memberSince": 1993
+  },
+  {
+    "members": [
+      {
+        "firstName": "Laurie",
+        "lastName": "Barrera",
+        "email": "loraxlab@gmail.com",
+        "phoneNumber": [{ "number": "(716) 498-0141", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "P.O. Box 1065",
+        "city": "Ellicottville",
+        "state": "NY",
+        "zip": "14731"
+      }
+    ],
+    "memberSince": 1993
+  },
+  {
+    "members": [
+      {
+        "firstName": "Maria",
+        "lastName": "Barrera",
+        "email": "maribarrera1954@gmail.com",
+        "phoneNumber": [{ "number": "(803) 463-1557", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "P.O. Box 225",
+        "city": "Great Valley",
+        "state": "NY",
+        "zip": "14741"
+      }
+    ],
+    "memberSince": 2018
+  },
+  {
+    "members": [
+      {
+        "firstName": "Sheri",
+        "lastName": "Barrera",
+        "email": "cherylbarrera@387@gmail.com",
+        "phoneNumber": [{ "number": "(716) 698-5580", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "6750 Poverty Hill Road",
+        "city": "Ellicottville",
+        "state": "NY",
+        "zip": "14731"
+      }
+    ],
+    "memberSince": 1982
+  },
+  {
+    "members": [
+      {
+        "firstName": "Susan",
+        "lastName": "Barrera",
+        "email": "sbarrera2525@icloud.com",
+        "phoneNumber": [{ "number": "(319) 330-9026", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "P.O. Box 1352",
+        "city": "Ellicottville",
+        "state": "NY",
+        "zip": "14731"
+      }
+    ],
+    "memberSince": 1983
+  },
+  {
+    "members": [
+      {
+        "firstName": "Frank",
+        "lastName": "Bianco",
+        "email": "fjbianco40@gmail.com",
+        "phoneNumber": [{ "number": "(716) 867-1128", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "14154 South Denny Blvd., Unit 210",
+        "city": "Litchfield Park",
+        "state": "AZ",
+        "zip": "85340"
+      }
+    ],
+    "memberSince": 1979
+  },
+  {
+    "members": [
+      {
+        "firstName": "Lynn",
+        "lastName": "Blanchard",
+        "phoneNumber": [{ "number": "(716) 581-1450", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "3265 Maple Shade Dr.",
+        "city": "Bemus Point",
+        "state": "NY",
+        "zip": "14712"
+      },
+      {
+        "addressType": "Secondary",
+        "street": "6081 Christian Hollow Rd.",
+        "city": "Great Valley",
+        "state": "NY"
+      }
+    ],
+    "memberSince": 1970
+  },
+  {
+    "members": [
+      {
+        "firstName": "Betsy",
+        "lastName": "Bloom",
+        "email": "elizabeth.g.bloom@gmail.com",
+        "phoneNumber": [{ "number": "(716) 866-3017", "type": "Cell" }]
+      },
+      {
+        "firstName": "Mac",
+        "lastName": "Stevens",
+        "email": "macstevens@gmail.com",
+        "phoneNumber": [{ "number": "(210) 232-5308", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "277 Crescent Avenue",
+        "city": "Buffalo",
+        "state": "NY",
+        "zip": "14214"
+      }
+    ],
+    "memberSince": 2023
+  },
+  {
+    "members": [
+      {
+        "firstName": "Laurie",
+        "lastName": "Bloom",
+        "email": "circlegate2e@gmail.com",
+        "phoneNumber": [{ "number": "(716) 866-6395", "type": "Cell" }]
+      },
+      {
+        "firstName": "Eric",
+        "lastName": "Bloom",
+        "email": "lbloom@nixonpeabody.com",
+        "phoneNumber": [{ "number": "(716) 435-0861", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "33 Gates Circle, 2E",
+        "city": "Buffalo",
+        "state": "NY",
+        "zip": "14209"
+      }
+    ],
+    "memberSince": 2005
+  },
+  {
+    "members": [
+      {
+        "firstName": "Madeline",
+        "lastName": "Boutelle",
+        "email": "mevans91@gmail.com",
+        "phoneNumber": [{ "number": "(716) 969-5964", "type": "Cell" }]
+      },
+      {
+        "firstName": "Chris",
+        "lastName": "Boutelle",
+        "email": "boutelle7990@gmail.com",
+        "phoneNumber": [{ "number": "(716) 450-9484", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "15 Fairwood Drive",
+        "city": "Lakewood",
+        "state": "NY",
+        "zip": "14750"
+      }
+    ],
+    "memberSince": 2020
+  },
+  {
+    "members": [
+      {
+        "firstName": "Paula",
+        "lastName": "Bowen",
+        "email": "skimvr@aol.com",
+        "phoneNumber": [{ "number": "(716) 998-4350", "type": "Cell" }]
+      },
+      {
+        "firstName": "Eric",
+        "lastName": "Bowen",
+        "phoneNumber": [{ "number": "(716) 472-5105", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "718 Windover Lane",
+        "city": "Derby",
+        "state": "NY",
+        "zip": "14047"
+      }
+    ],
+    "memberSince": 2006
+  },
+  {
+    "members": [
+      {
+        "firstName": "Barb",
+        "lastName": "Bredenberg",
+        "email": "barbara.bredenberg@gmail.com",
+        "phoneNumber": [{ "number": "(716) 830-0944", "type": "Cell" }]
+      },
+      {
+        "firstName": "Bill",
+        "lastName": "Bredenberg",
+        "email": "wbredenberg@truebluecollins.com",
+        "phoneNumber": [{ "number": "(716) 510-6435", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "4884 Route 219, #150",
+        "city": "Great Valley",
+        "state": "NY",
+        "zip": "14741"
+      }
+    ],
+    "memberSince": 1979
+  },
+  {
+    "members": [
+      {
+        "firstName": "Candy",
+        "lastName": "Bredenberg",
+        "email": "cbredenberg111@gmail.com",
+        "phoneNumber": [{ "number": "(716) 833-5733", "type": "Home" }]
+      },
+      {
+        "firstName": "Bob",
+        "lastName": "Bredenberg",
+        "email": "bob.bredenberg@gmail.com",
+        "phoneNumber": [
+          { "number": "(716) 830-7575", "type": "Cell" },
+          { "number": "(716) 574-4851", "type": "Cell" }
+        ]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "387 Voorhees Avenue",
+        "city": "Buffalo",
+        "state": "NY",
+        "zip": "14216"
+      }
+    ],
+    "memberSince": 2005
+  },
+  {
+    "members": [
+      {
+        "firstName": "Audrey",
+        "lastName": "Briggs",
+        "email": "abriggs521@gmail.com",
+        "phoneNumber": [{ "number": "(440) 396-8298", "type": "Cell" }]
+      },
+      {
+        "firstName": "Jon",
+        "lastName": "Briggs",
+        "email": "jonrbriggs@gmail.com",
+        "phoneNumber": [{ "number": "(440) 334-7226", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "29111 Lincoln Road",
+        "city": "Bay Village",
+        "state": "OH",
+        "zip": "44140"
+      },
+      {
+        "addressType": "Secondary",
+        "street": "6637 Upper Road",
+        "city": "Ellicottville",
+        "state": "NY",
+        "zip": "14731"
+      }
+    ],
+    "memberSince": 2023
+  },
+  {
+    "members": [
+      {
+        "firstName": "Judy",
+        "lastName": "Briggs",
+        "email": "judyabriggs@gmail.com",
+        "phoneNumber": [{ "number": "(716) 499-5643", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "3703 Crestview Road",
+        "city": "Bemus Point",
+        "state": "NY",
+        "zip": "14712"
+      },
+      {
+        "addressType": "Secondary",
+        "street": "6637 Upper Road",
+        "city": "Ellicottville",
+        "state": "NY",
+        "zip": "14731"
+      }
+    ],
+    "memberSince": 2018
+  },
+  {
+    "members": [
+      {
+        "firstName": "Carrie Cadwell",
+        "lastName": "Brown",
+        "email": "cadwellbrown@gmail.com",
+        "phoneNumber": [{ "number": "(716) 294-1804", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "22 Sunset Avenue",
+        "city": "Lakewood",
+        "state": "NY",
+        "zip": "14750"
+      }
+    ],
+    "memberSince": 1989
+  },
+  {
+    "members": [
+      {
+        "firstName": "Charlotte",
+        "lastName": "Burnham",
+        "email": "burnham101@yahoo.ca",
+        "phoneNumber": [
+          { "number": "(905) 894-1514", "type": "Cell" },
+          { "number": "(905) 401-9232", "type": "Cell" }
+        ]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "P.O. Box 916",
+        "city": "Ridgeway ON",
+        "state": "Canada",
+        "zip": "L0S 1N0"
+      }
+    ],
+    "memberSince": 1978
+  },
+  {
+    "members": [
+      {
+        "firstName": "Gwen",
+        "lastName": "Bush",
+        "email": "gcbush@gmail.com",
+        "phoneNumber": [{ "number": "(716) 699-8751", "type": "Cell" }]
+      },
+      {
+        "firstName": "Doug",
+        "lastName": "Bush",
+        "email": "doug@endurancefactor.com",
+        "phoneNumber": [{ "number": "(716) 699-8751", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "P.O. Box 332",
+        "city": "Ellicottville",
+        "state": "NY",
+        "zip": "14731"
+      }
+    ],
+    "memberSince": 2001
+  },
+  {
+    "members": [
+      {
+        "firstName": "Meghan",
+        "lastName": "Calaesina",
+        "email": "megcalaesina@gmail.com",
+        "phoneNumber": [{ "number": "(716) 345-0557", "type": "Cell" }]
+      },
+      {
+        "firstName": "Ryan",
+        "lastName": "Calaesina",
+        "email": "ryancalaesina@yahoo.com",
+        "phoneNumber": [{ "number": "(716) 499-7003", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "7 Randall Terrace",
+        "city": "Hamburg",
+        "state": "NY",
+        "zip": "14075"
+      }
+    ],
+    "memberSince": 2015
+  }
+]

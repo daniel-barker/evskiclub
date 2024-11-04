@@ -1,0 +1,792 @@
+[
+  {
+    "members": [
+      {
+        "firstName": "Kristin",
+        "lastName": "Hughey",
+        "email": "hugheykristin@yahoo.com",
+        "phoneNumber": [{ "number": "(716) 867-8728", "type": "Cell" }]
+      },
+      {
+        "firstName": "Jamie",
+        "lastName": "Hughey",
+        "email": "hugheyj@yahoo.com",
+        "phoneNumber": [{ "number": "(716) 665-7460", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "8609 Rt. 219",
+        "city": "West Valley",
+        "state": "NY",
+        "zip": "14711"
+      }
+    ],
+    "memberSince": 2016
+  },
+  {
+    "members": [
+      {
+        "firstName": "Maureen",
+        "lastName": "Hurley",
+        "email": "mhurley708@gmail.com",
+        "phoneNumber": [{ "number": "(716) 884-6844", "type": "Home" }]
+      },
+      {
+        "firstName": "John",
+        "lastName": "Hurley",
+        "email": "hurleyj708@gmail.com",
+        "phoneNumber": [{ "number": "(716) 713-1974", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "708 Lafayette Avenue",
+        "city": "Buffalo",
+        "state": "NY",
+        "zip": "14222"
+      }
+    ],
+    "memberSince": 2003
+  },
+  {
+    "members": [
+      {
+        "firstName": "Debbie",
+        "lastName": "Inglis",
+        "email": "dinglis@brocku.ca",
+        "phoneNumber": [{ "number": "(905) 988-6182", "type": "Cell" }]
+      },
+      {
+        "firstName": "Robert",
+        "lastName": "Inglis",
+        "email": "dtinglis@bell.net"
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "P.O. Box 455",
+        "city": "Virgil",
+        "state": "ON",
+        "zip": "L0S 1T0"
+      }
+    ],
+    "memberSince": 1997
+  },
+  {
+    "members": [
+      {
+        "firstName": "Anne",
+        "lastName": "Jacobson",
+        "email": "acjacobson1968@gmail.com",
+        "phoneNumber": [{ "number": "(716) 397-9636", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "P.O. Box 1721",
+        "city": "Ellicottville",
+        "state": "NY",
+        "zip": "14731"
+      }
+    ],
+    "memberSince": 2004
+  },
+  {
+    "members": [
+      {
+        "firstName": "Susan",
+        "lastName": "Jacobson",
+        "email": "suej3410sj@gmail.com",
+        "phoneNumber": [
+          { "number": "(716) 882-2699", "type": "Home" },
+          { "number": "(716) 472-6717", "type": "Cell" }
+        ]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "34 Inwood Place",
+        "city": "Buffalo",
+        "state": "NY",
+        "zip": "14209"
+      }
+    ],
+    "memberSince": 1995
+  },
+  {
+    "members": [
+      {
+        "firstName": "Terry",
+        "lastName": "Jarosz",
+        "email": "nenepcrc@roadrunner.com",
+        "phoneNumber": [
+          { "number": "(716) 683-7579", "type": "Home" },
+          { "number": "(716) 983-2552", "type": "Cell" }
+        ]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "194 Broezel Avenue",
+        "city": "Lancaster",
+        "state": "NY",
+        "zip": "14086"
+      }
+    ],
+    "memberSince": 1975
+  },
+  {
+    "members": [
+      {
+        "firstName": "Victoria",
+        "lastName": "Jenis",
+        "email": "toryjenis@gmail.com",
+        "phoneNumber": [
+          { "number": "(607) 266-2585", "type": "Home" },
+          { "number": "(607) 277-1893", "type": "Cell" }
+        ]
+      },
+      {
+        "firstName": "Andrew",
+        "lastName": "Jenis",
+        "email": "emdocotr@gmail.com",
+        "phoneNumber": [
+          { "number": "(607) 279-1839", "type": "Cell" },
+          { "number": "(607) 279-1837", "type": "Cell" }
+        ]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "115 Cayuga Heights Road",
+        "city": "Ithaca",
+        "state": "NY",
+        "zip": "14850"
+      },
+      {
+        "addressType": "Secondary",
+        "street": "7 Park Square",
+        "city": "Ellicottville",
+        "state": "NY",
+        "zip": "14731"
+      }
+    ],
+    "memberSince": 1994
+  },
+  {
+    "members": [
+      {
+        "firstName": "Margaret",
+        "lastName": "Kaine",
+        "email": "kainemargaret@gmail.com",
+        "phoneNumber": [{ "number": "(716) 852-3311", "type": "Home" }]
+      },
+      {
+        "firstName": "Bob",
+        "lastName": "Kaine",
+        "email": "kainebob@msn.com",
+        "phoneNumber": [{ "number": "(716) 432-7156", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "344 Lakefront Blvd.",
+        "city": "Buffalo",
+        "state": "NY",
+        "zip": "14202"
+      }
+    ],
+    "memberSince": 1995
+  },
+  {
+    "members": [
+      {
+        "firstName": "Wendy",
+        "lastName": "Kane",
+        "email": "wjkane1966@gmail.com",
+        "phoneNumber": [{ "number": "(716) 763-9399", "type": "Home" }]
+      },
+      {
+        "firstName": "Jake",
+        "lastName": "Kane",
+        "email": "jmkane1962@gmail.com",
+        "phoneNumber": [
+          { "number": "(716) 397-7142", "type": "Cell" },
+          { "number": "(716) 499-6989", "type": "Cell" }
+        ]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "134 West Summit Street",
+        "city": "Lakewood",
+        "state": "NY",
+        "zip": "14750"
+      },
+      {
+        "addressType": "Secondary",
+        "street": "12 Washington Street",
+        "city": "Ellicottville",
+        "state": "NY",
+        "zip": "14731"
+      }
+    ],
+    "memberSince": 2018
+  },
+  {
+    "members": [
+      {
+        "firstName": "Cammille",
+        "lastName": "Kantowski",
+        "email": "cammillleski01@gmail.com",
+        "phoneNumber": [
+          { "number": "(716) 699-4890", "type": "Home" },
+          { "number": "(716) 352-6039", "type": "Cell" }
+        ]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "25 Mechanic St., Box 622",
+        "city": "Ellicottville",
+        "state": "NY",
+        "zip": "14731"
+      }
+    ],
+    "memberSince": 1965
+  },
+  {
+    "members": [
+      {
+        "firstName": "Nicole",
+        "lastName": "Kenney",
+        "email": "nicolecastine@yahoo.com",
+        "phoneNumber": [{ "number": "(716) 553-2184", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "18 Byron Avenue",
+        "city": "Buffalo",
+        "state": "NY",
+        "zip": "14223"
+      }
+    ],
+    "memberSince": 2009
+  },
+  {
+    "members": [
+      {
+        "firstName": "Shanell",
+        "lastName": "Kiersz",
+        "email": "shanellkiersz.sk@gmail.com",
+        "phoneNumber": [{ "number": "(716) 307-8530", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "PO Box 1111",
+        "city": "Ellicottville",
+        "state": "NY",
+        "zip": "14731"
+      }
+    ],
+    "memberSince": 2019
+  },
+  {
+    "members": [
+      {
+        "firstName": "John",
+        "lastName": "King",
+        "email": "kingjohn1933@yahoo.com",
+        "phoneNumber": [{ "number": "(716) 474-4968", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "104 West Avenue",
+        "city": "Attica",
+        "state": "NY",
+        "zip": "14011"
+      }
+    ],
+    "memberSince": 1984
+  },
+  {
+    "members": [
+      {
+        "firstName": "Nicole",
+        "lastName": "Klein",
+        "email": "nklein@holidayvalley.com",
+        "phoneNumber": [{ "number": "(716) 801-0367", "type": "Cell" }]
+      },
+      {
+        "firstName": "Jason",
+        "lastName": "Klein",
+        "email": "klein0454@gmail.com",
+        "phoneNumber": [{ "number": "(716) 544-4516", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "7752 Irish Hill Road",
+        "city": "Ellicottville",
+        "state": "NY",
+        "zip": "14731"
+      }
+    ],
+    "memberSince": 2023
+  },
+  {
+    "members": [
+      {
+        "firstName": "Kristen",
+        "lastName": "Kreinheder",
+        "email": "kkreinheder@icloud.com",
+        "phoneNumber": [{ "number": "(716) 665-9398", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "234 West Summit Street",
+        "city": "Lakewood",
+        "state": "NY",
+        "zip": "14750"
+      }
+    ],
+    "memberSince": 2000
+  },
+  {
+    "members": [
+      {
+        "firstName": "Peter",
+        "lastName": "Kreinheder",
+        "email": "peter@ellicottvillebrewing.com",
+        "phoneNumber": [{ "number": "(716) 665-9397", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "PO Box 61",
+        "city": "Ellicottville",
+        "state": "NY",
+        "zip": "14731"
+      }
+    ],
+    "memberSince": 2000
+  },
+  {
+    "members": [
+      {
+        "firstName": "Pamela",
+        "lastName": "Krieger",
+        "email": "ppkkrieger@verizon.net",
+        "phoneNumber": [{ "number": "(716) 867-7544", "type": "Cell" }]
+      },
+      {
+        "firstName": "Paul",
+        "lastName": "Krieger",
+        "email": "ppkrieger@verizon.net",
+        "phoneNumber": [{ "number": "(716) 857-0936", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "46 Fountain Park",
+        "city": "Tonawanda",
+        "state": "NY",
+        "zip": "14223"
+      }
+    ],
+    "memberSince": 2003
+  },
+  {
+    "members": [
+      {
+        "firstName": "Peter",
+        "lastName": "Krog",
+        "email": "plkrog@kroggrp.com",
+        "phoneNumber": [
+          { "number": "(716) 667-1234", "type": "Home" },
+          { "number": "(716) 583-2800", "type": "Cell" }
+        ]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "4 Centre Street",
+        "city": "Orchard Park",
+        "state": "NY",
+        "zip": "14127"
+      }
+    ],
+    "memberSince": 1968
+  },
+  {
+    "members": [
+      {
+        "firstName": "Cathy",
+        "lastName": "Laberta",
+        "email": "laberta@aol.com",
+        "phoneNumber": [{ "number": "(716) 863-8130", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "6236 Mutton Hollow Road",
+        "city": "Great Valley",
+        "state": "NY",
+        "zip": "14741"
+      },
+      {
+        "addressType": "Secondary",
+        "street": "20 Pine Tree Village, PO Box 1305",
+        "city": "Ellicottville",
+        "state": "NY",
+        "zip": "14731"
+      }
+    ],
+    "memberSince": 1998
+  },
+  {
+    "members": [
+      {
+        "firstName": "Bucky",
+        "lastName": "LaRusch",
+        "email": "bucklarusch@verizon.net",
+        "phoneNumber": [
+          { "number": "(716) 627-5644", "type": "Home" },
+          { "number": "(716) 432-3708", "type": "Cell" }
+        ]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "1699 Lakeview Road",
+        "city": "Lake View",
+        "state": "NY",
+        "zip": "14085"
+      }
+    ],
+    "memberSince": 1985
+  },
+  {
+    "members": [
+      {
+        "firstName": "Matt",
+        "lastName": "LaRusch",
+        "email": "mlarusch63@gmail.com"
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "20 Mechanic Street",
+        "city": "Ellicottville",
+        "state": "NY",
+        "zip": "14731"
+      }
+    ],
+    "memberSince": 2010
+  },
+  {
+    "members": [
+      {
+        "firstName": "Nancy",
+        "lastName": "LaRusch",
+        "email": "nancylarusch88@gmail.com",
+        "phoneNumber": [
+          { "number": "(716) 648-6968", "type": "Home" },
+          { "number": "(716) 319-7980", "type": "Cell" }
+        ]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "4335 Twilight",
+        "city": "Hamburg",
+        "state": "NY",
+        "zip": "14075"
+      }
+    ],
+    "memberSince": 1985
+  },
+  {
+    "members": [
+      {
+        "firstName": "Hanna",
+        "lastName": "Lee",
+        "email": "hannalee@gmail.com",
+        "phoneNumber": [{ "number": "(315) 439-7385", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "PO Box 28",
+        "city": "Ellicottville",
+        "state": "NY",
+        "zip": "14731"
+      }
+    ],
+    "memberSince": 2019
+  },
+  {
+    "members": [
+      {
+        "firstName": "Suzanne",
+        "lastName": "Lewis",
+        "email": "suzannelew@msn.com",
+        "phoneNumber": [{ "number": "(716) 839-3404", "type": "Home" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "54 Hamilton Drive",
+        "city": "Snyder",
+        "state": "NY",
+        "zip": "14226"
+      }
+    ],
+    "memberSince": 1990
+  },
+  {
+    "members": [
+      {
+        "firstName": "Alicia",
+        "lastName": "Linek",
+        "email": "ellicottville2000@gmail.com",
+        "phoneNumber": [{ "number": "(716) 432-3196", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "P.O. Box 948",
+        "city": "Ellicottville",
+        "state": "NY",
+        "zip": "14731"
+      }
+    ],
+    "memberSince": 2008
+  },
+  {
+    "members": [
+      {
+        "firstName": "Penny",
+        "lastName": "Lips",
+        "email": "pennylips64@gmail.com",
+        "phoneNumber": [
+          { "number": "(716) 854-2454", "type": "Home" },
+          { "number": "(716) 225-4269", "type": "Cell" }
+        ]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "60 Cary Street",
+        "city": "Buffalo",
+        "state": "NY",
+        "zip": "14201"
+      }
+    ],
+    "memberSince": 1974
+  },
+  {
+    "members": [
+      {
+        "firstName": "Alicia",
+        "lastName": "Long",
+        "email": "alicia79@live.com",
+        "phoneNumber": [{ "number": "(716) 244-7765", "type": "Cell" }]
+      },
+      {
+        "firstName": "Lloyd",
+        "lastName": "Long",
+        "email": "dalongshot02@gmail.com",
+        "phoneNumber": [{ "number": "(716) 244-0854", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "5345 Davies Road",
+        "city": "Great Valley",
+        "state": "NY",
+        "zip": "14741"
+      }
+    ],
+    "memberSince": 2004
+  },
+  {
+    "members": [
+      {
+        "firstName": "Sharon",
+        "lastName": "Abbey Loucks",
+        "email": "sabbey@brocku.ca",
+        "phoneNumber": [{ "number": "(905) 988-7201", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "17-121 Glen Morris Dr.",
+        "city": "St. Catharines",
+        "state": "ON",
+        "zip": "L2T 4C5"
+      }
+    ],
+    "memberSince": 2003
+  },
+  {
+    "members": [
+      {
+        "firstName": "Elizabeth",
+        "lastName": "Lowes",
+        "email": "ealowes@aol.com",
+        "phoneNumber": [{ "number": "(716) 481-0429", "type": "Cell" }]
+      },
+      {
+        "firstName": "Sean",
+        "lastName": "Lowes",
+        "email": "citygarageboss@verizon.net",
+        "phoneNumber": [{ "number": "(716) 481-1354", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "P.O. Box 1725, 13 Elk St.",
+        "city": "Ellicottville",
+        "state": "NY",
+        "zip": "14731"
+      }
+    ],
+    "memberSince": 1996
+  },
+  {
+    "members": [
+      {
+        "firstName": "Barbara",
+        "lastName": "Lyons",
+        "email": "barb@andersonlyons.com",
+        "phoneNumber": [{ "number": "(716) 386-8720", "type": "Home" }]
+      },
+      {
+        "firstName": "Mike",
+        "lastName": "Lyons",
+        "email": "bemuspointlyons@gmail.com",
+        "phoneNumber": [
+          { "number": "(716) 499-0071", "type": "Cell" },
+          { "number": "(716) 499-0602", "type": "Cell" }
+        ]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "3605 Overlook Terrace",
+        "city": "Bemus Point",
+        "state": "NY",
+        "zip": "14712"
+      }
+    ],
+    "memberSince": 1979
+  },
+  {
+    "members": [
+      {
+        "firstName": "Kathleen",
+        "lastName": "Maher",
+        "email": "katmaher1@gmail.com",
+        "phoneNumber": [{ "number": "(941) 284-6329", "type": "Cell" }]
+      },
+      {
+        "firstName": "Brian",
+        "lastName": "Maher",
+        "email": "brihmahe@aol.com",
+        "phoneNumber": [{ "number": "(941) 284-5070", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "5905 La Vista Lane",
+        "city": "Bradenton",
+        "state": "FL",
+        "zip": "34210"
+      }
+    ],
+    "memberSince": 1994
+  },
+  {
+    "members": [
+      {
+        "firstName": "Mary",
+        "lastName": "Markham",
+        "email": "randm7777@gmail.com",
+        "phoneNumber": [{ "number": "(716) 244-0385", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "P.O. Box 7163",
+        "city": "Ellicottville",
+        "state": "NY",
+        "zip": "14731"
+      }
+    ],
+    "memberSince": 1986
+  },
+  {
+    "members": [
+      {
+        "firstName": "Theresa",
+        "lastName": "Martens",
+        "email": "skittm@gmail.com",
+        "phoneNumber": [{ "number": "(603) 384-0007", "type": "Cell" }]
+      },
+      {
+        "firstName": "Clark",
+        "lastName": "Martens",
+        "email": "cmartens@newbanksboston.com",
+        "phoneNumber": [{ "number": "(716) 480-5572", "type": "Cell" }]
+      }
+    ],
+    "addresses": [
+      {
+        "addressType": "Primary",
+        "street": "12 Colman Path",
+        "city": "Merrimack",
+        "state": "NH",
+        "zip": "03054"
+      }
+    ],
+    "memberSince": 1993
+  }
+]
