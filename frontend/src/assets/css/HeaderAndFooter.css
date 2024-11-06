@@ -10,7 +10,6 @@
 /* Hover effect for all nav links */
 .nav-link:hover {
   color: #0079cf;
-  transform: translateY(-2px);
   /* Text "pop" effect */
   text-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
 }
