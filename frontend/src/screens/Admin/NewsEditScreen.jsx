@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { Form, Button, Container, Row, Col, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
@@ -10,43 +10,51 @@ import {
   useGetNewsByIdQuery,
   useUpdateNewsMutation,
   useUploadNewsImageMutation,
-  useUploadNewsPDFMutation, // New import for PDF upload
+  useUploadNewsPDFMutation,
 } from "../../slices/newsApiSlice";
 
 const NewsEditScreen = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
-  const [post, setPost] = useState(""); // State for the CKEditor content
+  const [post, setPost] = useState("");
   const [image, setImage] = useState("");
   const [thumbnail, setThumbnail] = useState("");
-  const [pdf, setPdf] = useState(""); // State for the PDF
-  const [originalImage, setOriginalImage] = useState(""); // Store original image URL
-  const [originalThumbnail, setOriginalThumbnail] = useState(""); // Store original thumbnail URL
-  const [originalPdf, setOriginalPdf] = useState(""); // Store original PDF URL
+  const [pdf, setPdf] = useState("");
+  const [originalImage, setOriginalImage] = useState("");
+  const [originalThumbnail, setOriginalThumbnail] = useState("");
+  const [originalPdf, setOriginalPdf] = useState("");
   const [removeImage, setRemoveImage] = useState(false);
-  const [removePdf, setRemovePdf] = useState(false); // State for removing PDF
+  const [removePdf, setRemovePdf] = useState(false);
   const [isPublished, setIsPublished] = useState(false);
-  const [imagePreview, setImagePreview] = useState(""); // Local image preview
-  const [showModal, setShowModal] = useState(false); // Modal state
+  const [imagePreview, setImagePreview] = useState("");
+  const [showModal, setShowModal] = useState(false); // Modal for image upload currently unused until button reimplementation
+  const [initialState, setInitialState] = useState({});
 
   const { data: news, isLoading, error } = useGetNewsByIdQuery(id);
   const [updateNews, { isLoading: loadingUpdate }] = useUpdateNewsMutation();
   const [uploadImage, { isLoading: loadingUpload }] =
     useUploadNewsImageMutation();
-  const [uploadPDF, { isLoading: loadingPDF }] = useUploadNewsPDFMutation(); // Mutation for PDF upload
+  const [uploadPDF, { isLoading: loadingPDF }] = useUploadNewsPDFMutation();
 
   useEffect(() => {
     if (news) {
       setTitle(news.title);
-      setPost(news.post); // Initialize editor with existing post content
+      setPost(news.post);
       setOriginalImage(news.image);
       setOriginalThumbnail(news.thumbnail);
       setOriginalPdf(news.pdf);
       setIsPublished(news.isPublished);
+      setInitialState({
+        title: news.title,
+        post: news.post,
+        image: news.image,
+        thumbnail: news.thumbnail,
+        pdf: news.pdf,
+        isPublished: news.isPublished,
+      });
     }
   }, [news]);
-
   const submitHandler = async (e) => {
     e.preventDefault();
 
@@ -58,7 +66,10 @@ const NewsEditScreen = () => {
     };
 
     // Image upload logic
-    if (!removeImage && image instanceof File) {
+    if (removeImage) {
+      updatedNews.image = "";
+      updatedNews.thumbnail = "";
+    } else if (image instanceof File) {
       try {
         const formData = new FormData();
         formData.append("image", image);
@@ -71,17 +82,15 @@ const NewsEditScreen = () => {
         );
         return;
       }
-    } else if (removeImage) {
-      updatedNews.image = "";
-      updatedNews.thumbnail = "";
     } else {
-      // Retain original images
       if (originalImage) updatedNews.image = originalImage;
       if (originalThumbnail) updatedNews.thumbnail = originalThumbnail;
     }
 
     // PDF upload logic
-    if (!removePdf && pdf instanceof File) {
+    if (removePdf) {
+      updatedNews.pdf = ""; // Clear the PDF if marked for removal
+    } else if (pdf instanceof File) {
       try {
         const formData = new FormData();
         formData.append("pdf", pdf);
@@ -93,18 +102,17 @@ const NewsEditScreen = () => {
         );
         return;
       }
-    } else if (removePdf) {
-      updatedNews.pdf = ""; // Clear the PDF if marked for removal
     } else {
-      if (originalPdf) updatedNews.pdf = originalPdf; // Retain original PDF
+      if (originalPdf) updatedNews.pdf = originalPdf; // Retain original PDF if not removed
     }
 
-    // Update the post
     try {
       const result = await updateNews(updatedNews);
       if (!result.error) {
         toast.success("News updated successfully");
         navigate("/admin/news/list");
+        setRemoveImage(false); // Reset after successful update
+        setRemovePdf(false); // Reset after successful update
       } else {
         throw new Error("News update failed");
       }
@@ -114,6 +122,25 @@ const NewsEditScreen = () => {
       );
     }
   };
+
+  const hasChanges = useCallback(() => {
+    return (
+      title !== initialState.title ||
+      post !== initialState.post ||
+      (removeImage && originalImage) ||
+      (removePdf && originalPdf) || // Check for removePdf change
+      isPublished !== initialState.isPublished
+    );
+  }, [
+    title,
+    post,
+    removeImage,
+    removePdf, // Include removePdf in dependency array
+    isPublished,
+    initialState,
+    originalImage,
+    originalPdf,
+  ]);
 
   // Handle file selection and show local preview
   const imageHandler = (e) => {
@@ -185,7 +212,6 @@ const NewsEditScreen = () => {
                   onChange={(e) => setIsPublished(e.target.checked)}
                 ></Form.Check>
               </Form.Group>
-
               {/* Image and thumbnail handling */}
               <Row className="justify-content-center mt-3">
                 {imagePreview ? (
@@ -198,7 +224,8 @@ const NewsEditScreen = () => {
                     </Form.Group>
                   </Col>
                 ) : (
-                  originalImage && (
+                  originalImage &&
+                  !removeImage && ( // Show only if image is not marked for removal
                     <Col
                       md={6}
                       className="d-flex flex-column align-items-center"
@@ -216,28 +243,6 @@ const NewsEditScreen = () => {
                     </Col>
                   )
                 )}
-
-                {/* Always show the buttons */}
-                <Col
-                  md={6}
-                  className="d-flex flex-column justify-content-center align-items-center"
-                >
-                  <Button
-                    variant="danger"
-                    onClick={() => setRemoveImage(true)}
-                    className="mt-3"
-                    disabled={!originalImage && !imagePreview} // Disable if no image exists
-                  >
-                    Remove Image
-                  </Button>
-                  <Button
-                    variant="primary"
-                    onClick={handleShowModal}
-                    className="mt-3"
-                  >
-                    {image || imagePreview ? "Update Image" : "Add Image"}
-                  </Button>
-                </Col>
               </Row>
 
               {/* PDF handling */}
@@ -245,7 +250,6 @@ const NewsEditScreen = () => {
                 {originalPdf && !removePdf && (
                   <Col md={6} className="d-flex flex-column align-items-center">
                     <Form.Group controlId="pdf">
-                      <Form.Label>Current PDF</Form.Label>
                       <div>
                         <a
                           href={`/${originalPdf}`}
@@ -263,14 +267,14 @@ const NewsEditScreen = () => {
                   md={6}
                   className="d-flex flex-column justify-content-center align-items-center"
                 >
-                  <Button
+                  {/* <Button
                     variant="danger"
                     onClick={() => setRemovePdf(true)}
                     className="mt-3"
                     disabled={!originalPdf} // Disable if no PDF exists
                   >
                     Remove PDF
-                  </Button>
+                  </Button> */}
                 </Col>
               </Row>
 
@@ -312,7 +316,12 @@ const NewsEditScreen = () => {
               </Form.Group>
 
               {loadingUpload || loadingPDF ? <Loader /> : null}
-              <Button type="submit" variant="primary">
+              <Button
+                type="submit"
+                variant="primary"
+                onClick={submitHandler}
+                disabled={!hasChanges()}
+              >
                 Update
               </Button>
             </Form>

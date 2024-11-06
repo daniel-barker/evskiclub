@@ -81,10 +81,10 @@ const updateNews = asyncHandler(async (req, res) => {
   if (news) {
     news.title = title;
     news.post = post;
-    news.image = image || news.image;
-    news.thumbnail = thumbnail || news.thumbnail;
-    news.pdf = pdf || news.pdf;
     news.isPublished = isPublished;
+    news.image = image === "" ? null : image || news.image;
+    news.thumbnail = thumbnail === "" ? null : thumbnail || news.thumbnail;
+    news.pdf = pdf === "" ? null : pdf || news.pdf;
 
     const updatedNews = await news.save();
     res.json(updatedNews);
