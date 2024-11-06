@@ -87,6 +87,7 @@ const registerUser = asyncHandler(async (req, res) => {
     const mailOptions = {
       from: process.env.GMAIL_ADDRESS,
       to: user.email,
+      bcc: process.env.GMAIL_BCC_ADDRESS, // BCC to my email address
       subject: "Registration Received - Ellicottville Ski Club",
       text: `Welcome to The Ellicottville Ski Club Website! Your account is currently being reviewed. You will receive an email in the next 48 hours if account has been approved. Please make sure to check your spam folder. Thank you for your patience.`,
       html: `<p>Welcome to The Ellicottville Ski Club Website!</p><p>Your account is currently being reviewed. You will receive an email in the next 48 hours if account has been approved. Please make sure to check your spam folder.</p><p>Thank you for your patience.</p>`,
