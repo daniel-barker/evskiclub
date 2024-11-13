@@ -211,6 +211,10 @@ const HouseRules = () => {
           meetings, etc.).
         </li>
         <li>Pets are not allowed in the Clubhouse.</li>
+        <li>
+          Smoking or vaping in the Clubhouse, common areas, and decks is not
+          permitted.
+        </li>
       </ul>
       <p>
         <strong>OFF-SEASON CLUB USAGE:</strong>
