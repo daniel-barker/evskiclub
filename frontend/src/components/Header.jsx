@@ -93,27 +93,19 @@ const Header = () => {
                   </Nav.Link>
                 </LinkContainer>
                 <NavDropdown
-                  title="Community"
+                  title="About the Club"
                   className={
-                    location.pathname.startsWith("/community")
-                      ? "active-link"
-                      : ""
+                    location.pathname.startsWith("/club") ? "active-link" : ""
                   }
                 >
-                  <LinkContainer to="/news">
-                    <NavDropdown.Item>News</NavDropdown.Item>
+                  <LinkContainer to="/house-rules">
+                    <NavDropdown.Item>House Rules</NavDropdown.Item>
                   </LinkContainer>
-                  <LinkContainer to="/gallery">
-                    <NavDropdown.Item>Gallery</NavDropdown.Item>
+                  <LinkContainer to="/bylaws">
+                    <NavDropdown.Item>Bylaws</NavDropdown.Item>
                   </LinkContainer>
-                  <LinkContainer to="/bb">
-                    <NavDropdown.Item>Bulletin Board</NavDropdown.Item>
-                  </LinkContainer>
-                  <LinkContainer to="/directory">
-                    <NavDropdown.Item>Directory</NavDropdown.Item>
-                  </LinkContainer>
-                  <LinkContainer to="/calendar">
-                    <NavDropdown.Item>Calendar</NavDropdown.Item>
+                  <LinkContainer to="/history">
+                    <NavDropdown.Item>History</NavDropdown.Item>
                   </LinkContainer>
                 </NavDropdown>
                 <Nav.Link onClick={logoutHandler}>Logout</Nav.Link>

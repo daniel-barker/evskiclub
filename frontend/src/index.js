@@ -55,6 +55,11 @@ import BBEditScreen from "./screens/Admin/BBEditScreen";
 
 import EventCalendar from "./screens/EventCalendar";
 import BBUserEditScreen from "./screens/BB/BBUserEditScreen.jsx";
+
+import HouseRulesScreen from "./screens/HouseRulesScreen.jsx";
+import BylawsScreen from "./screens/BylawsScreen.jsx";
+import HistoryScreen from "./screens/HistoryScreen.jsx";
+
 Modal.setAppElement("#root");
 
 const router = createBrowserRouter(
@@ -81,6 +86,9 @@ const router = createBrowserRouter(
         <Route path="bb/edit/:id" element={<BBUserEditScreen />} />
         <Route path="bb/mine" element={<MyPosts />} />
         <Route path="calendar" element={<EventCalendar />} />
+        <Route path="house-rules" element={<HouseRulesScreen />} />
+        <Route path="bylaws" element={<BylawsScreen />} />
+        <Route path="history" element={<HistoryScreen />} />
       </Route>
 
       {/* Admin Routes */}

@@ -1,6 +1,9 @@
-const HouseRules = () => {
+import React from "react";
+import { Container } from "react-bootstrap";
+
+const HouseRulesScreen = () => {
   return (
-    <>
+    <Container>
       <h3>House Rules</h3>
       <p>
         <strong>CLEANING &amp; EXITING THE CLUBHOUSE:</strong>
@@ -252,7 +255,7 @@ const HouseRules = () => {
           Chair and must be completed within 5 days of the approved event.
         </li>
       </ul>
-    </>
+    </Container>
   );
 };
-export default HouseRules;
+export default HouseRulesScreen;

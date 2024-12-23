@@ -316,19 +316,25 @@ const forgotPassword = asyncHandler(async (req, res) => {
   if (!user) {
     return res.status(404).json({ message: "User not found" });
   }
+
   const resetToken = user.generateResetPasswordToken();
   await user.save();
-  const resetUrl = `http://localhost:3000/reset-password/${resetToken}`;
+
+  // Use the environment variable for the base URL
+  const resetUrl = `${process.env.BASE_URL}/reset-password/${resetToken}`;
+
   const textMessage = `
     You are receiving this email because you (or someone else) has requested the reset of a password. Please click on the following link, or paste it into your browser to reset your password:
     \n\n${resetUrl}
     \n\nIf you did not request this, please ignore this email and your password will remain unchanged.
   `;
+
   const htmlMessage = `
     <p>You are receiving this email because you (or someone else) has requested the reset of a password. Please click on the following link, or paste it into your browser to reset your password:</p>
     <a href="${resetUrl}" target="_blank">Reset Password</a>
     <p>If you did not request this, please ignore this email and your password will remain unchanged.</p>
   `;
+
   try {
     const transporter = nodemailer.createTransport({
       service: "gmail",
@@ -360,6 +366,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
 // @desc Reset user's password
 // @route POST /api/users/reset-password/:token
 // @access Public
+
 const resetPassword = asyncHandler(async (req, res) => {
   const { token } = req.params;
   const { password } = req.body;

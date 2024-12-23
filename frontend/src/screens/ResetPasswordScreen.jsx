@@ -5,7 +5,7 @@ import { Form, Button, Image } from "react-bootstrap";
 import { useResetPasswordMutation } from "../slices/usersApiSlice";
 import Loader from "../components/Loader";
 import { toast } from "react-toastify";
-import club_logo from "../assets/images/club_logo.jpg";
+import club_logo from "../assets/images/club_logo.png";
 
 const ResetPasswordScreen = () => {
   const [password, setPassword] = useState("");

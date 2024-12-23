@@ -63,11 +63,11 @@
   background-color: #01467f;
   border-color: #013567;
   color: #ffffff;
-  padding: 30px;
   border-radius: 8px;
   transition: all 0.3s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   background: linear-gradient(145deg, #0169b1, #01467f);
+
 }
 
 .member-screen-links:hover,
