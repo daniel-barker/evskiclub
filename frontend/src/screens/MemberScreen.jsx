@@ -19,7 +19,8 @@ const MemberScreen = () => {
           <Col md={5} className="p-2">
             <LatestNews />
           </Col>
-          <Col md={5} className="p-2">
+          <Col></Col>
+          <Col md={3} className="p-2">
             <LatestPosts />
           </Col>
           <Col></Col>
