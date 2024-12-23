@@ -31,7 +31,7 @@ const MemberScreen = () => {
             <Card
               className="member-screen-links text-center"
               style={{ cursor: "pointer" }}
-              onClick={() => (window.location.href = "/gallery")}
+              onClick={() => (window.location.href = "/news")}
             >
               <Card.Body>
                 <img
@@ -75,7 +75,7 @@ const MemberScreen = () => {
             <Card
               className="member-screen-links text-center"
               style={{ cursor: "pointer" }}
-              onClick={() => (window.location.href = "/gallery")}
+              onClick={() => (window.location.href = "/bb")}
             >
               <Card.Body>
                 <img
